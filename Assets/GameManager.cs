@@ -8,7 +8,7 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public Question[] questions;
-    public Question[] allTrailQuestions;
+    public Question[] allTrialQuestions;
     public int totalQuestions;
 
     private Question previousQuestion;
@@ -28,46 +28,21 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         arrows.SetActive(false);
-        allTrailQuestions = new Question[10];
-        LoadTrails();
-        foreach (Question question in allTrailQuestions)
+        allTrialQuestions = new Question[10];
+        LoadTrials();
+        foreach (Question question in allTrialQuestions)
         {
             Debug.Log(question.flankerArrows);
         }
-        //StartFlankerTask();
 
     }
 
     
 
-    //public void StartFlankerTask()
-    //{
-
-    //    randQuestionIndex = Random.Range(0, questions.Length);
-    //    int currentlevel = PlayerPrefs.GetInt("PlayerLevel");
-        
-    //    currentQuestion = questions[randQuestionIndex];
-
-    //    Debug.Log(currentQuestion.flankerArrows);
-    //    Debug.Log(currentlevel.ToString());
-
-    //    if (previousQuestion == null)
-    //    {
-    //        arrows.GetComponent<Text>().text = currentQuestion.flankerArrows;
-
-    //    } else {
-    //        randQuestionIndex = Random.Range(0, questions.Length);
-    //        currentQuestion = questions[randQuestionIndex];
-
-    //        arrows.GetComponent<Text>().text = currentQuestion.flankerArrows;
-    //    }
-    //    currentlevel++;
-    //    PlayerPrefs.SetInt("PlayerLevel", currentlevel);
-    //    previousQuestion = currentQuestion;
-    //}
-    void LoadTrails()
+ 
+    void LoadTrials()
     {
-        for (int i = 0; i < allTrailQuestions.Length; i++)
+        for (int i = 0; i < allTrialQuestions.Length; i++)
         {
             randQuestionIndex = Random.Range(0, questions.Length);
             currentQuestion = questions[randQuestionIndex];
@@ -77,7 +52,7 @@ public class GameManager : MonoBehaviour
 
             if (previousQuestion == null)
             {
-                allTrailQuestions[i] = currentQuestion;
+                allTrialQuestions[i] = currentQuestion;
             }
             else
             {
@@ -87,56 +62,36 @@ public class GameManager : MonoBehaviour
                     currentQuestion = questions[randQuestionIndex];
 
                 }
-                allTrailQuestions[i] = currentQuestion;
+                allTrialQuestions[i] = currentQuestion;
 
             }
             previousQuestion = currentQuestion;
         }
 
     }
-    public void startTrail()
+    public void startTrial()
     {
         arrows.SetActive(true);
 
-        Question trail = allTrailQuestions[globalIndex];
-        StartCoroutine(displayTrail(trail.flankerArrows));
+        Question trial = allTrialQuestions[globalIndex];
+        StartCoroutine(displayTrial(trial.flankerArrows));
         globalIndex++;
     }
-    IEnumerator displayTrail(string trail)
+    IEnumerator displayTrial(string trail)
     {
         arrows.GetComponent<Text>().text = "+";
         yield return new WaitForSeconds(.5f);
         arrows.GetComponent<Text>().text = trail;
 
     }
-    //IEnumerator TransitionToNextQuestion()
-    //{
-    //    int currentLevel = PlayerPrefs.GetInt("PlayerLevel");
-    //    yield return new WaitForSeconds(questionTransitionTime);
-    //    if (currentLevel > totalQuestions)
-    //    {
-    //        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
-    //        foreach (GameObject obj in buttons)
-    //        {
-    //            obj.active = false;
-    //        }
-
-    //        string playerScore = PlayerPrefs.GetInt("PlayerScore").ToString();
-    //        arrows.GetComponent<Text>().text = "You scored " + playerScore;
-
-    //    } else {
-    //        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-    //    }
-    //}
+   
 
     
     public void userSelectRight()
     {
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
-        if (!allTrailQuestions[globalIndex].isLeft)
+        if (!allTrialQuestions[globalIndex].isLeft)
         {
             Debug.Log("Correct");
             answerCorrect();
@@ -153,7 +108,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
-        if (allTrailQuestions[globalIndex].isLeft)
+        if (allTrialQuestions[globalIndex].isLeft)
         {
             Debug.Log("Correct");
             answerCorrect();
