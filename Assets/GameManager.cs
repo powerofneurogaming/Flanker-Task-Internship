@@ -60,14 +60,12 @@ public class GameManager : MonoBehaviour
                 {
                     randQuestionIndex = Random.Range(0, questions.Length);
                     currentQuestion = questions[randQuestionIndex];
-
                 }
                 allTrialQuestions[i] = currentQuestion;
 
             }
             previousQuestion = currentQuestion;
         }
-
     }
     public void startTrial()
     {
