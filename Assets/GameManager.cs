@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
     private Question previousQuestion;
     private Question currentQuestion;
     private int randQuestionIndex;
-    public int globalIndex = 0;
+    public int globalIndex;
 
-    [SerializeField]
-    private int numQuestions;
+    //[SerializeField]
+    //private int numQuestions;
 
     [SerializeField]
     public GameObject arrows;
@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    
 
  
     void LoadTrials()
@@ -62,7 +60,6 @@ public class GameManager : MonoBehaviour
                     currentQuestion = questions[randQuestionIndex];
                 }
                 allTrialQuestions[i] = currentQuestion;
-
             }
             previousQuestion = currentQuestion;
         }
@@ -70,7 +67,7 @@ public class GameManager : MonoBehaviour
     public void startTrial()
     {
         arrows.SetActive(true);
-
+        
         Question trial = allTrialQuestions[globalIndex];
         StartCoroutine(displayTrial(trial.flankerArrows));
         globalIndex++;

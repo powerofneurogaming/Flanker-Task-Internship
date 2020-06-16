@@ -3,7 +3,7 @@
 public class Question
 {
     public string flankerArrows;
-    public int trailNumber;
+    public int trialNumber;
     public bool isCongruent;
     public bool isLeft;
 
