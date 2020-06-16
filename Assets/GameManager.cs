@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public Question[] questions;
     public Question[] allTrialQuestions;
-    public int totalQuestions;
+    private int givenQuestions = 10;
 
     private Question previousQuestion;
     private Question currentQuestion;
@@ -28,16 +28,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         arrows.SetActive(false);
-        allTrialQuestions = new Question[10];
+        allTrialQuestions = new Question[givenQuestions];
         LoadTrials();
         foreach (Question question in allTrialQuestions)
         {
             Debug.Log(question.flankerArrows);
         }
-
     }
 
+<<<<<<< Updated upstream
  
+=======
+>>>>>>> Stashed changes
     void LoadTrials()
     {
         for (int i = 0; i < allTrialQuestions.Length; i++)
@@ -70,14 +72,12 @@ public class GameManager : MonoBehaviour
         
         Question trial = allTrialQuestions[globalIndex];
         StartCoroutine(displayTrial(trial.flankerArrows));
-        globalIndex++;
     }
-    IEnumerator displayTrial(string trail)
+    IEnumerator displayTrial(string trial)
     {
         arrows.GetComponent<Text>().text = "+";
         yield return new WaitForSeconds(.5f);
-        arrows.GetComponent<Text>().text = trail;
-
+        arrows.GetComponent<Text>().text = trial;
     }
    
 
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         } else {
             Debug.Log("Incorrect");
         }
-
+        globalIndex++;
         foreach (GameObject obj in buttons)
         {
             obj.active = false;
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         else {
             Debug.Log("Incorrect");
         }
-
+        globalIndex++;
         foreach (GameObject obj in buttons)
         {
             obj.active = false;
