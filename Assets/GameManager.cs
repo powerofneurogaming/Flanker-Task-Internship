@@ -35,11 +35,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(question.flankerArrows);
         }
     }
-
-<<<<<<< Updated upstream
- 
-=======
->>>>>>> Stashed changes
     void LoadTrials()
     {
         for (int i = 0; i < allTrialQuestions.Length; i++)
