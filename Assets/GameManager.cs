@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+        foreach (GameObject obj in buttons)
+        {
+            obj.active = false;
+        }
         arrows.SetActive(false);
         allTrialQuestions = new Question[givenQuestions];
         LoadTrials();
