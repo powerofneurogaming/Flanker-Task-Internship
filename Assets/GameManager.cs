@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,10 +83,10 @@ public class GameManager : MonoBehaviour
 
         if (!allTrialQuestions[globalIndex].isLeft)
         {
-            Debug.Log("Correct");
             answerCorrect();
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore"));
         } else {
-            Debug.Log("Incorrect");
+            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore"));
         }
         globalIndex++;
         foreach (GameObject obj in buttons)
@@ -104,11 +104,11 @@ public class GameManager : MonoBehaviour
 
         if (allTrialQuestions[globalIndex].isLeft)
         {
-            Debug.Log("Correct");
             answerCorrect();
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore"));
         }
         else {
-            Debug.Log("Incorrect");
+            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore"));
         }
         globalIndex++;
         foreach (GameObject obj in buttons)
