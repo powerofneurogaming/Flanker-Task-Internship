@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public Question[] questions;
     public Question[] allTrialQuestions;
+
+    [SerializeField]
     private int givenQuestions = 10;
 
     private Question previousQuestion;
@@ -20,17 +22,21 @@ public class GameManager : MonoBehaviour
     //private int numQuestions;
 
     [SerializeField]
-    public GameObject arrows;
-
-    [SerializeField]
     private float questionTransitionTime = 1f;
+
+    public Button plusButton;
+    public GameObject arrows;
 
     private void Start()
     {
+        int score = PlayerPrefs.GetInt("PlayerScore");
+        score = 0;
+        PlayerPrefs.SetInt("PlayerScore", score);
+
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
-            obj.active = false;
+            obj.SetActive(false);
         }
         arrows.SetActive(false);
         allTrialQuestions = new Question[givenQuestions];
@@ -70,9 +76,12 @@ public class GameManager : MonoBehaviour
     public void startTrial()
     {
         arrows.SetActive(true);
-        
+
+        // plusButton.interactable = false;
+
         Question trial = allTrialQuestions[globalIndex];
         StartCoroutine(displayTrial(trial.flankerArrows));
+
     }
     IEnumerator displayTrial(string trial)
     {
@@ -80,9 +89,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         arrows.GetComponent<Text>().text = trial;
     }
-   
 
-    
+
+
     public void userSelectRight()
     {
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -97,9 +106,12 @@ public class GameManager : MonoBehaviour
         globalIndex++;
         foreach (GameObject obj in buttons)
         {
-            obj.active = false;
+            obj.SetActive(false);
         }
-        if(globalIndex == givenQuestions)
+
+        // plusButton.interactable = true;
+
+        if (globalIndex == givenQuestions)
         {
             SceneManager.LoadScene("Flanker Result");
         }
@@ -119,8 +131,11 @@ public class GameManager : MonoBehaviour
         globalIndex++;
         foreach (GameObject obj in buttons)
         {
-            obj.active = false;
+            obj.SetActive(false);
         }
+
+        // plusButton.interactable = true;
+
         if (globalIndex == givenQuestions)
         {
             SceneManager.LoadScene("Flanker Result");
