@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(question.flankerArrows);
         }
+        Debug.Log("github test");
     }
     void LoadTrials()
     {
