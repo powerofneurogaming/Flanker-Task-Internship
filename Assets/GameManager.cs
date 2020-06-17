@@ -93,6 +93,10 @@ public class GameManager : MonoBehaviour
         {
             obj.active = false;
         }
+        if(globalIndex == givenQuestions)
+        {
+            SceneManager.LoadScene("Flanker Result");
+        }
     }
     public void userSelectLeft()
     {
@@ -110,6 +114,10 @@ public class GameManager : MonoBehaviour
         foreach (GameObject obj in buttons)
         {
             obj.active = false;
+        }
+        if (globalIndex == givenQuestions)
+        {
+            SceneManager.LoadScene("Flanker Result");
         }
     }
     
