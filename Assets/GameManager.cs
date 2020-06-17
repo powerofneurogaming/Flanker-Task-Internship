@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void userSelectRight()
     {
+        arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
         if (!allTrialQuestions[globalIndex].isLeft)
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour
     }
     public void userSelectLeft()
     {
+        arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
         if (allTrialQuestions[globalIndex].isLeft)

@@ -250,7 +250,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: +
 --- !u!222 &104919176
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -930,9 +930,11 @@ MonoBehaviour:
     isLeft: 0
     isPrev: 0
   allTrialQuestions: []
+  givenQuestions: 10
   globalIndex: 0
-  arrows: {fileID: 104919173}
   questionTransitionTime: 1
+  plusButton: {fileID: 0}
+  arrows: {fileID: 104919173}
 --- !u!4 &483397938
 Transform:
   m_ObjectHideFlags: 0
