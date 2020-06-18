@@ -129,9 +129,6 @@ public class GameManager : MonoBehaviour
     public void userSelectRight()
     {
         Timer.timerStart = false;
-        arrows.GetComponent<Text>().text = "+";
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
         if (!allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
@@ -143,24 +140,26 @@ public class GameManager : MonoBehaviour
         Timer.resetTimer();
         globalIndex++;
 
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
-
         isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
             moveToResults();
         }
+        else
+        {
+            arrows.GetComponent<Text>().text = "+";
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+
+            foreach (GameObject obj in buttons)
+            {
+                obj.SetActive(false);
+            }
+        }
     }
     public void userSelectLeft()
     {
         Timer.timerStart = false;
-        arrows.GetComponent<Text>().text = "+";
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
         if (allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
@@ -173,40 +172,47 @@ public class GameManager : MonoBehaviour
         Timer.resetTimer();
         globalIndex++;
 
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
-
         isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
             moveToResults();
+        }
+        else
+        {
+            arrows.GetComponent<Text>().text = "+";
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+
+            foreach (GameObject obj in buttons)
+            {
+                obj.SetActive(false);
+            }
         }
     }
 
     public void userSelectNone()
     {
         Timer.timerStart = false;
-        arrows.GetComponent<Text>().text = "+";
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
         Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
 
         Timer.resetTimer();
         globalIndex++;
-
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
 
         isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
             moveToResults();
+        }
+        else
+        {
+            arrows.GetComponent<Text>().text = "+";
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+
+            foreach (GameObject obj in buttons)
+            {
+                obj.SetActive(false);
+            }
         }
     }
 

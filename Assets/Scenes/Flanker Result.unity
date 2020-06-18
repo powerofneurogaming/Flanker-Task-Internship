@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 1585590007}
   - component: {fileID: 1585590006}
   m_Layer: 5
-  m_Name: Right
+  m_Name: VIew Results
   m_TagString: button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,7 +604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.65, y: -60}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1585590006
@@ -964,7 +964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31, y: -180.1}
+  m_AnchoredPosition: {x: 0, y: -180.1}
   m_SizeDelta: {x: 482.1, y: 135.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875875342
@@ -980,6 +980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1875875343}
+  resultsButton: {fileID: 1585590004}
 --- !u!114 &1875875343
 MonoBehaviour:
   m_ObjectHideFlags: 0
