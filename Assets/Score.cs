@@ -10,7 +10,7 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = "You Got: " + PlayerPrefs.GetInt("PlayerScore");
+        scoreText.text = "You Got: " + PlayerPrefs.GetInt("PlayerScore") + "    Avg Time: " + PlayerPrefs.GetFloat("avgTime");
     }
 
     // Update is called once per frame
