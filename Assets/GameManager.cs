@@ -21,6 +21,13 @@ public class GameManager : MonoBehaviour
 
     float timer;
     float time;
+
+    float congruentTime;
+    int congruentQuestions;
+
+    float incongruentTime;
+    int incongruentQuestions;
+
     bool timerStart;
     bool isAnswered;
 
@@ -36,8 +43,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         score = 0;
-        time = 0.0f;
         timer = 0.0f;
+        time = 0.0f;
+
+        congruentTime = 0.0f;
+        congruentQuestions = 0;
+
+        incongruentTime = 0.0f;
+        incongruentQuestions = 0;
+
         timerStart = false;
         isAnswered = true;
         PlayerPrefs.SetInt("PlayerScore", score);
@@ -184,13 +198,28 @@ public class GameManager : MonoBehaviour
     public void resetTimer()
     {
         time += timer;
+        if(allTrialQuestions[globalIndex].isCongruent == true)
+        {
+            congruentTime += timer;
+            congruentQuestions++;
+        }
+        else
+        {
+            incongruentTime += timer;
+            incongruentQuestions++;
+        }
         timer = 0.0f;
     }
 
     public void moveToResults()
     {
         time = time / givenQuestions;
+        congruentTime = congruentTime / congruentQuestions;
+        incongruentTime = incongruentTime / incongruentQuestions;
+
         PlayerPrefs.SetFloat("avgTime", time);
+        PlayerPrefs.SetFloat("avgCongTime", congruentTime);
+        PlayerPrefs.SetFloat("avgIncongTime", incongruentTime);
         SceneManager.LoadScene("Flanker Result");
     }
 }
