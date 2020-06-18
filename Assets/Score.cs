@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +18,15 @@ public class Score : MonoBehaviour
     float incongTimeRound;
     float flankerRound;
 
+    int resultNum;
+
     public Text scoreText;
     public GameObject resultsButton;
 
     // Start is called before the first frame update
     void Start()
     {
+        string filePath = "flanker.csv";
         score = PlayerPrefs.GetInt("PlayerScore");
         avgTime = PlayerPrefs.GetFloat("avgTime");
         congTime = PlayerPrefs.GetFloat("avgCongTime");
@@ -41,6 +46,13 @@ public class Score : MonoBehaviour
         }
 
         flankerRound = Mathf.Round(flankerEffect * 1000) / 1000;
+
+        if (!File.Exists(filePath))
+        {
+            File.WriteAllText(filePath,"Test Number,Name,Score,Average Time,Average Congruent Time,Average Incongruent Time,Flanker Effect\n");
+        }
+        resultNum = File.ReadLines(filePath).Count();
+        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + avgTime + "," + congTime + "," + incongTime + "," + flankerEffect + "\n");
     }
 
     public void displayResults()
