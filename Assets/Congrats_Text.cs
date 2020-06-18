@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Congrats_Text : MonoBehaviour
 {
     public Text congrats;
-    string Player;
+    public static string Player;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class Congrats_Text : MonoBehaviour
         }
         else
         {
-            congrats.text = "Congratulations, " + Player + "!";
+            congrats.text = "Congratulations, " + Player + "!"; 
         }
     }
 
