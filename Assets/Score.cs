@@ -42,7 +42,8 @@ public class Score : MonoBehaviour
 
         flankerRound = Mathf.Round(flankerEffect * 1000) / 1000;
 
-        scoreText.text = "You Got: " + score +
+        scoreText.text = "End Summary:" +
+                         "\nScore: " + score +
                          "\nAvg Time: " + avgTimeRound +
                          "\nCongruent Avg: " + congTimeRound +
                          "\nIncongruent Avg: " + incongTimeRound + 
