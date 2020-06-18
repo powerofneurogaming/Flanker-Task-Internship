@@ -11,10 +11,10 @@ public class Score : MonoBehaviour
     float incongTime;
     float flankerEffect;
 
-    double avgTimeRound;
-    double congTimeRound;
-    double incongTimeRound;
-    double flankerRound;
+    float avgTimeRound;
+    float congTimeRound;
+    float incongTimeRound;
+    float flankerRound;
 
     public Text scoreText;
 
@@ -26,9 +26,9 @@ public class Score : MonoBehaviour
         congTime = PlayerPrefs.GetFloat("avgCongTime");
         incongTime = PlayerPrefs.GetFloat("avgIncongTime");
 
-        avgTimeRound = System.Math.Round(avgTime, 3);
-        congTimeRound = System.Math.Round(congTime, 3);
-        incongTimeRound = System.Math.Round(incongTime, 3);
+        avgTimeRound = Mathf.Round(avgTime * 1000) / 1000;
+        congTimeRound = Mathf.Round(congTime * 1000) / 1000;
+        incongTimeRound = Mathf.Round(incongTime * 1000) / 1000;
 
         if (congTime >= incongTimeRound)
         {
@@ -40,7 +40,7 @@ public class Score : MonoBehaviour
         }
 
 
-        flankerRound = System.Math.Round(flankerEffect, 3);
+        flankerRound = Mathf.Round(flankerEffect * 1000) / 1000;
 
         scoreText.text = "You Got: " + score +
                          "\nAvg Time: " + avgTimeRound +
