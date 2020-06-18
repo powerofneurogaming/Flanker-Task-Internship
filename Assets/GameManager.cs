@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 
     float timer;
     float time;
-    bool timer_start;
+    bool timerStart;
+    bool isAnswered;
 
     //[SerializeField]
     //private int numQuestions;
@@ -37,7 +38,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         time = 0.0f;
         timer = 0.0f;
-        timer_start = false;
+        timerStart = false;
+        isAnswered = true;
         PlayerPrefs.SetInt("PlayerScore", score);
 
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(timer_start == true)
+        if(timerStart == true)
         {
             timer += Time.deltaTime;
             Debug.Log("Time: " + timer);
@@ -91,19 +93,22 @@ public class GameManager : MonoBehaviour
     }
     public void startTrial()
     {
-        arrows.SetActive(true);
+        if (isAnswered == true)
+        {
+            arrows.SetActive(true);
 
-        // plusButton.interactable = false;
+            // plusButton.interactable = false;
 
-        Question trial = allTrialQuestions[globalIndex];
-        StartCoroutine(displayTrial(trial.flankerArrows));
-
+            Question trial = allTrialQuestions[globalIndex];
+            StartCoroutine(displayTrial(trial.flankerArrows));
+            isAnswered = false;
+        }
     }
     IEnumerator displayTrial(string trial)
     {
         arrows.GetComponent<Text>().text = "+";
         yield return new WaitForSeconds(.5f);
-        timer_start = true;
+        timerStart = true;
         arrows.GetComponent<Text>().text = trial;
     }
 
@@ -111,7 +116,7 @@ public class GameManager : MonoBehaviour
 
     public void userSelectRight()
     {
-        timer_start = false;
+        timerStart = false;
         arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
@@ -131,7 +136,7 @@ public class GameManager : MonoBehaviour
             obj.SetActive(false);
         }
 
-        // plusButton.interactable = true;
+        isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
@@ -140,7 +145,7 @@ public class GameManager : MonoBehaviour
     }
     public void userSelectLeft()
     {
-        timer_start = false;
+        timerStart = false;
         arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
@@ -161,7 +166,7 @@ public class GameManager : MonoBehaviour
             obj.SetActive(false);
         }
 
-        // plusButton.interactable = true;
+        isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
