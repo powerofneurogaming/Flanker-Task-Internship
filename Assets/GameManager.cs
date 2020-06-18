@@ -17,6 +17,12 @@ public class GameManager : MonoBehaviour
     private Question currentQuestion;
     private int randQuestionIndex;
     public int globalIndex;
+    public int score;
+
+    float timer;
+    float time;
+    bool timerStart;
+    bool isAnswered;
 
     //[SerializeField]
     //private int numQuestions;
@@ -29,8 +35,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        int score = PlayerPrefs.GetInt("PlayerScore");
         score = 0;
+        time = 0.0f;
+        timer = 0.0f;
+        timerStart = false;
+        isAnswered = true;
         PlayerPrefs.SetInt("PlayerScore", score);
 
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -46,6 +55,16 @@ public class GameManager : MonoBehaviour
             Debug.Log(question.flankerArrows);
         }
     }
+
+    private void Update()
+    {
+        if(timerStart == true)
+        {
+            timer += Time.deltaTime;
+            Debug.Log("Time: " + timer);
+        }
+    }
+
     void LoadTrials()
     {
         for (int i = 0; i < allTrialQuestions.Length; i++)
@@ -74,18 +93,22 @@ public class GameManager : MonoBehaviour
     }
     public void startTrial()
     {
-        arrows.SetActive(true);
+        if (isAnswered == true)
+        {
+            arrows.SetActive(true);
 
-        // plusButton.interactable = false;
+            // plusButton.interactable = false;
 
-        Question trial = allTrialQuestions[globalIndex];
-        StartCoroutine(displayTrial(trial.flankerArrows));
-
+            Question trial = allTrialQuestions[globalIndex];
+            StartCoroutine(displayTrial(trial.flankerArrows));
+            isAnswered = false;
+        }
     }
     IEnumerator displayTrial(string trial)
     {
         arrows.GetComponent<Text>().text = "+";
         yield return new WaitForSeconds(.5f);
+        timerStart = true;
         arrows.GetComponent<Text>().text = trial;
     }
 
@@ -93,53 +116,61 @@ public class GameManager : MonoBehaviour
 
     public void userSelectRight()
     {
+        timerStart = false;
         arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
         if (!allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore"));
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
         } else {
-            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore"));
+            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
         }
+
+        resetTimer();
         globalIndex++;
+
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
 
-        // plusButton.interactable = true;
+        isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
-            SceneManager.LoadScene("Flanker Result");
+            moveToResults();
         }
     }
     public void userSelectLeft()
     {
+        timerStart = false;
         arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
         if (allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore"));
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
         }
         else {
-            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore"));
+            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
         }
+
+        resetTimer();
         globalIndex++;
+
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
 
-        // plusButton.interactable = true;
+        isAnswered = true;
 
         if (globalIndex == givenQuestions)
         {
-            SceneManager.LoadScene("Flanker Result");
+            moveToResults();
         }
     }
     
@@ -148,5 +179,18 @@ public class GameManager : MonoBehaviour
         int score = PlayerPrefs.GetInt("PlayerScore");
         score++;
         PlayerPrefs.SetInt("PlayerScore", score);
+    }
+
+    public void resetTimer()
+    {
+        time += timer;
+        timer = 0.0f;
+    }
+
+    public void moveToResults()
+    {
+        time = time / givenQuestions;
+        PlayerPrefs.SetFloat("avgTime", time);
+        SceneManager.LoadScene("Flanker Result");
     }
 }

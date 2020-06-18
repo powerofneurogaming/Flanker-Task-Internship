@@ -932,6 +932,7 @@ MonoBehaviour:
   allTrialQuestions: []
   givenQuestions: 10
   globalIndex: 0
+  score: 0
   questionTransitionTime: 1
   plusButton: {fileID: 0}
   arrows: {fileID: 104919173}
