@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int givenQuestions = 10;
 
+    [SerializeField]
+    private int maxTime;
+
     private Question previousQuestion;
     private Question currentQuestion;
     private int randQuestionIndex;
@@ -22,6 +25,8 @@ public class GameManager : MonoBehaviour
     float finalTime;
     float finalCongTime;
     float finalIncongTime;
+
+    float currentTimer;
 
     public static int congruentQuestions;
     public static int incongruentQuestions;
@@ -47,6 +52,8 @@ public class GameManager : MonoBehaviour
         congruentQuestions = 0;
         incongruentQuestions = 0;
 
+        maxTime = givenQuestions;
+
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
@@ -63,6 +70,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        currentTimer = Timer.getTimer();
+        if (currentTimer >= maxTime - globalIndex)
+        {
+            userSelectNone();
+        }
     }
 
     void LoadTrials()
@@ -173,7 +185,31 @@ public class GameManager : MonoBehaviour
             moveToResults();
         }
     }
-    
+
+    public void userSelectNone()
+    {
+        Timer.timerStart = false;
+        arrows.GetComponent<Text>().text = "+";
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+
+        Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
+
+        Timer.resetTimer();
+        globalIndex++;
+
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(false);
+        }
+
+        isAnswered = true;
+
+        if (globalIndex == givenQuestions)
+        {
+            moveToResults();
+        }
+    }
+
     public void answerCorrect()
     {
         int score = PlayerPrefs.GetInt("PlayerScore");
