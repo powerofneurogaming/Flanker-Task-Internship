@@ -17,6 +17,7 @@ public class Score : MonoBehaviour
     float flankerRound;
 
     public Text scoreText;
+    public GameObject resultsButton;
 
     // Start is called before the first frame update
     void Start()
@@ -39,14 +40,18 @@ public class Score : MonoBehaviour
             flankerEffect = incongTime - congTime;
         }
 
-
         flankerRound = Mathf.Round(flankerEffect * 1000) / 1000;
+    }
 
+    public void displayResults()
+    {
+        scoreText.enabled = true;
+        resultsButton.SetActive(false);
         scoreText.text = "End Summary:" +
                          "\nScore: " + score +
                          "\nAvg Time: " + avgTimeRound +
                          "\nCongruent Avg: " + congTimeRound +
-                         "\nIncongruent Avg: " + incongTimeRound + 
+                         "\nIncongruent Avg: " + incongTimeRound +
                          "\nFlanker Effect: " + flankerRound;
     }
 
