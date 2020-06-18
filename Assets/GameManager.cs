@@ -8,7 +8,7 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public Question[] questions;
-    public Question[] allTrialQuestions;
+    public static Question[] allTrialQuestions;
 
     [SerializeField]
     private int givenQuestions = 10;
@@ -16,12 +16,16 @@ public class GameManager : MonoBehaviour
     private Question previousQuestion;
     private Question currentQuestion;
     private int randQuestionIndex;
-    public int globalIndex;
+    public static int globalIndex;
     public int score;
 
-    float timer;
-    float time;
-    bool timerStart;
+    float finalTime;
+    float finalCongTime;
+    float finalIncongTime;
+
+    public static int congruentQuestions;
+    public static int incongruentQuestions;
+
     bool isAnswered;
 
     //[SerializeField]
@@ -36,11 +40,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         score = 0;
-        time = 0.0f;
-        timer = 0.0f;
-        timerStart = false;
         isAnswered = true;
+        Timer.timerStart = false;
         PlayerPrefs.SetInt("PlayerScore", score);
+
+        congruentQuestions = 0;
+        incongruentQuestions = 0;
 
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
@@ -58,11 +63,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(timerStart == true)
-        {
-            timer += Time.deltaTime;
-            Debug.Log("Time: " + timer);
-        }
     }
 
     void LoadTrials()
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
     {
         arrows.GetComponent<Text>().text = "+";
         yield return new WaitForSeconds(.5f);
-        timerStart = true;
+        Timer.timerStart = true;
         arrows.GetComponent<Text>().text = trial;
     }
 
@@ -116,19 +116,19 @@ public class GameManager : MonoBehaviour
 
     public void userSelectRight()
     {
-        timerStart = false;
+        Timer.timerStart = false;
         arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
         if (!allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         } else {
-            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
+            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
 
-        resetTimer();
+        Timer.resetTimer();
         globalIndex++;
 
         foreach (GameObject obj in buttons)
@@ -145,20 +145,20 @@ public class GameManager : MonoBehaviour
     }
     public void userSelectLeft()
     {
-        timerStart = false;
+        Timer.timerStart = false;
         arrows.GetComponent<Text>().text = "+";
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
 
         if (allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
         else {
-            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + timer);
+            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
 
-        resetTimer();
+        Timer.resetTimer();
         globalIndex++;
 
         foreach (GameObject obj in buttons)
@@ -181,16 +181,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("PlayerScore", score);
     }
 
-    public void resetTimer()
-    {
-        time += timer;
-        timer = 0.0f;
-    }
-
     public void moveToResults()
     {
-        time = time / givenQuestions;
-        PlayerPrefs.SetFloat("avgTime", time);
+        finalTime = Timer.getTime() / givenQuestions;
+        finalCongTime = Timer.getCongTime() / congruentQuestions;
+        finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
+
+        PlayerPrefs.SetFloat("avgTime", finalTime);
+        PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
+        PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
         SceneManager.LoadScene("Flanker Result");
     }
 }
