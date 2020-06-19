@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     public Question[] questions;
     public static Question[] allTrialQuestions;
 
-    [SerializeField]
-    private int givenQuestions = 10;
+    int givenQuestions;
 
     [SerializeField]
     private int maxTime;
@@ -44,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
         score = 0;
         isAnswered = true;
         Timer.timerStart = false;
