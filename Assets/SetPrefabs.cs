@@ -8,6 +8,7 @@ public class SetPrefabs : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject playerName;
+
     void Start()
     {
 
@@ -16,6 +17,9 @@ public class SetPrefabs : MonoBehaviour
     {
         PlayerPrefs.SetInt("PlayerScore", 0);
         PlayerPrefs.SetInt("PlayerLevel", 0);
+        PlayerPrefs.SetFloat("avgTime", 0.0f);
+        PlayerPrefs.SetFloat("avgCongTime", 0.0f);
+        PlayerPrefs.SetFloat("avgIncongTime", 0.0f);
 
         string name = playerName.GetComponent<Text>().text;
 
@@ -28,8 +32,15 @@ public class SetPrefabs : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", name);
         }
 
-        SceneManager.LoadScene("Flanker Main");
+        SceneManager.LoadScene("Select Screen");
+    }
 
+    public void setLevel()
+    {
+        string level = playerName.GetComponent<Text>().text;
+        int.TryParse(level, out int level_int);
+        PlayerPrefs.SetInt("PlayerLevel", level_int);
+        SceneManager.LoadScene("Flanker Main");
     }
 }
    

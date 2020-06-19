@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     public Question[] questions;
     public static Question[] allTrialQuestions;
 
-    [SerializeField]
-    private int givenQuestions = 10;
+    int givenQuestions;
 
     [SerializeField]
     private int maxTime;
@@ -21,6 +20,8 @@ public class GameManager : MonoBehaviour
     private int randQuestionIndex;
     public static int globalIndex;
     public int score;
+    public int wrongAnswer;
+    public int numAnswered;
 
     float finalTime;
     float finalCongTime;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     public static int incongruentQuestions;
 
     bool isAnswered;
+    bool endlessMode;
 
     //[SerializeField]
     //private int numQuestions;
@@ -44,7 +46,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
+        if(givenQuestions == 0)
+        {
+            givenQuestions = 10;
+            endlessMode = true;
+        }
+        else
+        {
+            endlessMode = false;
+        }
         score = 0;
+        wrongAnswer = 0;
         isAnswered = true;
         Timer.timerStart = false;
         PlayerPrefs.SetInt("PlayerScore", score);
@@ -71,7 +84,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         currentTimer = Timer.getTimer();
-        if (currentTimer >= maxTime - globalIndex)
+        if (currentTimer >= maxTime)
         {
             userSelectNone();
         }
@@ -133,29 +146,19 @@ public class GameManager : MonoBehaviour
         {
             answerCorrect();
             Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
-        } else {
+        } else
+        {
+            if (endlessMode == true)
+            {
+                wrongAnswer++;
+            }
             Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
 
-        Timer.resetTimer();
-        globalIndex++;
+        Timer.resetTimer(true);
+        numAnswered++;
 
-        isAnswered = true;
-
-        if (globalIndex == givenQuestions)
-        {
-            moveToResults();
-        }
-        else
-        {
-            arrows.GetComponent<Text>().text = "+";
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
-            foreach (GameObject obj in buttons)
-            {
-                obj.SetActive(false);
-            }
-        }
+        userSelectEnd();
     }
     public void userSelectLeft()
     {
@@ -165,42 +168,47 @@ public class GameManager : MonoBehaviour
             answerCorrect();
             Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
-        else {
+        else
+        {
+            if(endlessMode == true)
+            {
+                wrongAnswer++;
+            }
             Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
 
-        Timer.resetTimer();
-        globalIndex++;
+        Timer.resetTimer(true);
+        numAnswered++;
 
-        isAnswered = true;
-
-        if (globalIndex == givenQuestions)
-        {
-            moveToResults();
-        }
-        else
-        {
-            arrows.GetComponent<Text>().text = "+";
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
-            foreach (GameObject obj in buttons)
-            {
-                obj.SetActive(false);
-            }
-        }
+        userSelectEnd();
     }
 
     public void userSelectNone()
     {
         Timer.timerStart = false;
+        if (endlessMode == true)
+        {
+            wrongAnswer++;
+        }
         Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
 
-        Timer.resetTimer();
+        Timer.resetTimer(false);
+
+        userSelectEnd();
+    }
+
+    public void userSelectEnd()
+    {
+        if(maxTime >= 2)
+        {
+            maxTime--;
+        }
+
         globalIndex++;
 
         isAnswered = true;
 
-        if (globalIndex == givenQuestions)
+        if (globalIndex == givenQuestions || wrongAnswer >= 3)
         {
             moveToResults();
         }
@@ -225,13 +233,32 @@ public class GameManager : MonoBehaviour
 
     public void moveToResults()
     {
-        finalTime = Timer.getTime() / givenQuestions;
-        finalCongTime = Timer.getCongTime() / congruentQuestions;
-        finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
+        if (endlessMode == false || wrongAnswer >= 3)
+        {
+            finalTime = Timer.getTime() / numAnswered;
+            finalCongTime = Timer.getCongTime() / congruentQuestions;
+            finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
 
-        PlayerPrefs.SetFloat("avgTime", finalTime);
-        PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
-        PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
-        SceneManager.LoadScene("Flanker Result");
+            PlayerPrefs.SetFloat("avgTime", finalTime);
+            PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
+            PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
+            SceneManager.LoadScene("Flanker Result");
+        }
+        else
+        {
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+            foreach (GameObject obj in buttons)
+            {
+                obj.SetActive(false);
+            }
+            arrows.SetActive(false);
+            globalIndex = 0;
+            allTrialQuestions = new Question[givenQuestions];
+            LoadTrials();
+            foreach (Question question in allTrialQuestions)
+            {
+                Debug.Log(question.flankerArrows);
+            }
+        }
     }
 }
