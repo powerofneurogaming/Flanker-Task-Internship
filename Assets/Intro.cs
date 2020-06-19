@@ -12,11 +12,26 @@ public class Intro : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetInt("PlayerScore", 0);
-        PlayerPrefs.SetFloat("avgTime", 0.0f);
-        PlayerPrefs.SetFloat("avgCongTime", 0.0f);
-        PlayerPrefs.SetFloat("avgIncongTime", 0.0f);
     }
+    public void startGame()
+    {
+        string name = playerName.GetComponent<Text>().text;
+        if (name.Length <= 0)
+        {
+            PlayerPrefs.SetString("PlayerName", "NoName");
+            SceneManager.LoadScene("Flanker Main");
 
+
+        }
+        else
+        {
+            PlayerPrefs.SetString("PlayerName", name);
+            SceneManager.LoadScene("Flanker Main");
+
+        }
+
+
+    }
     // Update is called once per frame
     void Update()
     {
