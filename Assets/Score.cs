@@ -26,6 +26,7 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreText.enabled = false;
         string filePath = "flanker.csv";
         score = PlayerPrefs.GetInt("PlayerScore");
         avgTime = PlayerPrefs.GetFloat("avgTime");
