@@ -965,7 +965,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -180.1}
-  m_SizeDelta: {x: 482.1, y: 150}
+  m_SizeDelta: {x: 482.1, y: 135.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875875342
 MonoBehaviour:
@@ -988,7 +988,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875875340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -1013,18 +1013,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'End Summary:
-
-    Score:
-
-    Avg Time:
-
-    Congruent Avg:
-
-    Incongruent
-    Avg:
-
-    Flanker Effect:'
+  m_Text: 'You Got:'
 --- !u!222 &1875875344
 CanvasRenderer:
   m_ObjectHideFlags: 0

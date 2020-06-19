@@ -39,21 +39,18 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public static void resetTimer(bool record)
+    public static void resetTimer()
     {
-        if (record == true)
+        time += timer;
+        if (GameManager.allTrialQuestions[GameManager.globalIndex].isCongruent == true)
         {
-            time += timer;
-            if (GameManager.allTrialQuestions[GameManager.globalIndex].isCongruent == true)
-            {
-                congruentTime += timer;
-                GameManager.congruentQuestions++;
-            }
-            else
-            {
-                incongruentTime += timer;
-                GameManager.incongruentQuestions++;
-            }
+            congruentTime += timer;
+            GameManager.congruentQuestions++;
+        }
+        else
+        {
+            incongruentTime += timer;
+            GameManager.incongruentQuestions++;
         }
         timer = 0.0f;
     }
