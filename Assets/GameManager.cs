@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private Question currentQuestion;
     private int randQuestionIndex;
     public static int globalIndex;
-    public int score;
+    public static int score;
     public int wrongAnswer;
     public int numAnswered;
 
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public static int incongruentQuestions;
 
     bool isAnswered;
-    bool endlessMode;
+    public static bool endlessMode;
 
     //[SerializeField]
     //private int numQuestions;
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         {
             endlessMode = false;
         }
+
         score = 0;
         wrongAnswer = 0;
         isAnswered = true;
@@ -226,9 +227,7 @@ public class GameManager : MonoBehaviour
 
     public void answerCorrect()
     {
-        int score = PlayerPrefs.GetInt("PlayerScore");
         score++;
-        PlayerPrefs.SetInt("PlayerScore", score);
     }
 
     public void moveToResults()
@@ -242,6 +241,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("avgTime", finalTime);
             PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
             PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
+            PlayerPrefs.SetInt("PlayerScore", score);
             SceneManager.LoadScene("Flanker Result");
         }
         else
