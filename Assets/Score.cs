@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
+    int unanswered;
+    int wrong;
     int score;
     float avgTime;
     float congTime;
@@ -28,6 +30,8 @@ public class Score : MonoBehaviour
     {
         scoreText.enabled = false;
         string filePath = "flanker.csv";
+        wrong = PlayerPrefs.GetInt("Wrong Answers");
+        unanswered = PlayerPrefs.GetInt("Unanswered Trials");
         score = PlayerPrefs.GetInt("PlayerScore");
         avgTime = PlayerPrefs.GetFloat("avgTime");
         congTime = PlayerPrefs.GetFloat("avgCongTime");
@@ -50,10 +54,10 @@ public class Score : MonoBehaviour
 
         if (!File.Exists(filePath))
         {
-            File.WriteAllText(filePath,"Test Number,Name,Score,Average Time,Average Congruent Time,Average Incongruent Time,Flanker Effect\n");
+            File.WriteAllText(filePath,"Test Number,Name,Score,Wrong,Unanswered,Average Time,Average Congruent Time,Average Incongruent Time,Flanker Effect\n");
         }
         resultNum = File.ReadLines(filePath).Count();
-        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + avgTime + "," + congTime + "," + incongTime + "," + flankerEffect + "\n");
+        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTime + "," + congTime + "," + incongTime + "," + flankerEffect + "\n");
     }
 
     public void displayResults()
@@ -62,6 +66,8 @@ public class Score : MonoBehaviour
         resultsButton.SetActive(false);
         scoreText.text = "End Summary:" +
                          "\nScore: " + score +
+                         "\nWrong: " + wrong +
+                         "\nUnanswered: " + unanswered +
                          "\nAvg Time: " + avgTimeRound +
                          "\nCongruent Avg: " + congTimeRound +
                          "\nIncongruent Avg: " + incongTimeRound +

@@ -1,55 +1,60 @@
+// System libraries
 using System.Collections;
-using System.Collections.Generic;
+
+// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    public Question[] questions;
-    public static Question[] allTrialQuestions;
+    public Question[] questions; // Array of possible questions
+    public static Question[] allTrialQuestions; // Array of randomly selected questions
 
-    int givenQuestions;
-
-    [SerializeField]
-    private int maxTime;
-
+    // Variables used to initialize given questions
+    int givenQuestions; // Number of trials to be given, or 0 to trigger endless mode (10 question loop/re-init)
     private Question previousQuestion;
     private Question currentQuestion;
     private int randQuestionIndex;
-    public static int globalIndex;
-    public static int score;
-    public int wrongAnswer;
-    public int numAnswered;
 
+    // State variables for game
+    public static int globalIndex; // Index for current question
+    public static int score;
+    public int numAnswered;
+    int wrongSentinel;
+    int numWrong;
+    int numUnanswered;
+    private int maxTime;
+    float currentTimer;
+
+    // Number of congruent vs incongruent questions answered, for calculating final time states
+    public static int congruentQuestions;
+    public static int incongruentQuestions;
+
+    // Final time states for results screen
     float finalTime;
     float finalCongTime;
     float finalIncongTime;
 
-    float currentTimer;
+    // Sentinels
+    bool isAnswered; // Disables the plus button until a question is answerewd
+    public static bool endlessMode; // Enables endless mode if givenQuestions is initially zero
 
-    public static int congruentQuestions;
-    public static int incongruentQuestions;
-
-    bool isAnswered;
-    public static bool endlessMode;
-
-    //[SerializeField]
-    //private int numQuestions;
-
+    // transition time between questions
     [SerializeField]
-    private float questionTransitionTime = 1f;
+    private float questionTransitionTime = 0.5f;
 
-    public Button plusButton;
+    // Text box for arrows - !!REMOVE AND REPLACE WITH BASIC ARROW ASSETS!!
     public GameObject arrows;
 
+    // Set up starting game state
     private void Start()
     {
+        // Get the player level from the previous scene; if zero, start endless mode
         givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
         if(givenQuestions == 0)
         {
-            givenQuestions = 10;
+            givenQuestions = 1;
             endlessMode = true;
         }
         else
@@ -57,31 +62,41 @@ public class GameManager : MonoBehaviour
             endlessMode = false;
         }
 
+        // Set game state to initial values
         score = 0;
-        wrongAnswer = 0;
+        wrongSentinel = 0;
         isAnswered = true;
         Timer.timerStart = false;
-        PlayerPrefs.SetInt("PlayerScore", score);
-
         congruentQuestions = 0;
         incongruentQuestions = 0;
 
+        // Initialize max time to (number of questions) seconds
         maxTime = givenQuestions;
 
+        // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
+
+        // Turn off arrows
         arrows.SetActive(false);
+
+        // Initialize array of trial questions based on the number of questions desired
         allTrialQuestions = new Question[givenQuestions];
+
+        // Set up questions
         LoadTrials();
+
+        // Output questions to console
         foreach (Question question in allTrialQuestions)
         {
             Debug.Log(question.flankerArrows);
         }
     }
 
+    // Update timer every frame that a question is active; if over time, trigger 'none' selection
     private void Update()
     {
         currentTimer = Timer.getTimer();
@@ -91,116 +106,154 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Initialize questions in question array
     void LoadTrials()
     {
+        // For every question in the array of trials
         for (int i = 0; i < allTrialQuestions.Length; i++)
         {
-            randQuestionIndex = Random.Range(0, questions.Length);
-            currentQuestion = questions[randQuestionIndex];
-
-            //Debug.Log(currentQuestion.flankerArrows);
-            //Debug.Log(currentlevel.ToString());
-
-            if (previousQuestion == null)
+            // Choose a random question type and assign it to the current trial; ensure no two questions in a row are the same
+            do
             {
-                allTrialQuestions[i] = currentQuestion;
-            }
-            else
-            {
-                while (previousQuestion.flankerArrows == currentQuestion.flankerArrows)
-                {
-                    randQuestionIndex = Random.Range(0, questions.Length);
-                    currentQuestion = questions[randQuestionIndex];
-                }
-                allTrialQuestions[i] = currentQuestion;
-            }
+                randQuestionIndex = Random.Range(0, questions.Length);
+                currentQuestion = questions[randQuestionIndex];
+            } while (previousQuestion != null && previousQuestion.flankerArrows == currentQuestion.flankerArrows);
             previousQuestion = currentQuestion;
+            allTrialQuestions[i] = currentQuestion;
         }
     }
+
+    // Start a trial
     public void startTrial()
     {
+        arrows.GetComponent<Text>().text = "+";
+
+        // If isAnswered is false, block this entire function; the question has not been answered yet
         if (isAnswered == true)
         {
+            // Turn the arrows on
             arrows.SetActive(true);
 
-            // plusButton.interactable = false;
-
+            // Set current trial
             Question trial = allTrialQuestions[globalIndex];
             StartCoroutine(displayTrial(trial.flankerArrows));
+
+            // Reset is answered sentinel;
             isAnswered = false;
         }
     }
+
+    // Display newly set current trial
     IEnumerator displayTrial(string trial)
     {
+        // Display '+'
         arrows.GetComponent<Text>().text = "+";
-        yield return new WaitForSeconds(.5f);
+
+        // Wait for given time between questions
+        yield return new WaitForSeconds(questionTransitionTime);
+
+        // Start timer and display trial
         Timer.timerStart = true;
         arrows.GetComponent<Text>().text = trial;
     }
 
-
-
+    // Right button logic
     public void userSelectRight()
     {
+        // Get left/right buttons and turn them off
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(false);
+        }
+
+        // disable timer
         Timer.timerStart = false;
+
+        // If right is correct, trigger correct answer logic, else increment wrong answer counter
         if (!allTrialQuestions[globalIndex].isLeft)
         {
             answerCorrect();
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
-        } else
-        {
-            if (endlessMode == true)
-            {
-                wrongAnswer++;
-            }
-            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
-        }
-
-        Timer.resetTimer(true);
-        numAnswered++;
-
-        userSelectEnd();
-    }
-    public void userSelectLeft()
-    {
-        Timer.timerStart = false;
-        if (allTrialQuestions[globalIndex].isLeft)
-        {
-            answerCorrect();
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
         else
         {
-            if(endlessMode == true)
-            {
-                wrongAnswer++;
-            }
-            Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
+            answerIncorrect();
         }
-
-        Timer.resetTimer(true);
-        numAnswered++;
-
-        userSelectEnd();
     }
 
+    // Left button logic
+    public void userSelectLeft()
+    {
+        // Get left/right buttons and turn them off
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(false);
+        }
+
+        // disable timer
+        Timer.timerStart = false;
+
+        // If left is correct, trigger correct answer logic, else increment wrong answer counter
+        if (allTrialQuestions[globalIndex].isLeft)
+        {
+            answerCorrect();
+        }
+        else
+        {
+            answerIncorrect();
+        }
+    }
+
+    // No selection logic
     public void userSelectNone()
     {
+        // Get left/right buttons and turn them off
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(false);
+        }
+        // disable timer
         Timer.timerStart = false;
+
+        // If Endless mode is on, increment wrong answer sentinel
         if (endlessMode == true)
         {
-            wrongAnswer++;
+            wrongSentinel++;
         }
-        Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
 
-        Timer.resetTimer(false);
-
-        userSelectEnd();
+        // Start general end-state logic
+        userSelectEnd(false, false);
     }
 
-    public void userSelectEnd()
+    // General end-state logic
+    public void userSelectEnd(bool answered, bool correct)
     {
-        if(maxTime >= 2)
+        // Reset timer and increment values given correct/incorrect input
+        if(correct == true)
+        {
+            Timer.resetTimer(true);
+        }
+        else
+        {
+            Timer.resetTimer(false);
+        }
+        if(answered == true)
+        {
+            numAnswered++;
+            if(correct == false)
+            {
+                numWrong++;
+            }
+        }
+        else
+        {
+            numUnanswered++;
+        }
+
+        // 
+        if (maxTime >= 2)
         {
             maxTime--;
         }
@@ -209,35 +262,52 @@ public class GameManager : MonoBehaviour
 
         isAnswered = true;
 
-        if (globalIndex == givenQuestions || wrongAnswer >= 3)
+        if (globalIndex >= givenQuestions || wrongSentinel >= 3)
         {
             moveToResults();
-        }
-        else
-        {
-            arrows.GetComponent<Text>().text = "+";
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-
-            foreach (GameObject obj in buttons)
-            {
-                obj.SetActive(false);
-            }
         }
     }
 
     public void answerCorrect()
     {
         score++;
+        Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
+        userSelectEnd(true, true);
+    }
+
+    public void answerIncorrect()
+    {
+        if (endlessMode == true)
+        {
+            wrongSentinel++;
+        }
+        Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
+        userSelectEnd(true, false);
     }
 
     public void moveToResults()
     {
-        if (endlessMode == false || wrongAnswer >= 3)
+        if (endlessMode == false || wrongSentinel >= 3)
         {
-            finalTime = Timer.getTime() / numAnswered;
+            finalTime = Timer.getTime() / score;
             finalCongTime = Timer.getCongTime() / congruentQuestions;
             finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
 
+            if (float.IsNaN(finalTime))
+            {
+                finalTime = 0.0f;
+            }
+            if (float.IsNaN(finalCongTime))
+            {
+                finalCongTime = 0.0f;
+            }
+            if (float.IsNaN(finalIncongTime))
+            {
+                finalIncongTime = 0.0f;
+            }
+
+            PlayerPrefs.SetInt("Unanswered Trials", numUnanswered);
+            PlayerPrefs.SetInt("Wrong Answers", numWrong);
             PlayerPrefs.SetFloat("avgTime", finalTime);
             PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
             PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
@@ -246,12 +316,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-            foreach (GameObject obj in buttons)
-            {
-                obj.SetActive(false);
-            }
-            arrows.SetActive(false);
             globalIndex = 0;
             allTrialQuestions = new Question[givenQuestions];
             LoadTrials();

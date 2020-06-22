@@ -930,9 +930,9 @@ MonoBehaviour:
     isLeft: 0
     isPrev: 0
   maxTime: 0
-  wrongAnswer: 0
+  wrongAnswers: 0
   numAnswered: 0
-  questionTransitionTime: 1
+  questionTransitionTime: 0.5
   plusButton: {fileID: 0}
   arrows: {fileID: 104919173}
 --- !u!4 &483397938

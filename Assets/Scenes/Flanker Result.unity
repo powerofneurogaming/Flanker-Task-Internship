@@ -964,8 +964,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -180.1}
-  m_SizeDelta: {x: 482.1, y: 150}
+  m_AnchoredPosition: {x: 0, y: -206.9}
+  m_SizeDelta: {x: 482.1, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875875342
 MonoBehaviour:
@@ -1017,12 +1017,16 @@ MonoBehaviour:
 
     Score:
 
+    Wrong:
+
+    Unanswered:
+
     Avg Time:
 
-    Congruent Avg:
-
-    Incongruent
+    Congruent
     Avg:
+
+    Incongruent Avg:
 
     Flanker Effect:'
 --- !u!222 &1875875344
