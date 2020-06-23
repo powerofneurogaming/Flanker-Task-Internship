@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 
+// Manages Endless Mode scoreboard. Does nothing else.
 public class endlessScore : MonoBehaviour
 {
+    // Text element for Endless Mode scoreboard
     public Text scoreText;
 
-    // Start is called before the first frame update
+    // If not Endless Mode, hide scoreboard
     void Start()
     {
         if(GameManager.endlessMode == true)
@@ -20,9 +21,14 @@ public class endlessScore : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // Update scoreboard every frame (?!)
+    //
+    // TODO: REMOVE, THIS IS NOT GOOD
     public void Update()
     {
-        scoreText.text = "Score: " + GameManager.score;
+        if(GameManager.endlessMode == true)
+        {
+            scoreText.text = "Score: " + GameManager.score;
+        }
     }
 }
