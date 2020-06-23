@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// State manager for game timer. Probably the best code I've written since this started.
+// I am not proud of that. It means I've written a lot of really questionable code in other places.
 public class Timer : MonoBehaviour
 {
     // timer and absolute time of correct answers

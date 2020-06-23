@@ -6,6 +6,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// Manages game state. A big monolithic block of code that only causes me immense suffering.
+// Most likely needs to be broken up into several different scripts, because any time I try
+// to hook a game UI element up to it instead of hooking it up to a separate script, the game
+// explodes and fails spectacularly. This file is the bane of my existence.
+//
+// TODO: Break Left and Right button logic out into a separate script so I can get rid of the
+//       plus button and stop needing to update the scoreboard every frame like some sort of
+//       barbarian.
 public class GameManager : MonoBehaviour
 {
     public Question[] questions; // Array of possible questions

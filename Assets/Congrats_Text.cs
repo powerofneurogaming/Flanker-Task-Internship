@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// Manages Congratulations text. Probably unnecessary given upcoming code revisions.
 public class Congrats_Text : MonoBehaviour
 {
     // Congratulations text element
