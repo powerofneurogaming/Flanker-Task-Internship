@@ -1,34 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    // timer and absolute time of correct answers
     static float timer;
     static float time;
 
+    // Absolute time of correct congruent and incongruent answers
     static float congruentTime;
     static float incongruentTime;
 
+    // Sentinel for whether timer should be updated
     public static bool timerStart;
 
+    // Debug timer output
     public Text debugTimer;
 
-    // Start is called before the first frame update
+    // Initialize starting state for timer
     void Start()
     {
         timer = 0.0f;
         time = 0.0f;
-
         congruentTime = 0.0f;
-
         incongruentTime = 0.0f;
-
         timerStart = false;
     }
 
-    // Update is called once per frame
+    // Update timer every frame unless timer is disabled
     void Update()
     {
         if (timerStart == true)
@@ -39,6 +39,7 @@ public class Timer : MonoBehaviour
         }
     }
 
+    // Reset timer; record time given correct answer
     public static void resetTimer(bool record)
     {
         if (record == true)
@@ -58,21 +59,25 @@ public class Timer : MonoBehaviour
         timer = 0.0f;
     }
 
+    // Getter for timer
     public static float getTimer()
     {
         return timer;
     }
 
+    // Getter for absolute time
     public static float getTime()
     {
         return time;
     }
 
+    // Getter for absolute congruent time
     public static float getCongTime()
     {
         return congruentTime;
     }
 
+    // Getter for absolute incongruent time
     public static float getIncongTime()
     {
         return incongruentTime;

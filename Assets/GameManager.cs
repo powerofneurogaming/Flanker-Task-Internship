@@ -160,6 +160,9 @@ public class GameManager : MonoBehaviour
     // Right button logic
     public void userSelectRight()
     {
+        // disable timer
+        Timer.timerStart = false;
+
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
@@ -167,23 +170,23 @@ public class GameManager : MonoBehaviour
             obj.SetActive(false);
         }
 
-        // disable timer
-        Timer.timerStart = false;
-
-        // If right is correct, trigger correct answer logic, else increment wrong answer counter
+        // If right is correct, trigger correct answer logic, else trigger incorrect question logic
         if (!allTrialQuestions[globalIndex].isLeft)
         {
-            answerCorrect();
+            userSelectEnd(true, true);
         }
         else
         {
-            answerIncorrect();
+            userSelectEnd(true, false);
         }
     }
 
     // Left button logic
     public void userSelectLeft()
     {
+        // disable timer
+        Timer.timerStart = false;
+
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
@@ -191,31 +194,29 @@ public class GameManager : MonoBehaviour
             obj.SetActive(false);
         }
 
-        // disable timer
-        Timer.timerStart = false;
-
-        // If left is correct, trigger correct answer logic, else increment wrong answer counter
+        // If left is correct, trigger correct answer logic, else trigger incorrect question logic
         if (allTrialQuestions[globalIndex].isLeft)
         {
-            answerCorrect();
+            userSelectEnd(true, true);
         }
         else
         {
-            answerIncorrect();
+            userSelectEnd(true, false);
         }
     }
 
     // No selection logic
     public void userSelectNone()
     {
+        // disable timer
+        Timer.timerStart = false;
+
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
-        // disable timer
-        Timer.timerStart = false;
 
         // If Endless mode is on, increment wrong answer sentinel
         if (endlessMode == true)
@@ -230,21 +231,30 @@ public class GameManager : MonoBehaviour
     // General end-state logic
     public void userSelectEnd(bool answered, bool correct)
     {
-        // Reset timer and increment values given correct/incorrect input
+        // Reset timer, increment score if correct
         if(correct == true)
         {
+            score++;
             Timer.resetTimer(true);
+            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
         else
         {
             Timer.resetTimer(false);
         }
+
+        // Increment values for incorrect answer
         if(answered == true)
         {
             numAnswered++;
-            if(correct == false)
+            if(correct == false) // DO NOT put this in the above 'else' block or it will trigger when not answering ast all
             {
+                if (endlessMode == true)
+                {
+                    wrongSentinel++;
+                }
                 numWrong++;
+                Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
             }
         }
         else
@@ -252,77 +262,73 @@ public class GameManager : MonoBehaviour
             numUnanswered++;
         }
 
-        // 
+        // Timer adjust logic. TODO: REPLACE
         if (maxTime >= 2)
         {
             maxTime--;
         }
 
+        // Advance to the next question
         globalIndex++;
 
+        // Enable clicking of plus button. TODO: REMOVE PLUS BUTTON
         isAnswered = true;
 
-        if (globalIndex >= givenQuestions || wrongSentinel >= 3)
+        // If exit condition is detected, transition to results screen
+        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= 3)
         {
             moveToResults();
         }
-    }
-
-    public void answerCorrect()
-    {
-        score++;
-        Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
-        userSelectEnd(true, true);
-    }
-
-    public void answerIncorrect()
-    {
+        
+        // If in Endless Mode, roll next trial
         if (endlessMode == true)
         {
-            wrongSentinel++;
+            resetTrials();
         }
-        Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
-        userSelectEnd(true, false);
     }
 
+    // At end of game, transition to results screen
     public void moveToResults()
     {
-        if (endlessMode == false || wrongSentinel >= 3)
+        // calculate average times
+        finalTime = Timer.getTime() / score;
+        finalCongTime = Timer.getCongTime() / congruentQuestions;
+        finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
+
+        // handle NaNs for divide-by-zero
+        if (float.IsNaN(finalTime))
         {
-            finalTime = Timer.getTime() / score;
-            finalCongTime = Timer.getCongTime() / congruentQuestions;
-            finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
-
-            if (float.IsNaN(finalTime))
-            {
-                finalTime = 0.0f;
-            }
-            if (float.IsNaN(finalCongTime))
-            {
-                finalCongTime = 0.0f;
-            }
-            if (float.IsNaN(finalIncongTime))
-            {
-                finalIncongTime = 0.0f;
-            }
-
-            PlayerPrefs.SetInt("Unanswered Trials", numUnanswered);
-            PlayerPrefs.SetInt("Wrong Answers", numWrong);
-            PlayerPrefs.SetFloat("avgTime", finalTime);
-            PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
-            PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
-            PlayerPrefs.SetInt("PlayerScore", score);
-            SceneManager.LoadScene("Flanker Result");
+            finalTime = 0.0f;
         }
-        else
+        if (float.IsNaN(finalCongTime))
         {
-            globalIndex = 0;
-            allTrialQuestions = new Question[givenQuestions];
-            LoadTrials();
-            foreach (Question question in allTrialQuestions)
-            {
-                Debug.Log(question.flankerArrows);
-            }
+            finalCongTime = 0.0f;
+        }
+        if (float.IsNaN(finalIncongTime))
+        {
+            finalIncongTime = 0.0f;
+        }
+
+        // Save data and transition to results screen
+        PlayerPrefs.SetInt("PlayerScore", score);
+        PlayerPrefs.SetInt("Wrong Answers", numWrong);
+        PlayerPrefs.SetInt("Unanswered Trials", numUnanswered);
+        PlayerPrefs.SetFloat("avgTime", finalTime);
+        PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
+        PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
+        SceneManager.LoadScene("Flanker Result");
+    }
+
+    // Reset game with new trial question for Endless Mode
+    public void resetTrials()
+    {
+        globalIndex = 0; // Reset index to not iterate off end of array
+        allTrialQuestions = new Question[givenQuestions]; // Reinitialize trial array
+        LoadTrials(); // Assign question(s)
+        // Output question(s) to console
+        foreach (Question question in allTrialQuestions)
+        {
+            Debug.Log(question.flankerArrows);
         }
     }
 }

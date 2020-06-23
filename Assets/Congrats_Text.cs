@@ -1,14 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Congrats_Text : MonoBehaviour
 {
+    // Congratulations text element
     public Text congrats;
+
+    // Player name
     public static string Player;
 
-    // Start is called before the first frame update
+    // Setter for Congratulations text. TODO: MOST LIKELY UNNECESSARY. REMOVE?
     void Start()
     {
         Player = PlayerPrefs.GetString("PlayerName");
@@ -20,11 +22,5 @@ public class Congrats_Text : MonoBehaviour
         {
             congrats.text = "Congratulations, " + Player + "!"; 
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

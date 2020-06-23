@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class endlessScore : MonoBehaviour
 {
+    // Text element for Endless Mode scoreboard
     public Text scoreText;
 
-    // Start is called before the first frame update
+    // If not Endless Mode, hide scoreboard
     void Start()
     {
         if(GameManager.endlessMode == true)
@@ -20,9 +21,12 @@ public class endlessScore : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // Update scoreboard every frame
     public void Update()
     {
-        scoreText.text = "Score: " + GameManager.score;
+        if(GameManager.endlessMode == true)
+        {
+            scoreText.text = "Score: " + GameManager.score;
+        }
     }
 }
