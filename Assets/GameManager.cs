@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     int wrongSentinel;
     int numWrong;
     int numUnanswered;
-    private int maxTime;
+    private float maxTime;
     float currentTimer;
 
     // Number of congruent vs incongruent questions answered, for calculating final time states
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         incongruentQuestions = 0;
 
         // Initialize max time to (number of questions) seconds
-        maxTime = givenQuestions;
+        maxTime = 10f;
 
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -239,8 +239,11 @@ public class GameManager : MonoBehaviour
     // General end-state logic
     public void userSelectEnd(bool answered, bool correct)
     {
+        // Timer adjust logic: 1.5x correct score average
+        maxTime = Timer.getTime() / score * 1.5f;
+
         // Reset timer, increment score if correct
-        if(correct == true)
+        if (correct == true)
         {
             score++;
             Timer.resetTimer(true);
@@ -268,12 +271,6 @@ public class GameManager : MonoBehaviour
         else
         {
             numUnanswered++;
-        }
-
-        // Timer adjust logic. TODO: REPLACE
-        if (maxTime >= 2)
-        {
-            maxTime--;
         }
 
         // Advance to the next question
