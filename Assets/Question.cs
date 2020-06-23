@@ -2,21 +2,10 @@
 [System.Serializable]
 public class Question
 {
+    // Variables for the Question class
     public string flankerArrows;
     public int trialNumber;
     public bool isCongruent;
     public bool isLeft;
-
     public bool isPrev;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
