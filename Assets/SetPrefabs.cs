@@ -6,13 +6,8 @@ using UnityEngine.UI;
 
 public class SetPrefabs : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject playerName;
 
-    void Start()
-    {
-
-    }
     public void setupPrefabs()
     {
         PlayerPrefs.SetInt("PlayerScore", 0);
