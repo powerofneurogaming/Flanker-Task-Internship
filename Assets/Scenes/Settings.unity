@@ -272,7 +272,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: About
+  m_Text: Settings Placeholder Scene
 --- !u!222 &357107874
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1656250379}
-        m_MethodName: backToTitle
+        m_MethodName: settingsBackToTitle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -986,11 +986,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Welcome to the Flanker Task. \n\nThe goal of this task is to test your
-    reaction time. You will be given a question in the form of a sequence of arrows.
-    The objective is to click the button that matches the arrow in the middle, as
-    quickly as you can, which may or may not point in the same direction as the other
-    arrows.\n\nGood luck!"
+  m_Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet
+    sollicitudin purus. Praesent felis nulla, eleifend vitae dignissim vel, vulputate
+    sed eros. Fusce iaculis, sem ut scelerisque sagittis, massa lectus rutrum tellus,
+    nec gravida dolor felis in leo. Pellentesque et dapibus sapien, non euismod mi.
+    Quisque iaculis ligula eu libero efficitur, in laoreet sapien viverra. Phasellus
+    id eleifend orci, non condimentum purus. Quisque finibus malesuada semper. Nulla
+    purus tortor, facilisis non vulputate vitae, volutpat quis sem. In id auctor
+    leo.
 --- !u!222 &1942975478
 CanvasRenderer:
   m_ObjectHideFlags: 0
