@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class miscButtons : MonoBehaviour
 {
-    public Button backButton;
-
     public void toIntro()
     {
         SceneManager.LoadScene("Intro");
@@ -19,6 +17,11 @@ public class miscButtons : MonoBehaviour
     public void toSettings()
     {
         SceneManager.LoadScene("Settings");
+    }
+
+    public void toMain()
+    {
+        SceneManager.LoadScene("Flanker Main");
     }
 
     public void backToTitle()
