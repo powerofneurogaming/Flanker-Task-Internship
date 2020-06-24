@@ -1,4 +1,4 @@
-﻿// System libraries
+// System libraries
 using System.IO;
 using System.Linq;
 
@@ -30,12 +30,16 @@ public class Score : MonoBehaviour
     // Game elements for results readout and 'View Results' button
     public Text scoreText;
     public GameObject resultsButton;
+    public Button restartButton;
+    public Button mainMenuButton;
 
     // Set up results readout, write to CSV file
     void Start()
     {
         // Disable game results text
         scoreText.enabled = false;
+        restartButton.gameObject.SetActive(false);
+        mainMenuButton.gameObject.SetActive(false);
 
         // Set file path to CSV file
         string filePath = "flanker.csv";
@@ -82,6 +86,9 @@ public class Score : MonoBehaviour
     // When you click 'View Results', display game results
     public void displayResults()
     {
+        restartButton.gameObject.SetActive(true);
+        mainMenuButton.gameObject.SetActive(true);
+
         scoreText.enabled = true; // Enable game results text
         resultsButton.SetActive(false); // Hide 'View Results' button
 

@@ -239,7 +239,10 @@ public class GameManager : MonoBehaviour
     public void userSelectEnd(bool answered, bool correct)
     {
         // Timer adjust logic: 1.5x correct score average
-        maxTime = Timer.getTime() / score * 1.5f;
+        if (score != 0)
+        {
+            maxTime = Timer.getTime() / score * 1.5f;
+        }
 
         // Reset timer, increment score if correct
         if (correct == true)
