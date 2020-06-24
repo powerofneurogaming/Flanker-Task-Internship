@@ -127,18 +127,17 @@ public class GameManager : MonoBehaviour
                 currentQuestion = questions[randQuestionIndex];
             } while (previousQuestion != null && previousQuestion.flankerArrows == currentQuestion.flankerArrows);
             previousQuestion = currentQuestion;
-            allTrialQuestions[i] = currentQuestion;
+            allTrialQuestions[i] = currentQuestion; 
         }
     }
 
     // Start a trial
     public void startTrial()
     {
-        arrows.GetComponent<Text>().text = "+";
-
         // If isAnswered is false, block this entire function; the question has not been answered yet
         if (isAnswered == true)
         {
+            arrows.GetComponent<Text>().text = "+";
             // Turn the arrows on
             arrows.SetActive(true);
 
