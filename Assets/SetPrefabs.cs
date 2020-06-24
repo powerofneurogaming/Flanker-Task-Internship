@@ -45,8 +45,27 @@ public class SetPrefabs : MonoBehaviour
     {
         string level = playerName.GetComponent<Text>().text;
         int.TryParse(level, out int level_int);
+        if(level_int > 100)
+        {
+            level_int = 100;
+        }
         PlayerPrefs.SetInt("PlayerLevel", level_int);
         SceneManager.LoadScene("Flanker Main");
+    }
+
+    public void Update()
+    {
+        if(Input.GetKey(KeyCode.Return))
+        {
+            if(SceneManager.GetActiveScene().name == "Intro")
+            {
+                setupPrefabs();
+            }
+            else if(SceneManager.GetActiveScene().name == "Select Screen")
+            {
+                setLevel();
+            }
+        }
     }
 }
    
