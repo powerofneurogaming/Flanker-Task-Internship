@@ -11,7 +11,7 @@ public class miscButtons : MonoBehaviour
 
     public void toAbout()
     {
-        SceneManager.LoadScene("About");
+        SceneManager.LoadScene("How to Play");
     }
 
     public void toSettings()
