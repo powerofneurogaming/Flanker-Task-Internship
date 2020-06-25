@@ -1,4 +1,4 @@
-﻿// Unity libraries
+// Unity libraries
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
