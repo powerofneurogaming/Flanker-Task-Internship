@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        globalIndex = 0;
+
         // Get the player level from the previous scene; if zero, start endless mode
         givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
         if(givenQuestions == 0)
