@@ -191,6 +191,8 @@ public class GameManager : MonoBehaviour
         // disable timer
         Timer.timerStart = false;
 
+        arrows.GetComponent<Text>().text = "+";
+
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
@@ -214,6 +216,8 @@ public class GameManager : MonoBehaviour
     {
         // disable timer
         Timer.timerStart = false;
+
+        arrows.GetComponent<Text>().text = "+";
 
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
