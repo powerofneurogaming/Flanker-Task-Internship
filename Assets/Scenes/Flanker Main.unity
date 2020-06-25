@@ -402,8 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c43746628d487144b68d867301a2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftButton: {fileID: 392178194}
-  rightButton: {fileID: 212699564}
 --- !u!1 &215705583
 GameObject:
   m_ObjectHideFlags: 0
