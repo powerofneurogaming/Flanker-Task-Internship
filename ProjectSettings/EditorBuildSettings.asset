@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Settings.unity
     guid: a8635b126a0517141adeb4d138f8e471
   - enabled: 1
-    path: Assets/Scenes/About.unity
+    path: Assets/Scenes/How to Play.unity
     guid: 1aa674bd7c9609549a52c413ee0c5022
   - enabled: 1
     path: Assets/Scenes/Select Screen.unity

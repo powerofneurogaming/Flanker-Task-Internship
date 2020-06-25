@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     // Variables used to initialize given questions
     int givenQuestions; // Number of trials to be given, or 0 to trigger endless mode (10 question loop/re-init)
+    int difficulty;
     private Question previousQuestion;
     private Question currentQuestion;
     private int randQuestionIndex;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     int numWrong;
     int numUnanswered;
     private float maxTime;
+    float multiplier;
     float currentTimer;
 
     // Number of congruent vs incongruent questions answered, for calculating final time states
@@ -62,7 +64,20 @@ public class GameManager : MonoBehaviour
 
         // Get the player level from the previous scene; if zero, start endless mode
         givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
-        if(givenQuestions == 0)
+        difficulty = PlayerPrefs.GetInt("Difficulty");
+        if (difficulty == 0)
+        {
+            multiplier = 2.5f;
+        }
+        else if (difficulty == 1)
+        {
+            multiplier = 2.0f;
+        }
+        else
+        {
+            multiplier = 1.5f;
+        }
+        if (givenQuestions == 0)
         {
             givenQuestions = 1;
             endlessMode = true;
@@ -81,7 +96,7 @@ public class GameManager : MonoBehaviour
         incongruentQuestions = 0;
 
         // Initialize max time to (number of questions) seconds
-        maxTime = 10f;
+        maxTime = 4f;
 
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -104,6 +119,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(question.flankerArrows);
         }
+        Debug.Log("Difficulty: " + difficulty);
     }
 
     // Update timer every frame that a question is active; if over time, trigger 'none' selection
@@ -243,7 +259,22 @@ public class GameManager : MonoBehaviour
         // Timer adjust logic: 1.5x correct score average
         if (score != 0)
         {
-            maxTime = Timer.getTime() / score * 1.5f;
+            float avg = Timer.getTime() / score;
+            float currMultiplier = multiplier - 1.0f;
+            if (endlessMode == false)
+            {
+                currMultiplier = (currMultiplier / givenQuestions * (givenQuestions - globalIndex)) + 1;
+            }
+            else
+            {
+                currMultiplier = (currMultiplier / 25 * (25 - (numAnswered + numUnanswered))) + 1;
+            }
+            if(endlessMode == true && currMultiplier < 1.1f)
+            {
+                currMultiplier = 1.1f;
+            }
+            maxTime = avg * currMultiplier;
+            Debug.Log("Current time multiplier: " + currMultiplier + ", max time: " + maxTime);
         }
 
         // Reset timer, increment score if correct
