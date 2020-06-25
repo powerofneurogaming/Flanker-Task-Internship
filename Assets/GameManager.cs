@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public static int incongruentQuestions;
 
     // Final time states for results screen
+    float bestTime;
     float finalTime;
     float finalCongTime;
     float finalIncongTime;
@@ -61,6 +62,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         globalIndex = 0;
+
+        bestTime = 0.0f;
 
         // Get the player level from the previous scene; if zero, start endless mode
         givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
@@ -188,6 +191,8 @@ public class GameManager : MonoBehaviour
         // disable timer
         Timer.timerStart = false;
 
+        arrows.GetComponent<Text>().text = "+";
+
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
@@ -211,6 +216,8 @@ public class GameManager : MonoBehaviour
     {
         // disable timer
         Timer.timerStart = false;
+
+        arrows.GetComponent<Text>().text = "+";
 
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -281,6 +288,10 @@ public class GameManager : MonoBehaviour
         if (correct == true)
         {
             score++;
+            if(bestTime == 0.0f || Timer.getTimer() < bestTime)
+            {
+                bestTime = Timer.getTimer();
+            }
             Timer.resetTimer(true);
             Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
@@ -354,6 +365,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Wrong Answers", numWrong);
         PlayerPrefs.SetInt("Unanswered Trials", numUnanswered);
         PlayerPrefs.SetFloat("avgTime", finalTime);
+        PlayerPrefs.SetFloat("bestTime", bestTime);
         PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
         PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
         SceneManager.LoadScene("Flanker Result");

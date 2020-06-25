@@ -14,15 +14,19 @@ public class Score : MonoBehaviour
     int wrong;
     int score;
     float avgTime;
+    float bestTime;
     float congTime;
     float incongTime;
     float flankerEffect;
 
     // Holders for rounded averages / Flanker Effect (for results screen)
     float avgTimeRound;
+    float bestTimeRound;
     float congTimeRound;
     float incongTimeRound;
     float flankerRound;
+
+    string bestString;
 
     // ID for entry in CSV file
     int resultNum;
@@ -49,13 +53,24 @@ public class Score : MonoBehaviour
         unanswered = PlayerPrefs.GetInt("Unanswered Trials");
         score = PlayerPrefs.GetInt("PlayerScore");
         avgTime = PlayerPrefs.GetFloat("avgTime");
+        bestTime = PlayerPrefs.GetFloat("bestTime");
         congTime = PlayerPrefs.GetFloat("avgCongTime");
         incongTime = PlayerPrefs.GetFloat("avgIncongTime");
 
         // Calculate rounded averages for results text
         avgTimeRound = Mathf.Round(avgTime * 1000) / 1000;
+        bestTimeRound = Mathf.Round(bestTime * 1000) / 1000;
         congTimeRound = Mathf.Round(congTime * 1000) / 1000;
         incongTimeRound = Mathf.Round(incongTime * 1000) / 1000;
+
+        if(bestTime == 0.0f)
+        {
+            bestString = "\nNo correct answers...";
+        }
+        else
+        {
+            bestString = "\nBest Correct Time: " + bestTimeRound;
+        }
 
         // Calculate Flanker Effect
         if (congTime >= incongTimeRound)
@@ -98,6 +113,7 @@ public class Score : MonoBehaviour
                          "\nWrong: " + wrong +
                          "\nUnanswered: " + unanswered +
                          "\nAvg Time: " + avgTimeRound +
+                         bestString + 
                          "\nCongruent Avg: " + congTimeRound +
                          "\nIncongruent Avg: " + incongTimeRound +
                          "\nFlanker Effect: " + flankerRound;
