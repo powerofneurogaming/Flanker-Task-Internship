@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2e5d6acd3a90b1c4fb92a47dd61f79d7
+guid: f111320e9f418dc4e91e88431e1712da
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: CHICKEN Pie
+  fontName: East Market Two NF
   fontNames:
-  - CHICKEN Pie
+  - East Market Two NF
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
