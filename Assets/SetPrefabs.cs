@@ -43,14 +43,22 @@ public class SetPrefabs : MonoBehaviour
     // If non-number, set to zero (endless mode)
     public void setLevel()
     {
+        if (endlessModeToggle.endlessMode == true)
+        {
+            PlayerPrefs.SetInt("PlayerLevel", 0);
+            SceneManager.LoadScene("Flanker Main");
+        }
         string level = playerName.GetComponent<Text>().text;
         int.TryParse(level, out int level_int);
-        if(level_int > 100)
+        if (level_int != 0 && endlessModeToggle.endlessMode == false)
         {
-            level_int = 100;
+            if (level_int > 100)
+            {
+                level_int = 100;
+            }
+            PlayerPrefs.SetInt("PlayerLevel", level_int);
+            SceneManager.LoadScene("Flanker Main");
         }
-        PlayerPrefs.SetInt("PlayerLevel", level_int);
-        SceneManager.LoadScene("Flanker Main");
     }
 
     public void Update()
