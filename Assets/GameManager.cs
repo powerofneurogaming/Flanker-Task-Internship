@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 // Manages game state. A big monolithic block of code that only causes me immense suffering.
 // Most likely needs to be broken up into several different scripts, because any time I try
@@ -158,7 +159,7 @@ public class GameManager : MonoBehaviour
         // If isAnswered is false, block this entire function; the question has not been answered yet
         if (isAnswered == true)
         {
-            arrows.GetComponent<Text>().text = "+";
+            arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
             // Turn the arrows on
             arrows.SetActive(true);
 
@@ -175,14 +176,14 @@ public class GameManager : MonoBehaviour
     IEnumerator displayTrial(string trial)
     {
         // Display '+'
-        arrows.GetComponent<Text>().text = "+";
+        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
 
         // Wait for given time between questions
         yield return new WaitForSeconds(questionTransitionTime);
 
         // Start timer and display trial
         Timer.timerStart = true;
-        arrows.GetComponent<Text>().text = trial;
+        arrows.GetComponent<TextMeshProUGUI>().text = trial;
     }
 
     // Right button logic
@@ -191,7 +192,7 @@ public class GameManager : MonoBehaviour
         // disable timer
         Timer.timerStart = false;
 
-        arrows.GetComponent<Text>().text = "+";
+        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
 
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
@@ -217,7 +218,7 @@ public class GameManager : MonoBehaviour
         // disable timer
         Timer.timerStart = false;
 
-        arrows.GetComponent<Text>().text = "+";
+        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
 
         // Get left/right buttons and turn them off
         GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
