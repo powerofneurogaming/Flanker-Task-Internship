@@ -65,7 +65,7 @@ public class SetPrefabs : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Return))
         {
-            if(SceneManager.GetActiveScene().name == "Intro")
+            if(SceneManager.GetActiveScene().name == "intro")
             {
                 setupPrefabs();
             }
