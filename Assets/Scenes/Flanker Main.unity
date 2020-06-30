@@ -902,8 +902,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472760505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.3, y: -2.9, z: 0}
+  m_LocalScale: {x: 0.702314, y: 0.702314, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -974,7 +974,12 @@ MonoBehaviour:
     isCongruent: 0
     isLeft: 0
     isPrev: 0
+  globalIndex: 0
+  score: 0
   numAnswered: 0
+  congruentQuestions: 0
+  incongruentQuestions: 0
+  endlessMode: 0
   questionTransitionTime: 0.5
   arrows: {fileID: 715181074}
 --- !u!4 &483397938
@@ -3327,7 +3332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 0.57254905}
+  m_Color: {r: 0.46666667, g: 0.46666667, b: 0.46666667, a: 0.57254905}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

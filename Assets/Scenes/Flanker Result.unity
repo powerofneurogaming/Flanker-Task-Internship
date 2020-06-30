@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 163640605}
   - component: {fileID: 163640604}
   m_Layer: 5
-  m_Name: Shadow (1)
+  m_Name: Results Shadoqw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 601548576}
   - component: {fileID: 601548575}
   m_Layer: 5
-  m_Name: PanelLayer (1)
+  m_Name: Results Panel Layer
   m_TagString: MaterialButtonLayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 0.57254905}
+  m_Color: {r: 0.46666667, g: 0.46666667, b: 0.46666667, a: 0.57254905}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 0.57254905}
+  m_Color: {r: 0.46666667, g: 0.46666667, b: 0.46666667, a: 0.57254905}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
