@@ -1205,15 +1205,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoSize: 1
-  sizePercentage: 66
+  sizePercentage: 200
   rippleSize: 0
   rippleSpeed: 6
   rippleColor: {r: 0, g: 0, b: 0, a: 1}
   rippleStartAlpha: 0.5
   rippleEndAlpha: 0.3
-  highlightWhen: 0
+  highlightWhen: 1
   moveTowardCenter: 1
-  toggleMask: 0
+  toggleMask: 1
   dontRippleOnScroll: 0
   scrollDelayCheckTime: 0.05
 --- !u!114 &1452572167
@@ -1641,7 +1641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -213}
+  m_AnchoredPosition: {x: 0, y: -212.99998}
   m_SizeDelta: {x: 52.2, y: -26.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2050435354

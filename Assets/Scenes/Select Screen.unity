@@ -1512,15 +1512,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoSize: 1
-  sizePercentage: 66
+  sizePercentage: 200
   rippleSize: 0
   rippleSpeed: 6
   rippleColor: {r: 0, g: 0, b: 0, a: 1}
   rippleStartAlpha: 0.5
   rippleEndAlpha: 0.3
-  highlightWhen: 0
+  highlightWhen: 1
   moveTowardCenter: 1
-  toggleMask: 0
+  toggleMask: 1
   dontRippleOnScroll: 0
   scrollDelayCheckTime: 0.05
 --- !u!114 &1452572167
@@ -1688,13 +1688,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458883216}
-  m_LocalRotation: {x: 0.006128654, y: 0.006128654, z: -0.000037561807, w: 0.99996245}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3, y: -2.9, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.702314, y: 0.702314, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0.702314, y: 0.702314, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1594472098
 GameObject:
   m_ObjectHideFlags: 0
