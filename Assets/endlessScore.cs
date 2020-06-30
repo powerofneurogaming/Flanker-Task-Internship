@@ -11,7 +11,7 @@ public class endlessScore : MonoBehaviour
     // If not Endless Mode, hide scoreboard
     void Start()
     {
-        if(GameManager.endlessMode == true)
+        if(GameManager.Instance.endlessMode == true)
         {
             scoreText.enabled = true;
         }
@@ -26,9 +26,9 @@ public class endlessScore : MonoBehaviour
     // TODO: REMOVE, THIS IS NOT GOOD
     public void Update()
     {
-        if(GameManager.endlessMode == true)
+        if(GameManager.Instance.endlessMode == true)
         {
-            scoreText.text = "Score: " + GameManager.score;
+            scoreText.text = "Score: " + GameManager.Instance.score;
         }
     }
 }
