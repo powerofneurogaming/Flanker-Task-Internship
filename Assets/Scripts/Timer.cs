@@ -47,15 +47,15 @@ public class Timer : MonoBehaviour
         if (record == true)
         {
             time += timer;
-            if (GameManager.allTrialQuestions[GameManager.globalIndex].isCongruent == true)
+            if (GameManager.allTrialQuestions[GameManager.Instance.globalIndex].isCongruent == true)
             {
                 congruentTime += timer;
-                GameManager.congruentQuestions++;
+                GameManager.Instance.congruentQuestions++;
             }
             else
             {
                 incongruentTime += timer;
-                GameManager.incongruentQuestions++;
+                GameManager.Instance.incongruentQuestions++;
             }
         }
         timer = 0.0f;

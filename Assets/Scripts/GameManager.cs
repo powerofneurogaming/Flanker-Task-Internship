@@ -17,6 +17,20 @@ using TMPro;
 //       barbarian.
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public Question[] questions; // Array of possible questions
     public static Question[] allTrialQuestions; // Array of randomly selected questions
 
@@ -28,8 +42,8 @@ public class GameManager : MonoBehaviour
     private int randQuestionIndex;
 
     // State variables for game
-    public static int globalIndex; // Index for current question
-    public static int score;
+    public int globalIndex; // Index for current question
+    public int score;
     public int numAnswered;
     int wrongSentinel;
     int numWrong;
@@ -39,8 +53,8 @@ public class GameManager : MonoBehaviour
     float currentTimer;
 
     // Number of congruent vs incongruent questions answered, for calculating final time states
-    public static int congruentQuestions;
-    public static int incongruentQuestions;
+    public int congruentQuestions;
+    public int incongruentQuestions;
 
     // Final time states for results screen
     float bestTime;
@@ -50,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     // Sentinels
     bool isAnswered; // Disables the plus button until a question is answerewd
-    public static bool endlessMode; // Enables endless mode if givenQuestions is initially zero
+    public bool endlessMode; // Enables endless mode if givenQuestions is initially zero
 
     // transition time between questions
     [SerializeField]
@@ -369,6 +383,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("bestTime", bestTime);
         PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
         PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
+        Instance = null;
         SceneManager.LoadScene("Flanker Result");
     }
 
