@@ -6,6 +6,9 @@ using UnityEngine.UI;
 // Handles initializin game state, as well as setting player name and number of trials
 public class SetPrefabs : MonoBehaviour
 {
+    public AudioClip carriage_return;
+    public float volume = 0.5f;
+
     // Can't figure out where this is hooked up... I try to rename it to 'PlayerInput' and everything breaks.
     // When I need to start adding more complex user menus I need to ask Khalil for help.
     public GameObject playerName;
@@ -35,6 +38,11 @@ public class SetPrefabs : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", name);
         }
 
+        if (!Singleton.Instance.audioSource.isPlaying)
+        {
+            Singleton.Instance.audioSource.PlayOneShot(carriage_return, volume);
+        }
+
         // Transition to trial select screen
         SceneManager.LoadScene("Select Screen");
     }
@@ -57,6 +65,10 @@ public class SetPrefabs : MonoBehaviour
                 level_int = 100;
             }
             PlayerPrefs.SetInt("PlayerLevel", level_int);
+            if (!Singleton.Instance.audioSource.isPlaying)
+            {
+                Singleton.Instance.audioSource.PlayOneShot(carriage_return, volume);
+            }
             SceneManager.LoadScene("Flanker Main");
         }
     }
@@ -65,7 +77,7 @@ public class SetPrefabs : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Return))
         {
-            if(SceneManager.GetActiveScene().name == "intro")
+            if (SceneManager.GetActiveScene().name == "intro")
             {
                 setupPrefabs();
             }
