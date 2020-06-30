@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -385,7 +384,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
         PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
         Instance = null;
-        Destroy(gameObject);
         SceneManager.LoadScene("Flanker Result");
     }
 
