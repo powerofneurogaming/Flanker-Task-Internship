@@ -656,6 +656,7 @@ MonoBehaviour:
     isCongruent: 0
     isLeft: 0
     isPrev: 0
+  prompts: []
   globalIndex: 0
   questionTransitionTime: 0.5
   arrows: {fileID: 715181074}

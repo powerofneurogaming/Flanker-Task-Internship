@@ -32,6 +32,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     public Question[] questions; // Array of possible questions
+    public string[] prompts;
     public static Question[] allTrialQuestions; // Array of randomly selected questions
 
     // Variables used to initialize given questions
