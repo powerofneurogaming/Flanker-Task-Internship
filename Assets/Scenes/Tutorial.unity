@@ -656,7 +656,12 @@ MonoBehaviour:
     isCongruent: 0
     isLeft: 0
     isPrev: 0
-  prompts: []
+  prompts:
+  - "This is the Flanker Task, you will be shown a series of arrows in a row. One
+    row of arrows will be pointing left or right for all. The second type is the
+    row of arrows which are pointing in one direction but one arrow is pointing the
+    opposite. This will bqqe timed but don\u2019t think about it too much. Should
+    be quick."
   globalIndex: 0
   questionTransitionTime: 0.5
   arrows: {fileID: 715181074}
