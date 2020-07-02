@@ -38,9 +38,9 @@ public class SetPrefabs : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", name);
         }
 
-        if (!Singleton.Instance.audioSource.isPlaying)
+        if (!SoundManager.Instance.audioSource.isPlaying)
         {
-            Singleton.Instance.audioSource.PlayOneShot(carriage_return, volume);
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
         }
 
         // Transition to trial select screen
@@ -65,9 +65,9 @@ public class SetPrefabs : MonoBehaviour
                 level_int = 100;
             }
             PlayerPrefs.SetInt("PlayerLevel", level_int);
-            if (!Singleton.Instance.audioSource.isPlaying)
+            if (!SoundManager.Instance.audioSource.isPlaying)
             {
-                Singleton.Instance.audioSource.PlayOneShot(carriage_return, volume);
+                SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
             }
             SceneManager.LoadScene("Flanker Main");
         }
