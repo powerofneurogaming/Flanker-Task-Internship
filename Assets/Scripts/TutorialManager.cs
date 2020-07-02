@@ -50,8 +50,7 @@ public class TutorialManager : MonoBehaviour
     float holdTime;
 
     // transition time between questions
-    [SerializeField]
-    private float questionTransitionTime = 0.5f;
+    float questionTransitionTime = 3.0f;
 
     // Text box for arrows
     public GameObject arrows;
@@ -65,7 +64,7 @@ public class TutorialManager : MonoBehaviour
         globalIndex = 0;
 
         // Get the player level from the previous scene; if zero, start endless mode
-        givenQuestions = 3;
+        givenQuestions = 5;
 
         holdTime = 0.0f;
 
@@ -130,31 +129,24 @@ public class TutorialManager : MonoBehaviour
     // Initialize questions in question array
     void LoadTrials()
     {
-        // For every question in the array of trials
-        for (int i = 0; i < allTrialQuestions.Length; i++)
-        {
-            // Choose a random question type and assign it to the current trial; ensure no two questions in a row are the same
-            do
-            {
-                randQuestionIndex = Random.Range(0, questions.Length);
-                currentQuestion = questions[randQuestionIndex];
-            } while (previousQuestion != null && previousQuestion.flankerArrows == currentQuestion.flankerArrows);
-            previousQuestion = currentQuestion;
-            allTrialQuestions[i] = currentQuestion;
-        }
+        allTrialQuestions[0] = questions[1];
+        allTrialQuestions[1] = questions[1];
+        allTrialQuestions[2] = questions[0];
+        allTrialQuestions[3] = questions[2];
+        allTrialQuestions[4] = questions[3];
     }
 
-    // Start a trial
+    // Start a trialf
     public void startTrial()
     {
         // If isAnswered is false, block this entire function; the question has not been answered yet
         if (isAnswered == true)
         {
-            arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
+            arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
 
             // Set current trial
             Question trial = allTrialQuestions[globalIndex];
-            StartCoroutine(displayTrial(trial.flankerArrows));
+            displayTrial(trial.flankerArrows);
 
             // Reset is answered sentinel;
             isAnswered = false;
@@ -162,84 +154,80 @@ public class TutorialManager : MonoBehaviour
     }
 
     // Display newly set current trial
-    IEnumerator displayTrial(string trial)
+    public void displayTrial(string trial)
     {
-        // Display '+'
-        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-        // Wait for given time between questions
-        yield return new WaitForSeconds(questionTransitionTime);
-
         // Start timer and display trial
-        arrows.GetComponent<TextMeshProUGUI>().text = trial;
+        arrows.GetComponent<TextMeshProUGUI>().text = prompts[globalIndex] + "\n\n";
+        if (globalIndex == 1 || globalIndex == 2)
+        {
+            arrows.GetComponent<TextMeshProUGUI>().text += "\n";
+        }
+        arrows.GetComponent<TextMeshProUGUI>().text += trial;
     }
 
     // Right button logic
     public void userSelectRight()
     {
-        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-        // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
-
-        // If right is correct, trigger correct answer logic, else trigger incorrect question logic
         if (!allTrialQuestions[globalIndex].isLeft)
         {
-            userSelectEnd(true, true);
-        }
-        else
-        {
-            userSelectEnd(true, false);
+            arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
+
+            // Get left/right buttons and turn them off
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+            foreach (GameObject obj in buttons)
+            {
+                obj.SetActive(false);
+            }
+            userSelectEnd();
         }
     }
 
     // Left button logic
     public void userSelectLeft()
     {
-        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-        // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
-
         // If left is correct, trigger correct answer logic, else trigger incorrect question logic
         if (allTrialQuestions[globalIndex].isLeft)
         {
-            userSelectEnd(true, true);
-        }
-        else
-        {
-            userSelectEnd(true, false);
+            arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
+
+            // Get left/right buttons and turn them off
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
+            foreach (GameObject obj in buttons)
+            {
+                obj.SetActive(false);
+            }
+            userSelectEnd();
         }
     }
 
     // General end-state logic
-    public void userSelectEnd(bool answered, bool correct)
+    public void userSelectEnd()
     {
         // Advance to the next question
         globalIndex++;
-
-        // Enable clicking of plus button. TODO: REMOVE PLUS BUTTON
-        isAnswered = true;
 
         // If exit condition is detected, transition to results screen
         if (globalIndex >= givenQuestions)
         {
             moveToResults();
         }
+        else
+        {
+            // Enable clicking of plus button. TODO: REMOVE PLUS BUTTON
+            isAnswered = true;
+        }
     }
 
     // At end of game, transition to results screen
     public void moveToResults()
     {
+        endTutorial();
         Instance = null;
-        SceneManager.LoadScene("Flanker Result");
+    }
+
+    public void endTutorial()
+    {
+        // Display '+'
+        arrows.GetComponent<TextMeshProUGUI>().text = prompts[5];
     }
 }
