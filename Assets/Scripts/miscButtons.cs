@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class miscButtons : MonoBehaviour
 {
-    public AudioSource source;
+    public AudioSource source = Music.Instance.musicSource;
 
     public void toIntro()
     {
@@ -20,7 +20,6 @@ public class miscButtons : MonoBehaviour
 
     public void toSettings()
     {
-        source.Stop();
         SceneManager.LoadScene("Settings");
     }
 
@@ -41,7 +40,6 @@ public class miscButtons : MonoBehaviour
         // For now this is identical to backToTitle()
         // Eventually it will contain getters and setters for saving settings.
         // TODO: actually make the settings menu
-        source.Stop();
         SceneManager.LoadScene("Title");
     }
 }

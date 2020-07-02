@@ -8,7 +8,6 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         if (Instance == null)
