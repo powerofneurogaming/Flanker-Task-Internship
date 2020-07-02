@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton : MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
-    public static Singleton Instance { get; private set; }
+    public static SoundManager Instance { get; private set; }
 
     public AudioSource audioSource;
 
