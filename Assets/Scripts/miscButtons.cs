@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class miscButtons : MonoBehaviour
 {
-    public AudioSource source = Music.Instance.musicSource;
+    AudioSource source = Music.Instance.musicSource;
 
     public void toIntro()
     {
@@ -31,7 +31,10 @@ public class miscButtons : MonoBehaviour
 
     public void backToTitle()
     {
-        source.Stop();
+        if(source.isPlaying == false)
+        {
+            source.Play();
+        }
         SceneManager.LoadScene("Title");
     }
 
