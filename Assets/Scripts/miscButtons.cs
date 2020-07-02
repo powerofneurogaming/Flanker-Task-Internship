@@ -22,18 +22,18 @@ public class miscButtons : MonoBehaviour
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        source.Stop();
+        source.Pause();
         SceneManager.LoadScene("Intro");
     }
 
-    public void toAbout()
+    public void toTutorial()
     {
         if (!sfxSource.isPlaying)
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        source.Stop();
-        SceneManager.LoadScene("How to Play");
+        source.Pause();
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void toSettings()
@@ -45,22 +45,34 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }
 
+    public void toAbout()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        SceneManager.LoadScene("About");
+    }
+
     public void toMain()
     {
         if (!sfxSource.isPlaying)
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        source.Stop();
+        source.Pause();
         SceneManager.LoadScene("Flanker Main");
     }
 
     public void backToTitle()
     {
+        if (!sfxSource.isPlaying)
+        {
             sfxSource.PlayOneShot(typekey, volume);
+        }
         if (source.isPlaying == false)
         {
-            source.Play();
+            source.UnPause();
         }
         SceneManager.LoadScene("Title");
     }

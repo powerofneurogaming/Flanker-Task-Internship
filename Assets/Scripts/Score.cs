@@ -40,6 +40,8 @@ public class Score : MonoBehaviour
     // Set up results readout, write to CSV file
     void Start()
     {
+        Music.Instance.musicSource.Play(0);
+
         // Disable game results text
         scoreText.enabled = false;
         restartButton.gameObject.SetActive(false);

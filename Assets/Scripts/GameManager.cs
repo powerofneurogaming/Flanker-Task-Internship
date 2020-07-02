@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        Music.Instance.musicSource.Play(0);
+
         globalIndex = 0;
 
         bestTime = 0.0f;
