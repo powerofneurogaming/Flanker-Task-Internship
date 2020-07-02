@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class miscButtons : MonoBehaviour
 {
     AudioSource source = Music.Instance.musicSource;
+    AudioSource sfxSource = SoundManager.Instance.audioSource;
+
+    public AudioClip typekey;
+    public float volume;
 
     public void toIntro()
     {
@@ -14,6 +18,7 @@ public class miscButtons : MonoBehaviour
 
     public void toAbout()
     {
+        sfxSource.PlayOneShot(typekey, volume);
         source.Stop();
         SceneManager.LoadScene("How to Play");
     }
