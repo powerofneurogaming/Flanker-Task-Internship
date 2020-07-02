@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     // transition time between questions
     [SerializeField]
-    private float questionTransitionTime = 0.5f;
+    private float questionTransitionTime;
 
     // Text box for arrows - !!REMOVE AND REPLACE WITH BASIC ARROW ASSETS!!
     public GameObject arrows;
