@@ -4,13 +4,13 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -8597399043047006012
-    second: handsprites2_0
+    second: left_hand
   - first:
       213: -1217802870728902857
-    second: handsprites2_1
+    second: plus_symbol
   - first:
       213: -7352127018626820732
-    second: handsprites2_2
+    second: right_hand
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -132,7 +132,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: handsprites2_0
+      name: left_hand
       rect:
         serializedVersion: 2
         x: 0
@@ -140,7 +140,7 @@ TextureImporter:
         width: 920
         height: 880
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -153,7 +153,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: handsprites2_1
+      name: plus_symbol
       rect:
         serializedVersion: 2
         x: 920
@@ -161,7 +161,7 @@ TextureImporter:
         width: 920
         height: 880
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,7 +174,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: handsprites2_2
+      name: right_hand
       rect:
         serializedVersion: 2
         x: 1840
@@ -182,7 +182,7 @@ TextureImporter:
         width: 920
         height: 880
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
