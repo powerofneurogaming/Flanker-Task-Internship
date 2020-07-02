@@ -663,12 +663,10 @@ MonoBehaviour:
   - If the MIDDLE hand is pointing right, choose the right hand.
   - All hands may face same-way. Sometimes the MIDDLE faces other-way. Pick the hand
     matching the MIDDLE. The middle has a + to remind you.
-  - 'Now you try. Keep your eyes on the + symbol. Answer as fast as you can without
-    making mistakes. If you make a mistake, just keep going! Remember: Put your finger
-    back on Home Base after you answer.'
-  - Now you're ready to play on your own. Unlike this tutorial, the actual questions
-    will be timed. Be quick, but be accurate! If you make a mistake, just keep going,
-    and remember to return to Home Base.
+  - 'Now you try! Answer as fast as you can without mistakes. If you make a mistake,
+    just keep going! Remember: return to center after you answer.'
+  - Now you're ready! Unlike this tutorial, the game is timed. Be quick but accurate!
+    If you make a mistake, just keep going, and remember to return to center.
   globalIndex: 0
   arrows: {fileID: 715181074}
   leftHand: {fileID: 392178194}
@@ -969,7 +967,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 288
+  m_textAlignment: 544
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 2
