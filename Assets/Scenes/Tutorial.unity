@@ -1423,10 +1423,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to the Flanker Task! In this task, you will see a row of hands
-    pointing different ways. But first, we are going to learn about Home Base. The
-    circle with the + symbol on it is your Home Base. Please touch the + symbol,
-    and wait for the next picture.
+  m_text: Welcome to the Flanker Task! First we will learn about center. The circle
+    below is your center. Please click and hold, and wait.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fbddc3ca7ecee14eba44b54668349e6, type: 2}
   m_sharedMaterial: {fileID: -6752801881257197919, guid: 8fbddc3ca7ecee14eba44b54668349e6,
@@ -1455,14 +1453,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 18.5
-  m_fontSizeBase: 18.5
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 288
+  m_textAlignment: 544
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1496,12 +1494,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1019382611}
-    characterCount: 257
+    characterCount: 128
     spriteCount: 0
-    spaceCount: 50
-    wordCount: 49
+    spaceCount: 22
+    wordCount: 23
     linkCount: 0
-    lineCount: 4
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

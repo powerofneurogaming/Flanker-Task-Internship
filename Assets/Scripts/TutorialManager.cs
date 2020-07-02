@@ -136,7 +136,7 @@ public class TutorialManager : MonoBehaviour
         allTrialQuestions[4] = questions[3];
     }
 
-    // Start a trialf
+    // Start a trial
     public void startTrial()
     {
         // If isAnswered is false, block this entire function; the question has not been answered yet

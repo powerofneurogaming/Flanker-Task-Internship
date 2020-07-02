@@ -737,6 +737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb9dcb3d037f5e4f8d0f9e180506a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carriage_return: {fileID: 0}
+  volume: 0.5
   playerName: {fileID: 0}
 --- !u!1 &1594472098
 GameObject:
@@ -918,6 +920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af454501cca387498f59eb4e7e2cdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typekey: {fileID: 0}
+  volume: 0.5
 --- !u!1 &1942975475
 GameObject:
   m_ObjectHideFlags: 0
