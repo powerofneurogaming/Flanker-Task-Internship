@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f990c244c607bd45b84e668e81d9b37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d5b20c196202274a80c1cfb1e683ed5, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f990c244c607bd45b84e668e81d9b37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d5b20c196202274a80c1cfb1e683ed5, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -620,38 +620,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questions:
-  - flankerArrows: <sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand">
+  - flankerArrows: <sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand">
     trialNumber: 0
     isCongruent: 1
     isLeft: 0
     isPrev: 0
-  - flankerArrows: <sprite="handsprites" name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand">
+  - flankerArrows: <sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand">
     trialNumber: 0
     isCongruent: 1
     isLeft: 1
     isPrev: 0
-  - flankerArrows: <sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="right_hand">
+  - flankerArrows: <sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="right_hand"><sprite="handsprites2" name="right_hand">
     trialNumber: 0
     isCongruent: 0
     isLeft: 1
     isPrev: 0
-  - flankerArrows: <sprite="handsprites" name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="right_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand"><sprite="handsprites" name="left_hand"><sprite="handsprites"
-      name="left_hand">
+  - flankerArrows: <sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+      name="left_hand"><sprite="handsprites2" name="left_hand">
     trialNumber: 0
     isCongruent: 0
     isLeft: 0
