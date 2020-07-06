@@ -26,6 +26,26 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Intro");
     }
 
+    public void toClassic()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        source.Pause();
+        SceneManager.LoadScene("Classic Select");
+    }
+
+    public void toTimeTrial()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        source.Pause();
+        SceneManager.LoadScene("Time Select");
+    }
+
     public void toTutorial()
     {
         if (!sfxSource.isPlaying)

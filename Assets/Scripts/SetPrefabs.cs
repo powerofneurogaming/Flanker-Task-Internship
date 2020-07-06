@@ -44,7 +44,7 @@ public class SetPrefabs : MonoBehaviour
         }
 
         // Transition to trial select screen
-        SceneManager.LoadScene("Select Screen");
+        SceneManager.LoadScene("Title");
     }
 
     // On trial select screen, get number of trials
