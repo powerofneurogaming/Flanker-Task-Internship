@@ -13,6 +13,8 @@ public class SetPrefabs : MonoBehaviour
     // When I need to start adding more complex user menus I need to ask Khalil for help.
     public GameObject playerName;
 
+    public static string name;
+
     // Set fresh game state 
     public void setupPrefabs()
     {
@@ -26,7 +28,7 @@ public class SetPrefabs : MonoBehaviour
         PlayerPrefs.SetFloat("avgIncongTime", 0.0f);
 
         // Get name from text box
-        string name = playerName.GetComponent<Text>().text;
+        name = playerName.GetComponent<Text>().text;
 
         // If name is blank, use default
         if (name.Length <= 0)
@@ -38,13 +40,22 @@ public class SetPrefabs : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", name);
         }
 
+        tutorialGate.Instance.getPlayed();
+
         if (!SoundManager.Instance.audioSource.isPlaying)
         {
             SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
         }
 
-        // Transition to trial select screen
-        SceneManager.LoadScene("Title");
+        // Transition to title screen
+        if(tutorialGate.Instance.hasPlayedTutorial == true)
+        {
+            SceneManager.LoadScene("Title");
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
     }
 
     // On trial select screen, get number of trials

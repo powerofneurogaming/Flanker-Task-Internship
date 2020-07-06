@@ -67,6 +67,11 @@ public class TutorialManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        if(tutorialGate.Instance)
+        {
+            tutorialGate.Instance.setTrue();
+        }
+
         buttons = GameObject.FindGameObjectsWithTag("button");
         globalIndex = 0;
 
