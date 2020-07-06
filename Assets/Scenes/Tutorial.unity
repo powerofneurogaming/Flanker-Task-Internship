@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -657,12 +657,12 @@ MonoBehaviour:
     isLeft: 0
     isPrev: 0
   prompts:
-  - You will see a row of hands. You should choose the hand buton that matches the
+  - You will see a row of hands. You should choose the hand button that matches the
     way the MIDDLE hand is pointing.
   - If the MIDDLE hand is pointing left, choose the left hand
   - If the MIDDLE hand is pointing right, choose the right hand.
   - All hands may face same-way. Sometimes the MIDDLE faces other-way. Pick the hand
-    matching the MIDDLE. The middle has a + to remind you.
+    matching the MIDDLE. The middle is centered with the +.
   - 'Now you try! Answer as fast as you can without mistakes. If you make a mistake,
     just keep going! Remember: return to center after you answer.'
   - Now you're ready! Unlike this tutorial, the game is timed. Be quick but accurate!
