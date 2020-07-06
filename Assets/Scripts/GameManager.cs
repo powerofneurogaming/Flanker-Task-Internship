@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     float finalCongTime;
     float finalIncongTime;
 
+    GameObject[] buttons;
+
     // Sentinels
     bool isAnswered; // Disables the plus button until a question is answerewd
     public bool endlessMode; // Enables endless mode if givenQuestions is initially zero
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        buttons = GameObject.FindGameObjectsWithTag("button");
+
         Music.Instance.musicSource.Play(0);
 
         globalIndex = 0;
@@ -119,7 +123,6 @@ public class GameManager : MonoBehaviour
         maxTime = 4f;
 
         // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
@@ -198,6 +201,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(questionTransitionTime);
 
         // Start timer and display trial
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(true);
+        }
+
         Timer.timerStart = true;
         arrows.GetComponent<TextMeshProUGUI>().text = trial;
     }
@@ -211,7 +219,6 @@ public class GameManager : MonoBehaviour
         arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
 
         // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
@@ -237,7 +244,6 @@ public class GameManager : MonoBehaviour
         arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
 
         // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
@@ -261,7 +267,6 @@ public class GameManager : MonoBehaviour
         Timer.timerStart = false;
 
         // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
@@ -353,6 +358,8 @@ public class GameManager : MonoBehaviour
         {
             resetTrials();
         }
+
+        startTrial();
     }
 
     // At end of game, transition to results screen

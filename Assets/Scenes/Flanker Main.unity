@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoSize: 1
-  sizePercentage: 66
+  sizePercentage: 150
   rippleSize: 0
   rippleSpeed: 8
   rippleColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   rippleEndAlpha: 0.3
   highlightWhen: 2
   moveTowardCenter: 1
-  toggleMask: 0
+  toggleMask: 1
   dontRippleOnScroll: 0
   scrollDelayCheckTime: 0.05
 --- !u!114 &894625112
@@ -1215,8 +1215,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 212699564}
-        m_MethodName: SetActive
+      - m_Target: {fileID: 894625112}
+        m_MethodName: set_interactable
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1224,18 +1224,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 392178194}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &894625113
 MonoBehaviour:

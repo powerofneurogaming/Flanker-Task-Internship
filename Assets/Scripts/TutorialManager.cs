@@ -37,9 +37,6 @@ public class TutorialManager : MonoBehaviour
 
     // Variables used to initialize given questions
     int givenQuestions; // Number of trials to be given, or 0 to trigger endless mode (10 question loop/re-init)
-    private Question previousQuestion;
-    private Question currentQuestion;
-    private int randQuestionIndex;
 
     // State variables for game
     public int globalIndex; // Index for current question
@@ -49,8 +46,15 @@ public class TutorialManager : MonoBehaviour
     bool isHeld;
     float holdTime;
 
+    [SerializeField]
+    GameObject plusButton;
+
+    [SerializeField]
+    GameObject backButton;
+
     // transition time between questions
-    float questionTransitionTime = 3.0f;
+    [SerializeField]
+    private float questionTransitionTime;
 
     // Text box for arrows
     public GameObject arrows;
@@ -58,9 +62,12 @@ public class TutorialManager : MonoBehaviour
     public GameObject rightHand;
     public GameObject introText;
 
+    GameObject[] buttons;
+
     // Set up starting game state
     private void Start()
     {
+        buttons = GameObject.FindGameObjectsWithTag("button");
         globalIndex = 0;
 
         // Get the player level from the previous scene; if zero, start endless mode
@@ -74,11 +81,12 @@ public class TutorialManager : MonoBehaviour
         isHeld = false;
 
         // Get left/right buttons and turn them off
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(false);
         }
+
+        backButton.SetActive(false);
 
         // Turn off arrows
         arrows.GetComponent<TextMeshProUGUI>().text = "";
@@ -94,6 +102,16 @@ public class TutorialManager : MonoBehaviour
         {
             Debug.Log(question.flankerArrows);
         }
+
+        StartCoroutine(introDisplay());
+    }
+
+    IEnumerator introDisplay()
+    {
+        introText.GetComponent<TextMeshProUGUI>().text = "Welcome to the Flanker Task!";
+        yield return new WaitForSeconds(questionTransitionTime);
+        introText.GetComponent<TextMeshProUGUI>().fontSize = 24;
+        introText.GetComponent<TextMeshProUGUI>().text = "First we will learn about center. The circle below is your center. Please click and hold, and wait.";
     }
 
     public void holdDown()
@@ -139,6 +157,16 @@ public class TutorialManager : MonoBehaviour
     // Start a trial
     public void startTrial()
     {
+        if(globalIndex <= 4)
+        {
+            plusButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+        }
+        else
+        {
+            plusButton.SetActive(false);
+            backButton.SetActive(true);
+        }
+
         // If isAnswered is false, block this entire function; the question has not been answered yet
         if (isAnswered == true)
         {
@@ -146,7 +174,7 @@ public class TutorialManager : MonoBehaviour
 
             // Set current trial
             Question trial = allTrialQuestions[globalIndex];
-            displayTrial(trial.flankerArrows);
+            StartCoroutine(displayTrial(trial.flankerArrows));
 
             // Reset is answered sentinel;
             isAnswered = false;
@@ -154,8 +182,14 @@ public class TutorialManager : MonoBehaviour
     }
 
     // Display newly set current trial
-    public void displayTrial(string trial)
+    IEnumerator displayTrial(string trial)
     {
+        // Display '+'
+        arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
+
+        // Wait for given time between questions
+        yield return new WaitForSeconds(questionTransitionTime);
+
         // Start timer and display trial
         arrows.GetComponent<TextMeshProUGUI>().text = prompts[globalIndex] + "\n\n";
         if (globalIndex == 1 || globalIndex == 2)
@@ -163,6 +197,11 @@ public class TutorialManager : MonoBehaviour
             arrows.GetComponent<TextMeshProUGUI>().text += "\n";
         }
         arrows.GetComponent<TextMeshProUGUI>().text += trial;
+
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(true);
+        }
     }
 
     // Right button logic
@@ -173,7 +212,6 @@ public class TutorialManager : MonoBehaviour
             arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
 
             // Get left/right buttons and turn them off
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
             foreach (GameObject obj in buttons)
             {
                 obj.SetActive(false);
@@ -191,7 +229,6 @@ public class TutorialManager : MonoBehaviour
             arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
 
             // Get left/right buttons and turn them off
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("button");
             foreach (GameObject obj in buttons)
             {
                 obj.SetActive(false);
@@ -216,6 +253,8 @@ public class TutorialManager : MonoBehaviour
             // Enable clicking of plus button. TODO: REMOVE PLUS BUTTON
             isAnswered = true;
         }
+
+        startTrial();
     }
 
     // At end of game, transition to results screen
