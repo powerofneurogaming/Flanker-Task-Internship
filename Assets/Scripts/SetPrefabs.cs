@@ -65,6 +65,7 @@ public class SetPrefabs : MonoBehaviour
         if (endlessModeToggle.endlessMode == true)
         {
             PlayerPrefs.SetInt("PlayerLevel", 0);
+            PlayerPrefs.SetInt("GameMode", 2);
             SceneManager.LoadScene("Flanker Main");
         }
         string level = playerName.GetComponent<Text>().text;
@@ -80,8 +81,15 @@ public class SetPrefabs : MonoBehaviour
             {
                 SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
             }
+            PlayerPrefs.SetInt("GameMode", 0);
             SceneManager.LoadScene("Flanker Main");
         }
+    }
+
+    public void setTimed()
+    {
+        PlayerPrefs.SetInt("GameMode", 1);
+        SceneManager.LoadScene("Flanker Main");
     }
 
     public void Update()

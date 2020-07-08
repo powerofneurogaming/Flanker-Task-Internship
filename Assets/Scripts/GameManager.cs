@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     // Variables used to initialize given questions
     int givenQuestions; // Number of trials to be given, or 0 to trigger endless mode (10 question loop/re-init)
+    int gameMode;
     int difficulty;
     private Question previousQuestion;
     private Question currentQuestion;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     // Sentinels
     bool isAnswered; // Disables the plus button until a question is answerewd
     public bool endlessMode; // Enables endless mode if givenQuestions is initially zero
+    public bool timeTrial;
 
     // transition time between questions
     [SerializeField]
@@ -86,30 +88,54 @@ public class GameManager : MonoBehaviour
 
         bestTime = 0.0f;
 
-        // Get the player level from the previous scene; if zero, start endless mode
-        givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
+        gameMode = PlayerPrefs.GetInt("GameMode");
         difficulty = PlayerPrefs.GetInt("Difficulty");
-        if (difficulty == 0)
+
+        // Get the player level from the previous scene; if zero, start endless mode
+        if (gameMode == 0)
         {
-            multiplier = 2.5f;
+            givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
         }
-        else if (difficulty == 1)
+        else if (gameMode == 1)
         {
-            multiplier = 2.0f;
+            if (difficulty == 0)
+            {
+                givenQuestions = 10;
+            }
+            else if (difficulty == 1)
+            {
+                givenQuestions = 20;
+            }
+            else
+            {
+                givenQuestions = 30;
+            }
+            timeTrial = true;
         }
         else
-        {
-            multiplier = 1.5f;
-        }
-        if (givenQuestions == 0)
         {
             givenQuestions = 1;
             endlessMode = true;
         }
-        else
+
+        if(timeTrial != true)
         {
-            endlessMode = false;
+            if (difficulty == 0)
+            {
+                multiplier = 2.5f;
+            }
+            else if (difficulty == 1)
+            {
+                multiplier = 2.0f;
+            }
+            else
+            {
+                multiplier = 1.5f;
+            }
         }
+
+        // Initialize array of trial questions based on the number of questions desired
+        allTrialQuestions = new Question[givenQuestions];
 
         // Set game state to initial values
         score = 0;
@@ -120,7 +146,14 @@ public class GameManager : MonoBehaviour
         incongruentQuestions = 0;
 
         // Initialize max time to (number of questions) seconds
-        maxTime = 4f;
+        if(timeTrial == false)
+        {
+            maxTime = 5f;
+        }
+        else
+        {
+            maxTime = 2f;
+        }
 
         // Get left/right buttons and turn them off
         foreach (GameObject obj in buttons)
@@ -130,9 +163,6 @@ public class GameManager : MonoBehaviour
 
         // Turn off arrows
         arrows.SetActive(false);
-
-        // Initialize array of trial questions based on the number of questions desired
-        allTrialQuestions = new Question[givenQuestions];
 
         // Set up questions
         LoadTrials();
@@ -285,25 +315,28 @@ public class GameManager : MonoBehaviour
     // General end-state logic
     public void userSelectEnd(bool answered, bool correct)
     {
-        // Timer adjust logic: 1.5x correct score average
-        if (score != 0)
+        if(timeTrial == false)
         {
-            float avg = Timer.getTime() / score;
-            float currMultiplier = multiplier - 1.0f;
-            if (endlessMode == false)
+            // Timer adjust logic: scaling multiplier x correct score average
+            if (score != 0)
             {
-                currMultiplier = (currMultiplier / givenQuestions * (givenQuestions - globalIndex)) + 1;
+                float avg = Timer.getTime() / score;
+                float currMultiplier = multiplier - 1.0f;
+                if (endlessMode == false)
+                {
+                    currMultiplier = (currMultiplier / givenQuestions * (givenQuestions - globalIndex)) + 1;
+                }
+                else
+                {
+                    currMultiplier = (currMultiplier / 25 * (25 - (numAnswered + numUnanswered))) + 1;
+                }
+                if (endlessMode == true && currMultiplier < 1.1f)
+                {
+                    currMultiplier = 1.1f;
+                }
+                maxTime = avg * currMultiplier;
+                Debug.Log("Current time multiplier: " + currMultiplier + ", max time: " + maxTime);
             }
-            else
-            {
-                currMultiplier = (currMultiplier / 25 * (25 - (numAnswered + numUnanswered))) + 1;
-            }
-            if(endlessMode == true && currMultiplier < 1.1f)
-            {
-                currMultiplier = 1.1f;
-            }
-            maxTime = avg * currMultiplier;
-            Debug.Log("Current time multiplier: " + currMultiplier + ", max time: " + maxTime);
         }
 
         // Reset timer, increment score if correct
