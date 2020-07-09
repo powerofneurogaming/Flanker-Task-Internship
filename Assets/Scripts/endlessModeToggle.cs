@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// THIS FILE IS TEMPORARY UNTIL THE ENDLESS MODE SETUP SCENE IS IMPLEMENTED
 public class endlessModeToggle : MonoBehaviour
 {
     public Toggle endlessToggle;
@@ -10,12 +11,11 @@ public class endlessModeToggle : MonoBehaviour
 
     public static bool endlessMode;
 
-    // Start is called before the first frame update
     void Start()
     {
-        endlessMode = false;
     }
 
+    // Toggles Endless Mode on or off based on checkbox
     public void onToggle()
     {
         if (endlessToggle.isOn)
