@@ -92,14 +92,17 @@ public class GameManager : MonoBehaviour
             if (difficulty == 0)
             {
                 givenQuestions = 10;
+                Timer.globalTimer = 20.0f;
             }
             else if (difficulty == 1)
             {
                 givenQuestions = 20;
+                Timer.globalTimer = 40.0f;
             }
             else
             {
                 givenQuestions = 30;
+                Timer.globalTimer = 60.0f;
             }
             timeTrial = true;
         }
@@ -354,6 +357,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if (timeTrial == true)
+            {
+                Timer.globalTimer--;
+            }
             Timer.resetTimer(false);
         }
 
@@ -380,7 +387,7 @@ public class GameManager : MonoBehaviour
         globalIndex++;
 
         // If exit condition is detected, transition to results screen
-        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= 3)
+        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= 3 || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
             moveToResults();
         }
