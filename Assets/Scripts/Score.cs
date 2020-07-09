@@ -26,6 +26,8 @@ public class Score : MonoBehaviour
     float incongTimeRound;
     float flankerRound;
 
+    // Best time output string, so the game shows if there is no best time
+    // (i.e. the player got all trials wrong)
     string bestString;
 
     // ID for entry in CSV file
@@ -40,8 +42,6 @@ public class Score : MonoBehaviour
     // Set up results readout, write to CSV file
     void Start()
     {
-        Music.Instance.musicSource.Play(0);
-
         // Disable game results text
         scoreText.enabled = false;
         restartButton.gameObject.SetActive(false);
@@ -65,9 +65,10 @@ public class Score : MonoBehaviour
         congTimeRound = Mathf.Round(congTime * 1000) / 1000;
         incongTimeRound = Mathf.Round(incongTime * 1000) / 1000;
 
+        // If no best time, don't output a best time
         if(bestTime == 0.0f)
         {
-            bestString = "\nNo correct answers...";
+            bestString = "\nNo best time...";
         }
         else
         {
@@ -103,6 +104,7 @@ public class Score : MonoBehaviour
     // When you click 'View Results', display game results
     public void displayResults()
     {
+        // UI buttons
         restartButton.gameObject.SetActive(true);
         mainMenuButton.gameObject.SetActive(true);
 

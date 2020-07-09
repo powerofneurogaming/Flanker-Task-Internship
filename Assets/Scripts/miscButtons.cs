@@ -52,7 +52,6 @@ public class miscButtons : MonoBehaviour
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        source.Pause();
         SceneManager.LoadScene("Tutorial");
     }
 

@@ -7,16 +7,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-// Manages game state. A big monolithic block of code that only causes me immense suffering.
-// Most likely needs to be broken up into several different scripts, because any time I try
-// to hook a game UI element up to it instead of hooking it up to a separate script, the game
-// explodes and fails spectacularly. This file is the bane of my existence.
-//
-// TODO: Break Left and Right button logic out into a separate script so I can get rid of the
-//       plus button and stop needing to update the scoreboard every frame like some sort of
-//       barbarian.
+// GameManager equivalent for the tutorial
 public class TutorialManager : MonoBehaviour
 {
+    // Pseudo-singleton, see GameManager for details
+    // Again, this !! DOES NOT !! persist across scenes
     public static TutorialManager Instance { get; private set; }
 
     private void Awake()
@@ -32,58 +27,51 @@ public class TutorialManager : MonoBehaviour
     }
 
     public Question[] questions; // Array of possible questions
-    public string[] prompts;
-    public static Question[] allTrialQuestions; // Array of randomly selected questions
+    public string[] prompts; // Array of tutorial messages
+    public static Question[] allTrialQuestions; // Array of selected questions
 
-    // Variables used to initialize given questions
-    int givenQuestions; // Number of trials to be given, or 0 to trigger endless mode (10 question loop/re-init)
-
-    // State variables for game
+    // Question state information
+    int givenQuestions; // Number of trials to be given
     public int globalIndex; // Index for current question
 
     // Sentinels
     bool isAnswered; // Disables the plus button until a question is answerewd
-    bool isHeld;
+    bool isHeld; // isHeld and holdTime are used for the hold prompt on the first text message
     float holdTime;
 
+    // The plus button
     [SerializeField]
     GameObject plusButton;
 
+    // Return button at the end of the tutorial
     [SerializeField]
     GameObject backButton;
 
-    // transition time between questions
+    // transition time between prompts
     [SerializeField]
     private float questionTransitionTime;
 
-    // Text box for arrows
-    public GameObject arrows;
-    public GameObject leftHand;
-    public GameObject rightHand;
+    // Text boxes for arrows/prompts
     public GameObject introText;
+    public GameObject arrows;
 
+    // Left and right hand buttons
     GameObject[] buttons;
 
     // Set up starting game state
     private void Start()
     {
-        if(tutorialGate.Instance)
-        {
-            tutorialGate.Instance.setTrue();
-        }
-
         buttons = GameObject.FindGameObjectsWithTag("button");
         globalIndex = 0;
 
         // Get the player level from the previous scene; if zero, start endless mode
         givenQuestions = 5;
 
+        // Initialize hold time to zero for first prompt
         holdTime = 0.0f;
 
         // Set game state to initial values
         isAnswered = true;
-
-        isHeld = false;
 
         // Get left/right buttons and turn them off
         foreach (GameObject obj in buttons)
@@ -91,6 +79,7 @@ public class TutorialManager : MonoBehaviour
             obj.SetActive(false);
         }
 
+        // Hide return button for now
         backButton.SetActive(false);
 
         // Turn off arrows
@@ -108,9 +97,11 @@ public class TutorialManager : MonoBehaviour
             Debug.Log(question.flankerArrows);
         }
 
+        // Display first text prompt
         StartCoroutine(introDisplay());
     }
 
+    // Handles initial tutorial text
     IEnumerator introDisplay()
     {
         introText.GetComponent<TextMeshProUGUI>().text = "Welcome to the Flanker Task!";
@@ -119,37 +110,46 @@ public class TutorialManager : MonoBehaviour
         introText.GetComponent<TextMeshProUGUI>().text = "First we will learn about center. The circle below is your center. Please click and hold, and wait.";
     }
 
+    // Fires when button is held down
     public void holdDown()
     {
         isHeld = true;
     }
 
+    // Fires if button is released too early
     public void holdUp()
     {
         isHeld = false;
     }
 
+    // Keeps track of how long you held button, resets if released too early
     private void Update()
     {
         if (isHeld == true)
         {
+            // Increment hold timer while holding down button
             holdTime += Time.deltaTime;
+
+            // Once hold time exceeds given time, trigger next scene
             if(holdTime >= 1.5f)
             {
-                holdTime = 0.0f;
+                // Disable intro text
                 introText.SetActive(false);
-                leftHand.SetActive(true);
-                rightHand.SetActive(true);
+
+                // Start tutorial
+                isHeld = false;
                 startTrial();
             }
         }
+
+        // If not being held, reset hold timer
         else if(holdTime != 0.0f)
         {
             holdTime = 0.0f;
         }
     }
 
-    // Initialize questions in question array
+    // Hardcoded questions based on tutorial text
     void LoadTrials()
     {
         allTrialQuestions[0] = questions[1];
@@ -271,7 +271,13 @@ public class TutorialManager : MonoBehaviour
 
     public void endTutorial()
     {
-        // Display '+'
+        // Set to true since the player has now played the tutorial
+        if (tutorialGate.Instance)
+        {
+            tutorialGate.Instance.setTrue();
+        }
+
+        // Set tutorial text to final prompt
         arrows.GetComponent<TextMeshProUGUI>().text = prompts[5];
     }
 }
