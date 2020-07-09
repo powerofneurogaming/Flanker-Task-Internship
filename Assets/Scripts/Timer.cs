@@ -47,11 +47,16 @@ public class Timer : MonoBehaviour
         if (globalTimer >= 0.0f)
         {
             globalTimer -= Time.deltaTime;
+            if (globalTimer >= 0.0f)
+            {
+                Debug.Log("Global time: " + globalTimer);
+            }
         }
         // Else if timer is negative, sets to 0
-        else if (globalTimer < 0.0f)
+        if (globalTimer < 0.0f)
         {
             globalTimer = 0.0f;
+            Debug.Log("Global time: " + globalTimer);
         }
 
     }

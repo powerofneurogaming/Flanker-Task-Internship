@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// AudioSource script for sound effects
 public class SoundManager : MonoBehaviour
 {
+    // Singleton
     public static SoundManager Instance { get; private set; }
 
     public AudioSource audioSource;

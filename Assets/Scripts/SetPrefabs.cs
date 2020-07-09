@@ -18,6 +18,12 @@ public class SetPrefabs : MonoBehaviour
     // Set fresh game state 
     public void setupPrefabs()
     {
+        // Play carriage return sound
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+        }
+
         // Initialize player data to default
         PlayerPrefs.SetInt("PlayerLevel", 0);
         PlayerPrefs.SetInt("PlayerScore", 0);
@@ -40,14 +46,10 @@ public class SetPrefabs : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", name);
         }
 
+        // Check if tutorial has been played before by the given user
         tutorialGate.Instance.getPlayed();
 
-        if (!SoundManager.Instance.audioSource.isPlaying)
-        {
-            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
-        }
-
-        // Transition to title screen
+        // Transition to either title screen or tutorial depending on if the tutorial has been played before
         if(tutorialGate.Instance.hasPlayedTutorial == true)
         {
             SceneManager.LoadScene("Title");
@@ -62,36 +64,48 @@ public class SetPrefabs : MonoBehaviour
     // If non-number, set to zero (endless mode)
     public void setLevel()
     {
+        // Temporary code for starting Endless Mode from Classic Mode screen
         if (endlessModeToggle.endlessMode == true)
         {
             PlayerPrefs.SetInt("PlayerLevel", 0);
             PlayerPrefs.SetInt("GameMode", 2);
             SceneManager.LoadScene("Flanker Main");
         }
-        string level = playerName.GetComponent<Text>().text;
-        int.TryParse(level, out int level_int);
-        if (level_int != 0 && endlessModeToggle.endlessMode == false)
+        // Else, regular Classic Mode code
+        else
         {
-            if (level_int > 100)
+            // Get number of levels from user text input
+            string level = playerName.GetComponent<Text>().text;
+
+            // parse user input
+            int.TryParse(level, out int level_int);
+
+            // If valid user input and not endless mode, process input
+            if (level_int != 0 && endlessModeToggle.endlessMode == false)
             {
-                level_int = 100;
+                if (level_int > 100)
+                {
+                    level_int = 100;
+                }
+                PlayerPrefs.SetInt("PlayerLevel", level_int);
+                if (!SoundManager.Instance.audioSource.isPlaying)
+                {
+                    SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+                }
+                PlayerPrefs.SetInt("GameMode", 0);
+                SceneManager.LoadScene("Flanker Main");
             }
-            PlayerPrefs.SetInt("PlayerLevel", level_int);
-            if (!SoundManager.Instance.audioSource.isPlaying)
-            {
-                SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
-            }
-            PlayerPrefs.SetInt("GameMode", 0);
-            SceneManager.LoadScene("Flanker Main");
         }
     }
 
+    // Code for starting Time Trial mode
     public void setTimed()
     {
         PlayerPrefs.SetInt("GameMode", 1);
         SceneManager.LoadScene("Flanker Main");
     }
 
+    // 
     public void Update()
     {
         if(Input.GetKey(KeyCode.Return))
@@ -102,7 +116,14 @@ public class SetPrefabs : MonoBehaviour
             }
             else if(SceneManager.GetActiveScene().name == "Select Screen")
             {
-                setLevel();
+                if(SceneManager.GetActiveScene().name == "Classic Select")
+                {
+                    setLevel();
+                }
+                else if (SceneManager.GetActiveScene().name == "Classic Select")
+                {
+                    setTimed();
+                }
             }
         }
     }
