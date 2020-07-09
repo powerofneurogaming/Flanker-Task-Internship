@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         }
         else if (gameMode == 1) // if time trial mode
         {
+            // Set number of questions and seconds per game based on difficulty 
             if (difficulty == 0)
             {
                 givenQuestions = 10;
@@ -357,10 +358,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // Decreasing the timer in Time Trial mode
             if (timeTrial == true)
             {
                 Timer.globalTimer--;
             }
+
+            // Reset per question timer in any game mode
             Timer.resetTimer(false);
         }
 
