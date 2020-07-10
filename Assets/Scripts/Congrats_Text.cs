@@ -14,6 +14,7 @@ public class Congrats_Text : MonoBehaviour
     // Setter for Congratulations text. TODO: MOST LIKELY UNNECESSARY. REMOVE?
     void Start()
     {
+        // Get player name, and display it if set to non-default value
         Player = PlayerPrefs.GetString("PlayerName");
         if(Player == "NoName")
         {

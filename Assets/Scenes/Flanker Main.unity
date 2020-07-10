@@ -665,6 +665,7 @@ MonoBehaviour:
   timeTrial: 0
   questionTransitionTime: 1
   arrows: {fileID: 715181074}
+  scoreboard: {fileID: 1574444363}
 --- !u!4 &483397938
 Transform:
   m_ObjectHideFlags: 0
@@ -1706,7 +1707,6 @@ GameObject:
   - component: {fileID: 1574444364}
   - component: {fileID: 1574444367}
   - component: {fileID: 1574444366}
-  - component: {fileID: 1574444365}
   m_Layer: 5
   m_Name: Endless Score
   m_TagString: Untagged
@@ -1733,19 +1733,6 @@ RectTransform:
   m_AnchoredPosition: {x: 71.19995, y: -15.100006}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &1574444365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574444363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e385a1f93e96e459d9331ed24eb43e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 1574444366}
 --- !u!114 &1574444366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,7 +1765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score:'
+  m_Text: 'Score: 0'
 --- !u!222 &1574444367
 CanvasRenderer:
   m_ObjectHideFlags: 0

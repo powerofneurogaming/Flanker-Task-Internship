@@ -35,7 +35,6 @@ public class TutorialManager : MonoBehaviour
     public int globalIndex; // Index for current question
 
     // Sentinels
-    bool isAnswered; // Disables the plus button until a question is answerewd
     bool isHeld; // isHeld and holdTime are used for the hold prompt on the first text message
     float holdTime;
 
@@ -69,9 +68,6 @@ public class TutorialManager : MonoBehaviour
 
         // Initialize hold time to zero for first prompt
         holdTime = 0.0f;
-
-        // Set game state to initial values
-        isAnswered = true;
 
         // Get left/right buttons and turn them off
         foreach (GameObject obj in buttons)
@@ -162,40 +158,28 @@ public class TutorialManager : MonoBehaviour
     // Start a trial
     public void startTrial()
     {
-        if(globalIndex <= 4)
+        // Make sure button is un-interactable for most of tutorial, then disable it and enable the
+        // return button at the end of the tutorial
+        if(globalIndex == 0)
         {
             plusButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
         }
-        else
-        {
-            plusButton.SetActive(false);
-            backButton.SetActive(true);
-        }
 
-        // If isAnswered is false, block this entire function; the question has not been answered yet
-        if (isAnswered == true)
-        {
-            arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
+        // Show plus symbol to recenter player's gaze
+        arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
 
-            // Set current trial
-            Question trial = allTrialQuestions[globalIndex];
-            StartCoroutine(displayTrial(trial.flankerArrows));
-
-            // Reset is answered sentinel;
-            isAnswered = false;
-        }
+        // Set current trial
+        Question trial = allTrialQuestions[globalIndex];
+        StartCoroutine(displayTrial(trial.flankerArrows));
     }
 
     // Display newly set current trial
     IEnumerator displayTrial(string trial)
     {
-        // Display '+'
-        arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
-
         // Wait for given time between questions
         yield return new WaitForSeconds(questionTransitionTime);
 
-        // Start timer and display trial
+        // Display prompt and trial
         arrows.GetComponent<TextMeshProUGUI>().text = prompts[globalIndex] + "\n\n";
         if (globalIndex == 1 || globalIndex == 2)
         {
@@ -203,41 +187,29 @@ public class TutorialManager : MonoBehaviour
         }
         arrows.GetComponent<TextMeshProUGUI>().text += trial;
 
+        // Turn hand buttons back on
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(true);
         }
     }
 
-    // Right button logic
+    // Wrapper for userSelectEnd() to gate behind correct answer
     public void userSelectRight()
     {
+        // Only proceed if player has chosen the correct answer
         if (!allTrialQuestions[globalIndex].isLeft)
         {
-            arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-            // Get left/right buttons and turn them off
-            foreach (GameObject obj in buttons)
-            {
-                obj.SetActive(false);
-            }
             userSelectEnd();
         }
     }
 
-    // Left button logic
+    // Wrapper for userSelectEnd() to gate behind correct answer
     public void userSelectLeft()
     {
-        // If left is correct, trigger correct answer logic, else trigger incorrect question logic
+        // Only proceed if player has chosen the correct answer
         if (allTrialQuestions[globalIndex].isLeft)
         {
-            arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-            // Get left/right buttons and turn them off
-            foreach (GameObject obj in buttons)
-            {
-                obj.SetActive(false);
-            }
             userSelectEnd();
         }
     }
@@ -245,39 +217,43 @@ public class TutorialManager : MonoBehaviour
     // General end-state logic
     public void userSelectEnd()
     {
+        // Get left/right buttons and turn them off
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(false);
+        }
+
         // Advance to the next question
         globalIndex++;
 
-        // If exit condition is detected, transition to results screen
+        // If exit condition is detected, end tutorial
         if (globalIndex >= givenQuestions)
         {
-            moveToResults();
+            endTutorial();
         }
         else
         {
-            // Enable clicking of plus button. TODO: REMOVE PLUS BUTTON
-            isAnswered = true;
+            // Proceed to next prompt
+            startTrial();
         }
-
-        startTrial();
-    }
-
-    // At end of game, transition to results screen
-    public void moveToResults()
-    {
-        endTutorial();
-        Instance = null;
     }
 
     public void endTutorial()
     {
+        // Disable plus button and enable return button
+        plusButton.SetActive(false);
+        backButton.SetActive(true);
+
+        // Set tutorial text to final prompt
+        arrows.GetComponent<TextMeshProUGUI>().text = prompts[5];
+
         // Set to true since the player has now played the tutorial
         if (tutorialGate.Instance)
         {
             tutorialGate.Instance.setTrue();
         }
 
-        // Set tutorial text to final prompt
-        arrows.GetComponent<TextMeshProUGUI>().text = prompts[5];
+        // Reset Instance
+        Instance = null;
     }
 }

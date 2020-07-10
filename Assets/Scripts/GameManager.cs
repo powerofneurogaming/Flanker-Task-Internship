@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     // Text box for arrows / hand sprites
     public GameObject arrows;
+    public GameObject scoreboard;
 
     // Set up starting game state
     private void Start()
@@ -85,26 +86,33 @@ public class GameManager : MonoBehaviour
         // Set up game state based on chosen mode and difficulty
         if (gameMode == 0) // if classic mode
         {
+            scoreboard.GetComponent<Text>().enabled = false;
             givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
         }
         else if (gameMode == 1) // if time trial mode
         {
+            scoreboard.GetComponent<Text>().enabled = false;
+            // Set number of questions and seconds per game based on difficulty 
             if (difficulty == 0)
             {
                 givenQuestions = 10;
+                Timer.globalTimer = 20.0f;
             }
             else if (difficulty == 1)
             {
                 givenQuestions = 20;
+                Timer.globalTimer = 40.0f;
             }
             else
             {
                 givenQuestions = 30;
+                Timer.globalTimer = 60.0f;
             }
             timeTrial = true;
         }
         else // if endless mode
         {
+            scoreboard.GetComponent<Text>().enabled = true;
             givenQuestions = 1;
             endlessMode = true;
         }
@@ -345,6 +353,10 @@ public class GameManager : MonoBehaviour
         if (correct == true)
         {
             score++;
+            if(endlessMode == true)
+            {
+                scoreboard.GetComponent<Text>().text = "Score: " + score;
+            }
             if(bestTime == 0.0f || Timer.getTimer() < bestTime)
             {
                 bestTime = Timer.getTimer();
@@ -354,6 +366,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // Decreasing the timer in Time Trial mode
+            if (timeTrial == true)
+            {
+                Timer.globalTimer--;
+            }
+
+            // Reset per question timer in any game mode
             Timer.resetTimer(false);
         }
 
@@ -379,20 +398,27 @@ public class GameManager : MonoBehaviour
         // Advance to the next question
         globalIndex++;
 
-        // If exit condition is detected, transition to results screen
-        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= 3)
+        // If any exit condition is detected, transition to results screen
+        // Exit conditions:
+        //      Exhausted number of questions in Classic or Time Trial mode
+        //      Exhausted number of wrong answers in Endless mode
+        //      Ran out of time in Time Trial mode
+        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= 3 || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
             moveToResults();
         }
-        
-        // If in Endless Mode, roll next trial
-        if (endlessMode == true)
+        // Else, proceed with game
+        else
         {
-            resetTrials();
+            // If in Endless Mode, roll next trial
+            if (endlessMode == true)
+            {
+                resetTrials();
+            }
+
+            // Transition automatically without needing plus button
+            startTrial();
         }
-        
-        // Transition automatically without needing plus button
-        startTrial();
     }
 
     // At end of game, transition to results screen

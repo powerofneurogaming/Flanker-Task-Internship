@@ -10,6 +10,9 @@ public class Timer : MonoBehaviour
     static float timer;
     static float time;
 
+    // Timer for Time Trial
+    public static float globalTimer;
+
     // Absolute time of correct congruent and incongruent answers
     static float congruentTime;
     static float incongruentTime;
@@ -38,7 +41,24 @@ public class Timer : MonoBehaviour
             timer += Time.deltaTime;
             debugTimer.text = "Debug Timer: " + (Mathf.Round(timer * 1000) / 1000).ToString();
             Debug.Log("Time: " + timer);
+
+            // If there is time remaining, decrements timer
+            if (globalTimer >= 0.0f)
+            {
+                globalTimer -= Time.deltaTime;
+                if (globalTimer >= 0.0f)
+                {
+                    Debug.Log("Global time: " + globalTimer);
+                }
+            }
         }
+        // Else if timer is negative, sets to 0
+        if (globalTimer < 0.0f)
+        {
+            globalTimer = 0.0f;
+            Debug.Log("Global time: " + globalTimer);
+        }
+
     }
 
     // Reset timer; record time given correct answer
