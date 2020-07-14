@@ -384,34 +384,40 @@ public class GameManager : MonoBehaviour
             if (endlessMode == true)
             {
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
-
             }
+
+            // Set best time
             if (float.IsNaN(bestTime) || Timer.getTimer() < bestTime)
             {
                 bestTime = Timer.getTimer();
             }
 
+            // Set worst time
             if (float.IsNaN(worstTime) || Timer.getTimer() > worstTime)
             {
                 worstTime = Timer.getTimer();
             }
 
+            // Set best congruent time
             if ((float.IsNaN(bestCongTime) || Timer.getTimer() < bestCongTime) && allTrialQuestions[globalIndex].isCongruent == true)
             {
                 bestCongTime = Timer.getTimer();
             }
 
+            // Set worst congruent time
             if ((float.IsNaN(worstCongTime) || Timer.getTimer() > worstCongTime) && allTrialQuestions[globalIndex].isCongruent == true)
             {
                 worstCongTime = Timer.getTimer();
             }
 
+            // Set best incongruent time
             if ((float.IsNaN(bestIncongTime) || Timer.getTimer() < bestIncongTime) && allTrialQuestions[globalIndex].isCongruent == false)
             {
                 bestIncongTime = Timer.getTimer();
             }
 
-            if ((float.IsNaN(worstIncongTime) || Timer.getTimer() > worstIncongTime) && allTrialQuestions[globalIndex].isCongruent == true)
+            // Set worst incongruent time
+            if ((float.IsNaN(worstIncongTime) || Timer.getTimer() > worstIncongTime) && allTrialQuestions[globalIndex].isCongruent == false)
             {
                 worstIncongTime = Timer.getTimer();
             }
