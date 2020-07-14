@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
         gameMode = PlayerPrefs.GetInt("GameMode");
         difficulty = PlayerPrefs.GetInt("Difficulty");
 
-
         starScore = PlayerPrefs.GetInt("starScore_" + SetPrefabs.name, 0);
 
         // Set up game state based on chosen mode and difficulty
@@ -151,6 +150,11 @@ public class GameManager : MonoBehaviour
         // Set game state to initial values
         globalIndex = 0;
         bestTime = float.NaN;
+        worstTime = float.NaN;
+        bestCongTime = float.NaN;
+        worstCongTime = float.NaN;
+        bestIncongTime = float.NaN;
+        worstIncongTime = float.NaN;
         score = 0;
         wrongSentinel = 0;
         Timer.timerStart = false;
@@ -421,6 +425,7 @@ public class GameManager : MonoBehaviour
             {
                 worstIncongTime = Timer.getTimer();
             }
+
             Timer.resetTimer(true);
             Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
         }
@@ -496,11 +501,17 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Unanswered Trials", numUnanswered);
         PlayerPrefs.SetFloat("avgTime", finalTime);
         PlayerPrefs.SetFloat("bestTime", bestTime);
+        PlayerPrefs.SetFloat("worstTime", worstTime);
+        PlayerPrefs.SetFloat("bestCongTime", bestCongTime);
+        PlayerPrefs.SetFloat("worstCongTime", worstCongTime);
+        PlayerPrefs.SetFloat("bestIncongTime", bestIncongTime);
+        PlayerPrefs.SetFloat("worstIncongTime", worstIncongTime);
         PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
         PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
         Instance = null;
         Music.Instance.musicSource.Pause();
         SceneManager.LoadScene("Flanker Result");
+        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, starScore);
     }
 
     // Reset game with new trial question for Endless Mode
