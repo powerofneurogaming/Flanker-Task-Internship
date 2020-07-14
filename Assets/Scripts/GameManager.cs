@@ -375,7 +375,7 @@ public class GameManager : MonoBehaviour
                 starScore += 4;
             }
 
-                starboard.GetComponent<Text>().text = "starScore: " + starScore;
+                starboard.GetComponent<Text>().text = "Star Score: " + starScore;
             
             if (endlessMode == true)
             {
