@@ -39,9 +39,19 @@ public class Score : MonoBehaviour
     public Button restartButton;
     public Button mainMenuButton;
 
+    float allTimeBest;
+    float allTimeBestAvg;
+    float allTimeBestCong;
+    float allTimeBestIncong;
+
     // Set up results readout, write to CSV file
     void Start()
     {
+        allTimeBest = float.NaN;
+        allTimeBestAvg = float.NaN;
+        allTimeBestCong = float.NaN;
+        allTimeBestIncong = float.NaN;
+
         // Disable game results text
         scoreText.enabled = false;
         restartButton.gameObject.SetActive(false);
@@ -66,13 +76,53 @@ public class Score : MonoBehaviour
         incongTimeRound = Mathf.Round(incongTime * 1000) / 1000;
 
         // If no best time, don't output a best time
-        if(bestTime == 0.0f)
+        if(float.IsNaN(bestTimeRound))
         {
             bestString = "\nNo best time...";
         }
+        // Else, output best time, and if it is an all-time best time, update the all-time best time
         else
         {
             bestString = "\nBest Correct Time: " + bestTimeRound;
+            allTimeBest = PlayerPrefs.GetFloat("allBestTime_" + SetPrefabs.name, float.NaN);
+            if(bestTimeRound < allTimeBest || float.IsNaN(allTimeBest))
+            {
+                PlayerPrefs.SetFloat("allBestTime_" + SetPrefabs.name, bestTimeRound);
+                allTimeBest = bestTimeRound;
+            }
+        }
+
+        // Update all-time best average time
+        if (!float.IsNaN(avgTimeRound))
+        {
+            allTimeBestAvg = PlayerPrefs.GetFloat("allBestAvg_" + SetPrefabs.name, float.NaN);
+            if (avgTimeRound < allTimeBestAvg || float.IsNaN(allTimeBestAvg))
+            {
+                PlayerPrefs.SetFloat("allBestAvg_" + SetPrefabs.name, avgTimeRound);
+                allTimeBestAvg = avgTimeRound;
+            }
+        }
+
+        // Update all-time best average congruent time
+        if (!float.IsNaN(congTimeRound))
+        {
+            allTimeBestCong = PlayerPrefs.GetFloat("allBestCongAvg_" + SetPrefabs.name, float.NaN);
+            if (congTimeRound < allTimeBestCong || float.IsNaN(allTimeBestCong))
+            {
+                PlayerPrefs.SetFloat("allBestCongAvg_" + SetPrefabs.name, congTimeRound);
+                allTimeBestCong = congTimeRound;
+            }
+        }
+
+        // Update all-time best average incongruent time
+        if (!float.IsNaN(incongTimeRound))
+        {
+            allTimeBestIncong = PlayerPrefs.GetFloat("allBestIncongAvg_" + SetPrefabs.name, float.NaN);
+            if (incongTimeRound < allTimeBestIncong || float.IsNaN(allTimeBestIncong))
+            {
+                PlayerPrefs.SetFloat("allBestIncongAvg_" + SetPrefabs.name, incongTimeRound);
+                allTimeBestIncong = incongTimeRound;
+            }
         }
 
         // Calculate Flanker Effect
@@ -91,14 +141,14 @@ public class Score : MonoBehaviour
         // If CSV file does not exist, create it and set up label row
         if (!File.Exists(filePath))
         {
-            File.WriteAllText(filePath,"testNumber,name,score,wrong,unanswered,averageTime,averageCongruentTime,averageIncongruentTime,flankerEffect\n");
+            File.WriteAllText(filePath,"testNumber,name,score,wrong,unanswered,averageTime,bestTime,globalBestTime,averageCongruentTime,averageIncongruentTime,flankerEffect,\n");
         }
 
         // Set current game ID based on number of existing lines in CSV file
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeRound + "," + incongTimeRound + "," + flankerRound + "\n");
+        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + bestTimeRound + "," + allTimeBest + "," + congTimeRound + "," + incongTimeRound + "," + flankerRound + "\n");
     }
 
     // When you click 'View Results', display game results
@@ -110,6 +160,24 @@ public class Score : MonoBehaviour
 
         scoreText.enabled = true; // Enable game results text
         resultsButton.SetActive(false); // Hide 'View Results' button
+
+        // handle NaNs for divide-by-zero
+        if (float.IsNaN(avgTimeRound))
+        {
+            avgTimeRound = 0.0f;
+        }
+        if (float.IsNaN(congTimeRound))
+        {
+            congTimeRound = 0.0f;
+        }
+        if (float.IsNaN(incongTimeRound))
+        {
+            incongTimeRound = 0.0f;
+        }
+        if (float.IsNaN(flankerRound))
+        {
+            flankerRound = 0.0f;
+        }
 
         // Populate game results text with information
         scoreText.text = "End Summary:" +
