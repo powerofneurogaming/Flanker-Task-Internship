@@ -41,15 +41,15 @@ public class Timer : MonoBehaviour
             timer += Time.deltaTime;
             debugTimer.text = "Debug Timer: " + (Mathf.Round(timer * 1000) / 1000).ToString();
             Debug.Log("Time: " + timer);
-        }
 
-        // If there is time remaining, decrements timer
-        if (globalTimer >= 0.0f)
-        {
-            globalTimer -= Time.deltaTime;
+            // If there is time remaining, decrements timer
             if (globalTimer >= 0.0f)
             {
-                Debug.Log("Global time: " + globalTimer);
+                globalTimer -= Time.deltaTime;
+                if (globalTimer >= 0.0f)
+                {
+                    Debug.Log("Global time: " + globalTimer);
+                }
             }
         }
         // Else if timer is negative, sets to 0

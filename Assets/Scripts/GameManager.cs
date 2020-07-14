@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     float multiplier;
     float currentTimer;
 
+    int starScore;
+
     // Number of congruent vs incongruent questions answered, for calculating final time states
     public int congruentQuestions;
     public int incongruentQuestions;
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     // Text box for arrows / hand sprites
     public GameObject arrows;
     public GameObject scoreboard;
+    public GameObject starboard;
 
     // Set up starting game state
     private void Start()
@@ -82,6 +85,9 @@ public class GameManager : MonoBehaviour
         // Need to get these early to determine game mode config
         gameMode = PlayerPrefs.GetInt("GameMode");
         difficulty = PlayerPrefs.GetInt("Difficulty");
+
+
+        starScore = PlayerPrefs.GetInt("starScore_" + SetPrefabs.name, 0);
 
         // Set up game state based on chosen mode and difficulty
         if (gameMode == 0) // if classic mode
@@ -353,9 +359,28 @@ public class GameManager : MonoBehaviour
         if (correct == true)
         {
             score++;
-            if(endlessMode == true)
+            
+            // Giving the player stars based on difficulty
+            if(difficulty == 0)
+            {
+                starScore++; 
+            }
+            else if (difficulty == 1)
+            {
+                starScore += 2;
+            }
+ 
+            else
+            {
+                starScore += 4;
+            }
+
+                starboard.GetComponent<Text>().text = "starScore: " + starScore;
+            
+            if (endlessMode == true)
             {
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
+                
             }
             if(bestTime == 0.0f || Timer.getTimer() < bestTime)
             {
