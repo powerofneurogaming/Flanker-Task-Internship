@@ -91,14 +91,14 @@ public class Score : MonoBehaviour
         // If CSV file does not exist, create it and set up label row
         if (!File.Exists(filePath))
         {
-            File.WriteAllText(filePath,"Test Number,Name,Score,Wrong,Unanswered,Average Time,Average Congruent Time,Average Incongruent Time,Flanker Effect\n");
+            File.WriteAllText(filePath,"testNumber,name,score,wrong,unanswered,averageTime,averageCongruentTime,averageIncongruentTime,flankerEffect\n");
         }
 
         // Set current game ID based on number of existing lines in CSV file
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTime + "," + congTime + "," + incongTime + "," + flankerEffect + "\n");
+        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeRound + "," + incongTimeRound + "," + flankerRound + "\n");
     }
 
     // When you click 'View Results', display game results
