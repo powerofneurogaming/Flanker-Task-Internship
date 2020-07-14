@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
 
     // Final time states for results screen
     float bestTime;
+    float worstTime;
+    float bestCongTime;
+    float worstCongTime;
+    float bestIncongTime;
+    float worstIncongTime;
     float finalTime;
     float finalCongTime;
     float finalIncongTime;
@@ -145,7 +150,7 @@ public class GameManager : MonoBehaviour
 
         // Set game state to initial values
         globalIndex = 0;
-        bestTime = 0.0f;
+        bestTime = float.NaN;
         score = 0;
         wrongSentinel = 0;
         Timer.timerStart = false;
@@ -369,22 +374,46 @@ public class GameManager : MonoBehaviour
             {
                 starScore += 2;
             }
- 
             else
             {
                 starScore += 4;
             }
 
-                starboard.GetComponent<Text>().text = "Star Score: " + starScore;
+            starboard.GetComponent<Text>().text = "Star Score: " + starScore;
             
             if (endlessMode == true)
             {
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
-                
+
             }
-            if(bestTime == 0.0f || Timer.getTimer() < bestTime)
+            if (float.IsNaN(bestTime) || Timer.getTimer() < bestTime)
             {
                 bestTime = Timer.getTimer();
+            }
+
+            if (float.IsNaN(worstTime) || Timer.getTimer() > worstTime)
+            {
+                worstTime = Timer.getTimer();
+            }
+
+            if ((float.IsNaN(bestCongTime) || Timer.getTimer() < bestCongTime) && allTrialQuestions[globalIndex].isCongruent == true)
+            {
+                bestCongTime = Timer.getTimer();
+            }
+
+            if ((float.IsNaN(worstCongTime) || Timer.getTimer() > worstCongTime) && allTrialQuestions[globalIndex].isCongruent == true)
+            {
+                worstCongTime = Timer.getTimer();
+            }
+
+            if ((float.IsNaN(bestIncongTime) || Timer.getTimer() < bestIncongTime) && allTrialQuestions[globalIndex].isCongruent == false)
+            {
+                bestIncongTime = Timer.getTimer();
+            }
+
+            if ((float.IsNaN(worstIncongTime) || Timer.getTimer() > worstIncongTime) && allTrialQuestions[globalIndex].isCongruent == true)
+            {
+                worstIncongTime = Timer.getTimer();
             }
             Timer.resetTimer(true);
             Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
@@ -433,6 +462,7 @@ public class GameManager : MonoBehaviour
             moveToResults();
         }
         // Else, proceed with game
+        // Else, proceed with game
         else
         {
             // If in Endless Mode, roll next trial
@@ -453,20 +483,6 @@ public class GameManager : MonoBehaviour
         finalTime = Timer.getTime() / score;
         finalCongTime = Timer.getCongTime() / congruentQuestions;
         finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
-
-        // handle NaNs for divide-by-zero
-        if (float.IsNaN(finalTime))
-        {
-            finalTime = 0.0f;
-        }
-        if (float.IsNaN(finalCongTime))
-        {
-            finalCongTime = 0.0f;
-        }
-        if (float.IsNaN(finalIncongTime))
-        {
-            finalIncongTime = 0.0f;
-        }
 
         // Save data and transition to results screen
         PlayerPrefs.SetInt("PlayerScore", score);
