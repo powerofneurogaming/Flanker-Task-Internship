@@ -508,10 +508,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("worstIncongTime", worstIncongTime);
         PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
         PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
+        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, starScore);
         Instance = null;
         Music.Instance.musicSource.Pause();
         SceneManager.LoadScene("Flanker Result");
-        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, starScore);
     }
 
     // Reset game with new trial question for Endless Mode
