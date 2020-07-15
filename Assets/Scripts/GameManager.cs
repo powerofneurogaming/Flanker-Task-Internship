@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
         difficulty = PlayerPrefs.GetInt("Difficulty");
 
         starScore = PlayerPrefs.GetInt("starScore_" + SetPrefabs.name, 0);
+        starboard.GetComponent<Text>().text = starScore.ToString();
 
         // Set up game state based on chosen mode and difficulty
         if (gameMode == 0) // if classic mode
