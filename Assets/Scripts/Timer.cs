@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     // timer and absolute time of correct answers
     static float timer;
     static float time;
+    static float totalTime;
 
     // Timer for Time Trial
     public static float globalTimer;
@@ -64,6 +65,7 @@ public class Timer : MonoBehaviour
     // Reset timer; record time given correct answer
     public static void resetTimer(bool record)
     {
+        totalTime += timer;
         if (record == true)
         {
             time += timer;
@@ -91,6 +93,12 @@ public class Timer : MonoBehaviour
     public static float getTime()
     {
         return time;
+    }
+
+    // Getter for absolute time
+    public static float getTotalTime()
+    {
+        return totalTime;
     }
 
     // Getter for absolute congruent time
