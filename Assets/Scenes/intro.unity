@@ -1390,6 +1390,7 @@ GameObject:
   - component: {fileID: 1449424868}
   - component: {fileID: 1449424867}
   - component: {fileID: 1449424870}
+  - component: {fileID: 1449424871}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1460,6 +1461,31 @@ MonoBehaviour:
   carriage_return: {fileID: 8300000, guid: 9c52507d64a2b44409a2fb5809f96bb0, type: 3}
   volume: 0.5
   playerName: {fileID: 1192818314}
+--- !u!114 &1449424871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449424866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d46f90f38e5d04a837497f807b420c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noneWrong: 0
+  getStars: 0
+  classicDifficulty: 0
+  timeDifficulty: 0
+  endlessDifficulty: 0
+  classicTimed: 0
+  endlessStreak: 0
+  modesComplete: 0
+  dontFollowDirections: 0
+  youreBadAtThis: 0
+  getDistracted: 0
+  nothingBetterToDo: 0
+  youreGoodAtThis: 0
 --- !u!1 &1452572160
 GameObject:
   m_ObjectHideFlags: 0

@@ -123,4 +123,32 @@ public class miscButtons : MonoBehaviour
         }
         SceneManager.LoadScene("Title");
     }
+
+    public void resetUser()
+    {
+        achievements.Instance.resetAchievements();
+
+        PlayerPrefs.SetInt("PlayerScore", 0);
+        PlayerPrefs.SetInt("Wrong Answers", 0);
+        PlayerPrefs.SetInt("Unanswered Trials", 0);
+        PlayerPrefs.SetFloat("avgTime", 0);
+        PlayerPrefs.SetFloat("bestTime", 0);
+        PlayerPrefs.SetFloat("worstTime", 0);
+        PlayerPrefs.SetFloat("bestCongTime", 0);
+        PlayerPrefs.SetFloat("worstCongTime", 0);
+        PlayerPrefs.SetFloat("bestIncongTime", 0);
+        PlayerPrefs.SetFloat("worstIncongTime", 0);
+        PlayerPrefs.SetFloat("avgCongTime", 0);
+        PlayerPrefs.SetFloat("avgIncongTime", 0);
+        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, 0);
+
+        PlayerPrefs.SetFloat("allBestTime_" + SetPrefabs.name, 0);
+        PlayerPrefs.SetFloat("allBestAvg_" + SetPrefabs.name, 0);
+        PlayerPrefs.SetFloat("allBestCongAvg_" + SetPrefabs.name, 0);
+        PlayerPrefs.SetFloat("allBestIncongAvg_" + SetPrefabs.name, 0);
+
+        tutorialGate.Instance.setFalse();
+
+        SceneManager.LoadScene("Intro");
+    }
 }

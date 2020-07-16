@@ -153,6 +153,44 @@ public class Score : MonoBehaviour
         File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + bestTimeRound + "," + allTimeBest + "," + congTimeRound + "," + incongTimeRound + "," + flankerRound + "\n");
     }
 
+    private void Update()
+    {
+        // Achievement: Stand Idle at the results screen
+        // Bronze: 3 minutes
+        // Silver: 5 minutes
+        // Gold: 10 minutes
+        if (Timer.getTime() >= 600 && achievements.Instance.nothingBetterToDo == 2)
+        {
+            achievements.Instance.getAchievement(ref achievements.Instance.nothingBetterToDo, 1, "nothingBetterToDo_" + SetPrefabs.name, "Stay at Results Screen");
+
+            // Achievement: Get all achievements
+            // Bronze: All bronze or better
+            // Silver: All silver or better
+            // Gold: All gold or better
+            achievements.Instance.achievementsAchievement();
+        }
+        else if (Timer.getTime() >= 300 && achievements.Instance.nothingBetterToDo == 1)
+        {
+            achievements.Instance.getAchievement(ref achievements.Instance.nothingBetterToDo, 1, "nothingBetterToDo_" + SetPrefabs.name, "Stay at Results Screen");
+
+            // Achievement: Get all achievements
+            // Bronze: All bronze or better
+            // Silver: All silver or better
+            // Gold: All gold or better
+            achievements.Instance.achievementsAchievement();
+        }
+        else if (Timer.getTime() >= 180 && achievements.Instance.nothingBetterToDo == 0)
+        {
+            achievements.Instance.getAchievement(ref achievements.Instance.nothingBetterToDo, 1, "nothingBetterToDo_" + SetPrefabs.name, "Stay at Results Screen");
+
+            // Achievement: Get all achievements
+            // Bronze: All bronze or better
+            // Silver: All silver or better
+            // Gold: All gold or better
+            achievements.Instance.achievementsAchievement();
+        }
+    }
+
     // When you click 'View Results', display game results
     public void displayResults()
     {

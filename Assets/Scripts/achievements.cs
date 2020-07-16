@@ -138,9 +138,9 @@ public class achievements : MonoBehaviour
         endless = PlayerPrefs.GetInt("endlessAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
     }
 
-    public void getAchievement(int achievement, int toAdd, string name)
+    public void getAchievement(ref int achievement, int toAdd, string achieveName, string name)
     {
-        if(achievement >= 3)
+        if(achievement >= 3 || toAdd == 0)
         {
             return;
         }
@@ -165,6 +165,8 @@ public class achievements : MonoBehaviour
         {
             type = "Gold";
         }
+
+        PlayerPrefs.SetInt(achieveName, achievement);
 
         Debug.Log("You got: " + name + " - " + type);
     }
@@ -201,6 +203,72 @@ public class achievements : MonoBehaviour
             return;
         }
 
-        getAchievement(modesComplete, newCleared - alreadyCleared, "Modes Completed");
+        getAchievement(ref modesComplete, newCleared - alreadyCleared, "modesComplete_" + SetPrefabs.name, "Modes Completed");
+    }
+
+    public void achievementsAchievement()
+    {
+        if(achievements.Instance.youreGoodAtThis == 3)
+        {
+            return;
+        }
+
+        int[] achieveList = { noneWrong, getStars , classicDifficulty , timeDifficulty , endlessDifficulty ,
+                              classicTimed , endlessStreak , modesComplete , dontFollowDirections ,
+                              youreBadAtThis , getDistracted , nothingBetterToDo };
+
+        int max = 4;
+
+        for (int i = 0; i < 12; i++)
+        {
+            if (achieveList[i] < max)
+            {
+                max = achieveList[i];
+            }
+        }
+
+        getAchievement(ref youreGoodAtThis, max - youreGoodAtThis, "youreGoodAtThis_" + SetPrefabs.name, "Get Achievements");
+    }
+
+    public void resetAchievements()
+    {
+        noneWrong = 0;
+        PlayerPrefs.SetInt("noneWrong_" + SetPrefabs.name, 0);
+        getStars = 0;
+        PlayerPrefs.SetInt("getStars_" + SetPrefabs.name, 0);
+        classicDifficulty = 0;
+        PlayerPrefs.SetInt("classicDifficulty_" + SetPrefabs.name, 0);
+        timeDifficulty = 0;
+        PlayerPrefs.SetInt("timeDifficulty_" + SetPrefabs.name, 0);
+        endlessDifficulty = 0;
+        PlayerPrefs.SetInt("endlessDifficulty_" + SetPrefabs.name, 0);
+        classicTimed = 0;
+        PlayerPrefs.SetInt("classicTimed_" + SetPrefabs.name, 0);
+        endlessStreak = 0;
+        PlayerPrefs.SetInt("endlessStreak_" + SetPrefabs.name, 0);
+        modesComplete = 0;
+        PlayerPrefs.SetInt("modesComplete_" + SetPrefabs.name, 0);
+        dontFollowDirections = 0;
+        PlayerPrefs.SetInt("dontFollowDirections_" + SetPrefabs.name, 0);
+        youreBadAtThis = 0;
+        PlayerPrefs.SetInt("youreBadAtThis_" + SetPrefabs.name, 0);
+        getDistracted = 0;
+        PlayerPrefs.SetInt("getDistracted_" + SetPrefabs.name, 0);
+        nothingBetterToDo = 0;
+        PlayerPrefs.SetInt("nothingBetterToDo_" + SetPrefabs.name, 0);
+        youreGoodAtThis = 0;
+        PlayerPrefs.SetInt("youreGoodAtThis_" + SetPrefabs.name, 0);
+
+        PlayerPrefs.SetInt("classicAchieve_" + SetPrefabs.name, false ? 1 : 0);
+        classic = false;
+
+        PlayerPrefs.SetInt("timeTrialAchieve_" + SetPrefabs.name, false ? 1 : 0);
+        timeTrial = false;
+
+        PlayerPrefs.SetInt("endlessAchieve_" + SetPrefabs.name, false ? 1 : 0);
+        endless = false;
+
+        Instance = null;
+        Destroy(this);
     }
 }

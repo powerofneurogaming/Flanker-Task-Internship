@@ -38,6 +38,8 @@ public class TutorialManager : MonoBehaviour
     bool isHeld; // isHeld and holdTime are used for the hold prompt on the first text message
     float holdTime;
 
+    bool handClicked;
+
     // The plus button
     [SerializeField]
     GameObject plusButton;
@@ -68,6 +70,7 @@ public class TutorialManager : MonoBehaviour
 
         // Initialize hold time to zero for first prompt
         holdTime = 0.0f;
+        handClicked = false;
 
         // Get left/right buttons and turn them off
         foreach (GameObject obj in buttons)
@@ -202,9 +205,23 @@ public class TutorialManager : MonoBehaviour
         {
             userSelectEnd();
         }
+        // Achievement: Click the wrong hand in the tutorial a given number of times
+        // Bronze: 1 time
+        // Silver: 2 times
+        // Gold: 3 times
         else
         {
-            achievements.Instance.getAchievement(achievements.Instance.dontFollowDirections, 1, "Wrong Hand (Tutorial)");
+            if(handClicked == false)
+            {
+                achievements.Instance.getAchievement(ref achievements.Instance.dontFollowDirections, 1, "dontFollowDirections_" + SetPrefabs.name, "Wrong Hand (Tutorial)");
+
+                // Achievement: Get all achievements
+                // Bronze: All bronze or better
+                // Silver: All silver or better
+                // Gold: All gold or better
+                achievements.Instance.achievementsAchievement();
+            }
+            handClicked = true;
         }
     }
 
@@ -216,15 +233,31 @@ public class TutorialManager : MonoBehaviour
         {
             userSelectEnd();
         }
+        // Achievement: Click the wrong hand in the tutorial a given number of times
+        // Bronze: 1 time
+        // Silver: 2 times
+        // Gold: 3 times
         else
         {
-            achievements.Instance.getAchievement(achievements.Instance.dontFollowDirections, 1, "Wrong Hand (Tutorial)");
+            if (handClicked == false)
+            {
+                achievements.Instance.getAchievement(ref achievements.Instance.dontFollowDirections, 1, "dontFollowDirections_" + SetPrefabs.name, "Wrong Hand (Tutorial)");
+
+                // Achievement: Get all achievements
+                // Bronze: All bronze or better
+                // Silver: All silver or better
+                // Gold: All gold or better
+                achievements.Instance.achievementsAchievement();
+            }
+            handClicked = true;
         }
     }
 
     // General end-state logic
     public void userSelectEnd()
     {
+        handClicked = false;
+
         // Get left/right buttons and turn them off
         foreach (GameObject obj in buttons)
         {

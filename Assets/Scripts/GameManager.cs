@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
     float currentTimer;
 
     int starScore;
-    int startingStarScore;
 
     // Number of congruent vs incongruent questions answered, for calculating final time states
     public int congruentQuestions;
@@ -93,7 +92,6 @@ public class GameManager : MonoBehaviour
         difficulty = PlayerPrefs.GetInt("Difficulty");
 
         starScore = PlayerPrefs.GetInt("starScore_" + SetPrefabs.name, 0);
-        startingStarScore = starScore;
         starboard.GetComponent<Text>().text = starScore.ToString();
 
         // Set up game state based on chosen mode and difficulty
@@ -510,7 +508,7 @@ public class GameManager : MonoBehaviour
         // Gold: 3 games
         if (score == 0)
         {
-            achievements.Instance.getAchievement(achievements.Instance.youreBadAtThis, 1, "No Questions Right");
+            achievements.Instance.getAchievement(ref achievements.Instance.youreBadAtThis, 1, "youreBadAtThis_" + SetPrefabs.name, "No Questions Right");
         }
 
         if (gameMode == 0)
@@ -521,7 +519,7 @@ public class GameManager : MonoBehaviour
             // Gold: 3 games
             if (numWrong + numUnanswered == 0)
             {
-                achievements.Instance.getAchievement(achievements.Instance.noneWrong, 1, "None Wrong (Classic Mode)");
+                achievements.Instance.getAchievement(ref achievements.Instance.noneWrong, 1, "noneWrong_" + SetPrefabs.name, "None Wrong (Classic Mode)");
             }
 
             // Achievement: Clear a Classic Mode game in a certain amount of time
@@ -532,33 +530,33 @@ public class GameManager : MonoBehaviour
             {
                 if (achievements.Instance.classicTimed == 2)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicTimed, 1, "Timed Clear (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicTimed, 1, "classicTimed_" + SetPrefabs.name, "Timed Clear (Classic Mode)");
                 }
                 else if (achievements.Instance.classicTimed == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicTimed, 2, "Timed Clear (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicTimed, 2, "classicTimed_" + SetPrefabs.name, "Timed Clear (Classic Mode)");
                 }
                 else if (achievements.Instance.classicTimed == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicTimed, 3, "Timed Clear (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicTimed, 3, "classicTimed_" + SetPrefabs.name, "Timed Clear (Classic Mode)");
                 }
             }
             else if (Timer.getTotalTime() / givenQuestions <= 5)
             {
                 if (achievements.Instance.classicTimed == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicTimed, 1, "Timed Clear (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicTimed, 1, "classicTimed_" + SetPrefabs.name, "Timed Clear (Classic Mode)");
                 }
                 else if (achievements.Instance.classicTimed == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicTimed, 2, "Timed Clear (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicTimed, 2, "classicTimed_" + SetPrefabs.name, "Timed Clear (Classic Mode)");
                 }
             }
             else if (Timer.getTotalTime() / givenQuestions <= 10)
             {
                 if (achievements.Instance.classicTimed == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicTimed, 1, "Timed Clear (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicTimed, 1, "classicTimed_" + SetPrefabs.name, "Timed Clear (Classic Mode)");
                 }
             }
 
@@ -570,33 +568,33 @@ public class GameManager : MonoBehaviour
             {
                 if (achievements.Instance.classicDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicDifficulty, 1, "Easy Mode (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicDifficulty, 1, "classicDifficulty_" + SetPrefabs.name, "Easy Mode (Classic Mode)");
                 }
             }
             else if (difficulty == 1)
             {
                 if (achievements.Instance.classicDifficulty == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicDifficulty, 1, "Medium Mode (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicDifficulty, 1, "classicDifficulty_" + SetPrefabs.name, "Medium Mode (Classic Mode)");
                 }
                 else if (achievements.Instance.classicDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicDifficulty, 2, "Medium Mode (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicDifficulty, 2, "classicDifficulty_" + SetPrefabs.name, "Medium Mode (Classic Mode)");
                 }
             }
             else
             {
                 if (achievements.Instance.classicDifficulty == 2)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicDifficulty, 1, "Hard Mode (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicDifficulty, 1, "classicDifficulty_" + SetPrefabs.name, "Hard Mode (Classic Mode)");
                 }
                 else if (achievements.Instance.classicDifficulty == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicDifficulty, 2, "Hard Mode (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicDifficulty, 2, "classicDifficulty_" + SetPrefabs.name, "Hard Mode (Classic Mode)");
                 }
                 else if (achievements.Instance.classicDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.classicDifficulty, 3, "Hard Mode (Classic Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.classicDifficulty, 3, "classicDifficulty_" + SetPrefabs.name, "Hard Mode (Classic Mode)");
                 }
             }
         }
@@ -610,33 +608,33 @@ public class GameManager : MonoBehaviour
             {
                 if (achievements.Instance.timeDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.timeDifficulty, 1, "10q20s Mode (Time Trial Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.timeDifficulty, 1, "timeDifficulty_" + SetPrefabs.name, "10q20s Mode (Time Trial Mode)");
                 }
             }
             else if (difficulty == 1)
             {
                 if (achievements.Instance.timeDifficulty == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.timeDifficulty, 1, "20q40s Mode (Time Trial Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.timeDifficulty, 1, "timeDifficulty_" + SetPrefabs.name, "20q40s Mode (Time Trial Mode)");
                 }
                 else if (achievements.Instance.timeDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.timeDifficulty, 2, "20q40s Mode (Time Trial Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.timeDifficulty, 2, "timeDifficulty_" + SetPrefabs.name, "20q40s Mode (Time Trial Mode)");
                 }
             }
             else
             {
                 if (achievements.Instance.timeDifficulty == 2)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.timeDifficulty, 1, "30q60s Mode (Time Trial Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.timeDifficulty, 1, "timeDifficulty_" + SetPrefabs.name, "30q60s Mode (Time Trial Mode)");
                 }
                 else if (achievements.Instance.timeDifficulty == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.timeDifficulty, 2, "30q60s Mode (Time Trial Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.timeDifficulty, 2, "timeDifficulty_" + SetPrefabs.name, "30q60s Mode (Time Trial Mode)");
                 }
                 else if (achievements.Instance.timeDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.timeDifficulty, 3, "30q60s Mode (Time Trial Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.timeDifficulty, 3, "timeDifficulty_" + SetPrefabs.name, "30q60s Mode (Time Trial Mode)");
                 }
             }
         }
@@ -650,33 +648,33 @@ public class GameManager : MonoBehaviour
             {
                 if (achievements.Instance.endlessStreak == 2)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessStreak, 1, "Streak (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessStreak, 1, "endlessStreak_" + SetPrefabs.name, "Streak (Endless Mode)");
                 }
                 else if (achievements.Instance.endlessStreak == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessStreak, 2, "Streak (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessStreak, 2, "endlessStreak_" + SetPrefabs.name, "Streak (Endless Mode)");
                 }
                 else if (achievements.Instance.endlessStreak == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessStreak, 3, "Streak (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessStreak, 3, "endlessStreak_" + SetPrefabs.name, "Streak (Endless Mode)");
                 }
             }
             else if (score + wrongSentinel >= 20)
             {
                 if (achievements.Instance.endlessStreak == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessStreak, 1, "Streak (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessStreak, 1, "endlessStreak_" + SetPrefabs.name, "Streak (Endless Mode)");
                 }
                 else if (achievements.Instance.endlessStreak == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessStreak, 2, "Streak (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessStreak, 2, "endlessStreak_" + SetPrefabs.name, "Streak (Endless Mode)");
                 }
             }
             else if (score + wrongSentinel >= 10)
             {
                 if (achievements.Instance.endlessStreak == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessStreak, 1, "Streak (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessStreak, 1, "endlessStreak_" + SetPrefabs.name, "Streak (Endless Mode)");
                 }
             }
 
@@ -688,73 +686,88 @@ public class GameManager : MonoBehaviour
             {
                 if (achievements.Instance.endlessDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessDifficulty, 1, "Regenerative Mode (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessDifficulty, 1, "endlessDifficulty_" + SetPrefabs.name, "Regenerative Mode (Endless Mode)");
                 }
             }
             else if (difficulty == 1)
             {
                 if (achievements.Instance.endlessDifficulty == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessDifficulty, 1, "3 Wrong Mode (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessDifficulty, 1, "endlessDifficulty_" + SetPrefabs.name, "3 Wrong Mode (Endless Mode)");
                 }
                 else if (achievements.Instance.endlessDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessDifficulty, 2, "3 Wrong Mode (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessDifficulty, 2, "endlessDifficulty_" + SetPrefabs.name, "3 Wrong Mode (Endless Mode)");
                 }
             }
             else
             {
                 if (achievements.Instance.endlessDifficulty == 2)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessDifficulty, 1, "1 wrong Mode (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessDifficulty, 1, "endlessDifficulty_" + SetPrefabs.name, "1 wrong Mode (Endless Mode)");
                 }
                 else if (achievements.Instance.endlessDifficulty == 1)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessDifficulty, 2, "1 wrong Mode (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessDifficulty, 2, "endlessDifficulty_" + SetPrefabs.name, "1 wrong Mode (Endless Mode)");
                 }
                 else if (achievements.Instance.endlessDifficulty == 0)
                 {
-                    achievements.Instance.getAchievement(achievements.Instance.endlessDifficulty, 3, "1 wrong Mode (Endless Mode)");
+                    achievements.Instance.getAchievement(ref achievements.Instance.endlessDifficulty, 3, "endlessDifficulty_" + SetPrefabs.name, "1 wrong Mode (Endless Mode)");
                 }
             }
         }
 
-        // Achievement: Get a certain amount of stars
-        // Bronze: 50 stars
-        // Silver: 100 stars
-        // Gold: 200 stars
-        if (starScore >= 200)
+        int starRating = 4;
+        int achieveRating = 4;
+
+        while(starRating != achievements.Instance.getStars || achieveRating != achievements.Instance.youreBadAtThis)
         {
-            if(startingStarScore < 50)
+            starRating = achievements.Instance.getStars;
+            achieveRating = achievements.Instance.youreGoodAtThis;
+
+            // Achievement: Get a certain amount of stars
+            // Bronze: 50 stars
+            // Silver: 100 stars
+            // Gold: 200 stars
+            if (starScore >= 200)
             {
-                achievements.Instance.getAchievement(achievements.Instance.getStars, 3, "Get Stars");
+                if (achievements.Instance.getStars == 2)
+                {
+                    achievements.Instance.getAchievement(ref achievements.Instance.getStars, 3, "getStars_" + SetPrefabs.name, "Get Stars");
+                }
+                else if (achievements.Instance.getStars == 1)
+                {
+                    achievements.Instance.getAchievement(ref achievements.Instance.getStars, 2, "getStars_" + SetPrefabs.name, "Get Stars");
+                }
+                else if (achievements.Instance.getStars == 0)
+                {
+                    achievements.Instance.getAchievement(ref achievements.Instance.getStars, 1, "getStars_" + SetPrefabs.name, "Get Stars");
+                }
             }
-            else if(startingStarScore < 100)
+            else if (starScore >= 100)
             {
-                achievements.Instance.getAchievement(achievements.Instance.getStars, 2, "Get Stars");
+                if (achievements.Instance.getStars == 1)
+                {
+                    achievements.Instance.getAchievement(ref achievements.Instance.getStars, 2, "getStars_" + SetPrefabs.name, "Get Stars");
+                }
+                else if (achievements.Instance.getStars == 0)
+                {
+                    achievements.Instance.getAchievement(ref achievements.Instance.getStars, 1, "getStars_" + SetPrefabs.name, "Get Stars");
+                }
             }
-            else
+            else if (starScore >= 50)
             {
-                achievements.Instance.getAchievement(achievements.Instance.getStars, 1, "Get Stars");
+                if (achievements.Instance.getStars == 0)
+                {
+                    achievements.Instance.getAchievement(ref achievements.Instance.getStars, 1, "getStars_" + SetPrefabs.name, "Get Stars");
+                }
             }
-        }
-        else if(starScore >= 100)
-        {
-            if (startingStarScore < 50)
-            {
-                achievements.Instance.getAchievement(achievements.Instance.getStars, 2, "Get Stars");
-            }
-            else
-            {
-                achievements.Instance.getAchievement(achievements.Instance.getStars, 1, "Get Stars");
-            }
-        }
-        else if(starScore >= 50)
-        {
-            if(startingStarScore < 50)
-            {
-                achievements.Instance.getAchievement(achievements.Instance.getStars, 1, "Get Stars");
-            }
+
+            // Achievement: Get all achievements
+            // Bronze: All bronze or better
+            // Silver: All silver or better
+            // Gold: All gold or better
+            achievements.Instance.achievementsAchievement();
         }
 
         // Save data and transition to results screen
