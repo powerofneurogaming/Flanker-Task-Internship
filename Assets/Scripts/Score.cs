@@ -9,7 +9,7 @@ using UnityEngine.UI;
 // Sets up and manages results screen
 public class Score : MonoBehaviour
 {
-    int gamemode;
+    int gameMode;
     int difficulty;
 
     // Holders for final game state
@@ -303,7 +303,7 @@ public class Score : MonoBehaviour
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + gamemode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
+        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + gameMode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
     }
 
     private void Update()
