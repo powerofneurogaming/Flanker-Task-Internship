@@ -59,7 +59,6 @@ public class Timer : MonoBehaviour
             globalTimer = 0.0f;
             Debug.Log("Global time: " + globalTimer);
         }
-
     }
 
     // Reset timer; record time given correct answer

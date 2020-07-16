@@ -498,15 +498,36 @@ public class GameManager : MonoBehaviour
         finalCongTime = Timer.getCongTime() / congruentQuestions;
         finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
 
-        if(numWrong + numUnanswered == 0)
+        // Achievement: Complete each game mode at least once
+        // Bronze: 1 mode
+        // Silver: 2 modes
+        // Gold: 3 modes
+        achievements.Instance.completeGamemode(gameMode);
+
+        // Achievement: Finish a game with no questions right
+        // Bronze: 1 game
+        // Silver: 2 games
+        // Gold: 3 games
+        if (score == 0)
         {
-            achievements.Instance.getAchievement(achievements.Instance.noneWrong, 1, "None Wrong (Classic Mode)");    
+            achievements.Instance.getAchievement(achievements.Instance.youreBadAtThis, 1, "No Questions Right");
         }
 
-        if(gameMode == 0)
+        if (gameMode == 0)
         {
-            
+            // Achievement: Beat a Classic Mode game with no questions wrong
+            // Bronze: 1 game
+            // Silver: 2 games
+            // Gold: 3 games
+            if (numWrong + numUnanswered == 0)
+            {
+                achievements.Instance.getAchievement(achievements.Instance.noneWrong, 1, "None Wrong (Classic Mode)");
+            }
 
+            // Achievement: Clear a Classic Mode game in a certain amount of time
+            // Bronze: 10 seconds per question
+            // Silver: 5 seconds per question
+            // Gold: 2 seconds per question
             if (Timer.getTotalTime() / givenQuestions <= 2)
             {
                 if (achievements.Instance.classicTimed == 2)
@@ -541,6 +562,10 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            // Achievement: Complete each difficulty on classic mode
+            // Bronze: Complete easy
+            // Silver: Complete medium
+            // Gold: Complete hard
             if (difficulty == 0)
             {
                 if (achievements.Instance.classicDifficulty == 0)
@@ -577,6 +602,10 @@ public class GameManager : MonoBehaviour
         }
         else if (gameMode == 1)
         {
+            // Achievement: Complete each difficulty on time trial mode
+            // Bronze: Complete 10q20s
+            // Silver: Complete 20q40s
+            // Gold: Complete 30q60s
             if (difficulty == 0)
             {
                 if (achievements.Instance.timeDifficulty == 0)
@@ -613,6 +642,10 @@ public class GameManager : MonoBehaviour
         }
         else if (gameMode == 2)
         {
+            // Achievement: Last for a given number of questions in Endless Mode
+            // Bronze: 10 questions
+            // Silver: 20 questions
+            // Gold: 50 questions
             if (score + wrongSentinel >= 50)
             {
                 if (achievements.Instance.endlessStreak == 2)
@@ -647,6 +680,10 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            // Achievement: Complete each difficulty on endless mode
+            // Bronze: Complete regenerative
+            // Silver: Complete 3 wrong
+            // Gold: Complete 1 wrong
             if (difficulty == 0)
             {
                 if (achievements.Instance.endlessDifficulty == 0)
@@ -682,6 +719,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Achievement: Get a certain amount of stars
+        // Bronze: 50 stars
+        // Silver: 100 stars
+        // Gold: 200 stars
         if (starScore >= 200)
         {
             if(startingStarScore < 50)

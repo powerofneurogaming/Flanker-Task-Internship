@@ -202,6 +202,10 @@ public class TutorialManager : MonoBehaviour
         {
             userSelectEnd();
         }
+        else
+        {
+            achievements.Instance.getAchievement(achievements.Instance.dontFollowDirections, 1, "Wrong Hand (Tutorial)");
+        }
     }
 
     // Wrapper for userSelectEnd() to gate behind correct answer
@@ -211,6 +215,10 @@ public class TutorialManager : MonoBehaviour
         if (allTrialQuestions[globalIndex].isLeft)
         {
             userSelectEnd();
+        }
+        else
+        {
+            achievements.Instance.getAchievement(achievements.Instance.dontFollowDirections, 1, "Wrong Hand (Tutorial)");
         }
     }
 

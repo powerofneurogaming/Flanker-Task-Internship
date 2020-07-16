@@ -47,6 +47,8 @@ public class Score : MonoBehaviour
     // Set up results readout, write to CSV file
     void Start()
     {
+        Timer.timerStart = true;
+
         allTimeBest = float.NaN;
         allTimeBestAvg = float.NaN;
         allTimeBestCong = float.NaN;

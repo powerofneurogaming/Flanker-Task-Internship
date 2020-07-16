@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class achievements : MonoBehaviour
 {
+    public int numTrue(params bool[] bools)
+    {
+        return bools.Count(n => n);
+    }
+
     // 'Pseudo-singleton' - uses static instance of GameManager to allow for access to GameManager object
     // !! IS NOT PERSISTENT ACROSS MULTIPLE SCENES !!
     public static achievements Instance { get; private set; }
@@ -80,7 +86,7 @@ public class achievements : MonoBehaviour
     // Achievement: Click the wrong hand in the tutorial a given number of times
     // Bronze: 1 time
     // Silver: 2 times
-    // Gold: 5 times
+    // Gold: 3 times
     public int dontFollowDirections;
 
     // Achievement: Finish a game with no questions right
@@ -134,15 +140,17 @@ public class achievements : MonoBehaviour
 
     public void getAchievement(int achievement, int toAdd, string name)
     {
+        if(achievement >= 3)
+        {
+            return;
+        }
+
         string type;
 
-        if(achievement < 3)
+        achievement += toAdd;
+        if(achievement > 3)
         {
-            achievement += toAdd;
-            if(achievement > 3)
-            {
-                achievement = 3;
-            }
+            achievement = 3;
         }
 
         if (achievement == 1)
@@ -163,6 +171,13 @@ public class achievements : MonoBehaviour
 
     public void completeGamemode(int gameMode)
     {
+        int alreadyCleared = numTrue(classic, timeTrial, endless);
+
+        if(alreadyCleared == 3)
+        {
+            return;
+        }
+
         if (gameMode == 0)
         {
             PlayerPrefs.SetInt("classicAchieve_" + SetPrefabs.name, true ? 1 : 0);
@@ -178,5 +193,14 @@ public class achievements : MonoBehaviour
             PlayerPrefs.SetInt("endlessAchieve_" + SetPrefabs.name, true ? 1 : 0);
             endless = true;
         }
+
+        int newCleared = numTrue(classic, timeTrial, endless);
+
+        if (alreadyCleared == newCleared)
+        {
+            return;
+        }
+
+        getAchievement(modesComplete, newCleared - alreadyCleared, "Modes Completed");
     }
 }
