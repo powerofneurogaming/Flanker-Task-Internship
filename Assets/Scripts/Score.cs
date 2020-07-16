@@ -9,6 +9,9 @@ using UnityEngine.UI;
 // Sets up and manages results screen
 public class Score : MonoBehaviour
 {
+    int gamemode;
+    int difficulty;
+
     // Holders for final game state
     int unanswered;
     int wrong;
@@ -70,6 +73,8 @@ public class Score : MonoBehaviour
     {
         Timer.timerStart = true;
 
+        gameMode = PlayerPrefs.GetInt("GameMode");
+        difficulty = PlayerPrefs.GetInt("Difficulty");
 
         allTimeBest = float.NaN;
         allTimeBestAvg = float.NaN;
@@ -291,14 +296,14 @@ public class Score : MonoBehaviour
         // If CSV file does not exist, create it and set up label row
         if (!File.Exists(filePath))
         {
-            File.WriteAllText(filePath, "testNumber,name,score,wrong,unanswered,averageTime,averageCongruentTime,averageIncongruentTime,flankerEffect,bestTime,worstTime,bestCongruentTime,worstCongruentTime,bestIncongruentTime,worstIncongruentTime,globalBestTime,globalWorstTime,globalBestAvg,globalWorstAvg,globalBestCongruentTime,globalWorstCongruentTime,globalBestIncongruentTime,globalWorstIncongruentTime,globalBestCongruentAverage,globalWorstCongruentAverage,globalBestIncongruentAverage,globalWorstIncongruentAverage,globalBestFlankerEffect,globalWorstFlankerEffect\n");
+            File.WriteAllText(filePath, "testNumber,name,gameMode,difficulty,score,wrong,unanswered,averageTime,averageCongruentTime,averageIncongruentTime,flankerEffect,bestTime,worstTime,bestCongruentTime,worstCongruentTime,bestIncongruentTime,worstIncongruentTime,globalBestTime,globalWorstTime,globalBestAvg,globalWorstAvg,globalBestCongruentTime,globalWorstCongruentTime,globalBestIncongruentTime,globalWorstIncongruentTime,globalBestCongruentAverage,globalWorstCongruentAverage,globalBestIncongruentAverage,globalWorstIncongruentAverage,globalBestFlankerEffect,globalWorstFlankerEffect\n");
         }
 
         // Set current game ID based on number of existing lines in CSV file
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
+        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + gamemode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
     }
 
     private void Update()
