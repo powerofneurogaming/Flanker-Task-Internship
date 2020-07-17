@@ -46,7 +46,7 @@ public class SetPrefabs : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", name);
         }
 
-        achievements.Instance.loadAchievements();
+        AchievementManager.Instance.loadAchievements();
 
         // Check if tutorial has been played before by the given user
         tutorialGate.Instance.getPlayed();

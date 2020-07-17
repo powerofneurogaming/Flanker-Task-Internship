@@ -312,35 +312,35 @@ public class Score : MonoBehaviour
         // Bronze: 3 minutes
         // Silver: 5 minutes
         // Gold: 10 minutes
-        if (Timer.getTime() >= 600 && achievements.Instance.nothingBetterToDo == 2)
+        if (Timer.getTime() >= 600 && AchievementManager.Instance.nothingBetterToDo.state == 2)
         {
-            achievements.Instance.getAchievement(ref achievements.Instance.nothingBetterToDo, 1, "nothingBetterToDo_" + SetPrefabs.name, "Stay at Results Screen");
+            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.nothingBetterToDo, 1);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better
             // Silver: All silver or better
             // Gold: All gold or better
-            achievements.Instance.achievementsAchievement();
+            AchievementManager.Instance.achievementsAchievement();
         }
-        else if (Timer.getTime() >= 300 && achievements.Instance.nothingBetterToDo == 1)
+        else if (Timer.getTime() >= 300 && AchievementManager.Instance.nothingBetterToDo.state == 1)
         {
-            achievements.Instance.getAchievement(ref achievements.Instance.nothingBetterToDo, 1, "nothingBetterToDo_" + SetPrefabs.name, "Stay at Results Screen");
+            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.nothingBetterToDo, 1);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better
             // Silver: All silver or better
             // Gold: All gold or better
-            achievements.Instance.achievementsAchievement();
+            AchievementManager.Instance.achievementsAchievement();
         }
-        else if (Timer.getTime() >= 180 && achievements.Instance.nothingBetterToDo == 0)
+        else if (Timer.getTime() >= 180 && AchievementManager.Instance.nothingBetterToDo.state == 0)
         {
-            achievements.Instance.getAchievement(ref achievements.Instance.nothingBetterToDo, 1, "nothingBetterToDo_" + SetPrefabs.name, "Stay at Results Screen");
+            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.nothingBetterToDo, 1);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better
             // Silver: All silver or better
             // Gold: All gold or better
-            achievements.Instance.achievementsAchievement();
+            AchievementManager.Instance.achievementsAchievement();
         }
     }
 

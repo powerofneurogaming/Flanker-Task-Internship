@@ -1473,19 +1473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d46f90f38e5d04a837497f807b420c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noneWrong: 0
-  getStars: 0
-  classicDifficulty: 0
-  timeDifficulty: 0
-  endlessDifficulty: 0
-  classicTimed: 0
-  endlessStreak: 0
-  modesComplete: 0
-  dontFollowDirections: 0
-  youreBadAtThis: 0
-  getDistracted: 0
-  nothingBetterToDo: 0
-  youreGoodAtThis: 0
 --- !u!1 &1452572160
 GameObject:
   m_ObjectHideFlags: 0

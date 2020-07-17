@@ -213,13 +213,13 @@ public class TutorialManager : MonoBehaviour
         {
             if(handClicked == false)
             {
-                achievements.Instance.getAchievement(ref achievements.Instance.dontFollowDirections, 1, "dontFollowDirections_" + SetPrefabs.name, "Wrong Hand (Tutorial)");
+                AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.dontFollowDirections, 1);
 
                 // Achievement: Get all achievements
                 // Bronze: All bronze or better
                 // Silver: All silver or better
                 // Gold: All gold or better
-                achievements.Instance.achievementsAchievement();
+                AchievementManager.Instance.achievementsAchievement();
             }
             handClicked = true;
         }
@@ -241,13 +241,13 @@ public class TutorialManager : MonoBehaviour
         {
             if (handClicked == false)
             {
-                achievements.Instance.getAchievement(ref achievements.Instance.dontFollowDirections, 1, "dontFollowDirections_" + SetPrefabs.name, "Wrong Hand (Tutorial)");
+                AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.dontFollowDirections, 1);
 
                 // Achievement: Get all achievements
                 // Bronze: All bronze or better
                 // Silver: All silver or better
                 // Gold: All gold or better
-                achievements.Instance.achievementsAchievement();
+                AchievementManager.Instance.achievementsAchievement();
             }
             handClicked = true;
         }

@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 1321320590}
   - component: {fileID: 1321320589}
   m_Layer: 5
-  m_Name: Tutorial (2)
+  m_Name: Achievements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1975,7 +1975,7 @@ GameObject:
   - component: {fileID: 1740828681}
   - component: {fileID: 1740828680}
   m_Layer: 5
-  m_Name: Tutorial (1)
+  m_Name: Reset User
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

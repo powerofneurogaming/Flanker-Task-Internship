@@ -137,7 +137,7 @@ public class miscButtons : MonoBehaviour
 
     public void resetUser()
     {
-        achievements.Instance.resetAchievements();
+        AchievementManager.Instance.resetAchievements();
 
         PlayerPrefs.SetInt("PlayerScore", 0);
         PlayerPrefs.SetInt("Wrong Answers", 0);
