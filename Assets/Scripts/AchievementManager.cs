@@ -204,7 +204,7 @@ public class AchievementManager : MonoBehaviour
 
         PlayerPrefs.SetInt(achievement.privateName + SetPrefabs.name, achievement.state);
 
-        Debug.Log("You got: " + name + " - " + type);
+        Debug.Log("You got: " + achievement.friendlyName + " - " + type);
     }
 
     public void completeGamemode(int gameMode)
