@@ -75,6 +75,17 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }
 
+
+    // Transition to Achievements screen
+    public void toAchievements()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        SceneManager.LoadScene("Achievements");
+    }
+
     // Transition to About screen
     public void toAbout()
     {

@@ -208,7 +208,7 @@ public class achievements : MonoBehaviour
 
     public void achievementsAchievement()
     {
-        if(achievements.Instance.youreGoodAtThis == 3)
+        if(youreGoodAtThis == 3)
         {
             return;
         }
