@@ -508,7 +508,7 @@ public class GameManager : MonoBehaviour
         // Gold: 3 games
         if (score == 0)
         {
-            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.youreBadAtThis, 1);
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[9], 1);
         }
 
         if (gameMode == 0)
@@ -519,7 +519,7 @@ public class GameManager : MonoBehaviour
             // Gold: 3 games
             if (numWrong + numUnanswered == 0)
             {
-                AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.noneWrong, 1);
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[0], 1);
             }
 
             // Achievement: Clear a Classic Mode game in a certain amount of time
@@ -528,35 +528,35 @@ public class GameManager : MonoBehaviour
             // Gold: 2 seconds per question
             if (Timer.getTotalTime() / givenQuestions <= 2)
             {
-                if (AchievementManager.Instance.classicTimed.state == 2)
+                if (AchievementManager.Instance.achievementList[5].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicTimed, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 1);
                 }
-                else if (AchievementManager.Instance.classicTimed.state == 1)
+                else if (AchievementManager.Instance.achievementList[5].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicTimed, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 2);
                 }
-                else if (AchievementManager.Instance.classicTimed.state == 0)
+                else if (AchievementManager.Instance.achievementList[5].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicTimed, 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 3);
                 }
             }
             else if (Timer.getTotalTime() / givenQuestions <= 5)
             {
-                if (AchievementManager.Instance.classicTimed.state == 1)
+                if (AchievementManager.Instance.achievementList[5].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicTimed, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 1);
                 }
-                else if (AchievementManager.Instance.classicTimed.state == 0)
+                else if (AchievementManager.Instance.achievementList[5].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicTimed, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 2);
                 }
             }
             else if (Timer.getTotalTime() / givenQuestions <= 10)
             {
-                if (AchievementManager.Instance.classicTimed.state == 0)
+                if (AchievementManager.Instance.achievementList[5].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicTimed, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 1);
                 }
             }
 
@@ -566,35 +566,35 @@ public class GameManager : MonoBehaviour
             // Gold: Complete hard
             if (difficulty == 0)
             {
-                if (AchievementManager.Instance.classicDifficulty.state == 0)
+                if (AchievementManager.Instance.achievementList[2].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 1);
                 }
             }
             else if (difficulty == 1)
             {
-                if (AchievementManager.Instance.classicDifficulty.state == 1)
+                if (AchievementManager.Instance.achievementList[2].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 1);
                 }
-                else if (AchievementManager.Instance.classicDifficulty.state == 0)
+                else if (AchievementManager.Instance.achievementList[2].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicDifficulty, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 2);
                 }
             }
             else
             {
-                if (AchievementManager.Instance.classicDifficulty.state == 2)
+                if (AchievementManager.Instance.achievementList[2].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 1);
                 }
-                else if (AchievementManager.Instance.classicDifficulty.state == 1)
+                else if (AchievementManager.Instance.achievementList[2].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicDifficulty, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 2);
                 }
-                else if (AchievementManager.Instance.classicDifficulty.state == 0)
+                else if (AchievementManager.Instance.achievementList[2].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.classicDifficulty, 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 3);
                 }
             }
         }
@@ -606,35 +606,35 @@ public class GameManager : MonoBehaviour
             // Gold: Complete 30q60s
             if (difficulty == 0)
             {
-                if (AchievementManager.Instance.timeDifficulty.state == 0)
+                if (AchievementManager.Instance.achievementList[3].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.timeDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 1);
                 }
             }
             else if (difficulty == 1)
             {
-                if (AchievementManager.Instance.timeDifficulty.state == 1)
+                if (AchievementManager.Instance.achievementList[3].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.timeDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 1);
                 }
-                else if (AchievementManager.Instance.timeDifficulty.state == 0)
+                else if (AchievementManager.Instance.achievementList[3].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.timeDifficulty, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 2);
                 }
             }
             else
             {
-                if (AchievementManager.Instance.timeDifficulty.state == 2)
+                if (AchievementManager.Instance.achievementList[3].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.timeDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 1);
                 }
-                else if (AchievementManager.Instance.timeDifficulty.state == 1)
+                else if (AchievementManager.Instance.achievementList[3].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.timeDifficulty, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 2);
                 }
-                else if (AchievementManager.Instance.timeDifficulty.state == 0)
+                else if (AchievementManager.Instance.achievementList[3].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.timeDifficulty, 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 3);
                 }
             }
         }
@@ -646,35 +646,35 @@ public class GameManager : MonoBehaviour
             // Gold: 50 questions
             if (score + wrongSentinel >= 50)
             {
-                if (AchievementManager.Instance.endlessStreak.state == 2)
+                if (AchievementManager.Instance.achievementList[6].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessStreak, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 1);
                 }
-                else if (AchievementManager.Instance.endlessStreak.state == 1)
+                else if (AchievementManager.Instance.achievementList[6].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessStreak, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 2);
                 }
-                else if (AchievementManager.Instance.endlessStreak.state == 0)
+                else if (AchievementManager.Instance.achievementList[6].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessStreak, 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 3);
                 }
             }
             else if (score + wrongSentinel >= 20)
             {
-                if (AchievementManager.Instance.endlessStreak.state == 1)
+                if (AchievementManager.Instance.achievementList[6].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessStreak, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 1);
                 }
-                else if (AchievementManager.Instance.endlessStreak.state == 0)
+                else if (AchievementManager.Instance.achievementList[6].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessStreak, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 2);
                 }
             }
             else if (score + wrongSentinel >= 10)
             {
-                if (AchievementManager.Instance.endlessStreak.state == 0)
+                if (AchievementManager.Instance.achievementList[6].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessStreak, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 1);
                 }
             }
 
@@ -684,35 +684,35 @@ public class GameManager : MonoBehaviour
             // Gold: Complete 1 wrong
             if (difficulty == 0)
             {
-                if (AchievementManager.Instance.endlessDifficulty.state == 0)
+                if (AchievementManager.Instance.achievementList[4].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 1);
                 }
             }
             else if (difficulty == 1)
             {
-                if (AchievementManager.Instance.endlessDifficulty.state == 1)
+                if (AchievementManager.Instance.achievementList[4].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 1);
                 }
-                else if (AchievementManager.Instance.endlessDifficulty.state == 0)
+                else if (AchievementManager.Instance.achievementList[4].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessDifficulty, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 2);
                 }
             }
             else
             {
-                if (AchievementManager.Instance.endlessDifficulty.state == 2)
+                if (AchievementManager.Instance.achievementList[4].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessDifficulty, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 1);
                 }
-                else if (AchievementManager.Instance.endlessDifficulty.state == 1)
+                else if (AchievementManager.Instance.achievementList[4].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessDifficulty, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 2);
                 }
-                else if (AchievementManager.Instance.endlessDifficulty.state == 0)
+                else if (AchievementManager.Instance.achievementList[4].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.endlessDifficulty, 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 3);
                 }
             }
         }
@@ -720,10 +720,10 @@ public class GameManager : MonoBehaviour
         int starRating = 4;
         int achieveRating = 4;
 
-        while(starRating != AchievementManager.Instance.getStars.state || achieveRating != AchievementManager.Instance.youreGoodAtThis.state)
+        while(starRating != AchievementManager.Instance.achievementList[1].state || achieveRating != AchievementManager.Instance.achievementList[12].state)
         {
-            starRating = AchievementManager.Instance.getStars.state;
-            achieveRating = AchievementManager.Instance.youreGoodAtThis.state;
+            starRating = AchievementManager.Instance.achievementList[1].state;
+            achieveRating = AchievementManager.Instance.achievementList[12].state;
 
             // Achievement: Get a certain amount of stars
             // Bronze: 50 stars
@@ -731,35 +731,35 @@ public class GameManager : MonoBehaviour
             // Gold: 200 stars
             if (starScore >= 200)
             {
-                if (AchievementManager.Instance.getStars.state == 2)
+                if (AchievementManager.Instance.achievementList[1].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.getStars, 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
                 }
-                else if (AchievementManager.Instance.getStars.state == 1)
+                else if (AchievementManager.Instance.achievementList[1].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.getStars, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
                 }
-                else if (AchievementManager.Instance.getStars.state == 0)
+                else if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.getStars, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
                 }
             }
             else if (starScore >= 100)
             {
-                if (AchievementManager.Instance.getStars.state == 1)
+                if (AchievementManager.Instance.achievementList[1].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.getStars, 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
                 }
-                else if (AchievementManager.Instance.getStars.state == 0)
+                else if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.getStars, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
                 }
             }
             else if (starScore >= 50)
             {
-                if (AchievementManager.Instance.getStars.state == 0)
+                if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.getStars, 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
                 }
             }
 

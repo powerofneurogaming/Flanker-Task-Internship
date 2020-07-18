@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Achievements.unity
     guid: 3664818428e3b6c46b1eaf8af2cbe8de
   - enabled: 1
+    path: Assets/Scenes/Achieve P2.unity
+    guid: 3a5d2d81af1557c4f8c3144d2b051901
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1

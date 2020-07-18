@@ -312,9 +312,9 @@ public class Score : MonoBehaviour
         // Bronze: 3 minutes
         // Silver: 5 minutes
         // Gold: 10 minutes
-        if (Timer.getTime() >= 600 && AchievementManager.Instance.nothingBetterToDo.state == 2)
+        if (Timer.getTime() >= 600 && AchievementManager.Instance.achievementList[11].state == 2)
         {
-            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.nothingBetterToDo, 1);
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[11], 1);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better
@@ -322,9 +322,9 @@ public class Score : MonoBehaviour
             // Gold: All gold or better
             AchievementManager.Instance.achievementsAchievement();
         }
-        else if (Timer.getTime() >= 300 && AchievementManager.Instance.nothingBetterToDo.state == 1)
+        else if (Timer.getTime() >= 300 && AchievementManager.Instance.achievementList[11].state == 1)
         {
-            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.nothingBetterToDo, 1);
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[11], 1);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better
@@ -332,9 +332,9 @@ public class Score : MonoBehaviour
             // Gold: All gold or better
             AchievementManager.Instance.achievementsAchievement();
         }
-        else if (Timer.getTime() >= 180 && AchievementManager.Instance.nothingBetterToDo.state == 0)
+        else if (Timer.getTime() >= 180 && AchievementManager.Instance.achievementList[11].state  == 0)
         {
-            AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.nothingBetterToDo, 1);
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[11], 1);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better

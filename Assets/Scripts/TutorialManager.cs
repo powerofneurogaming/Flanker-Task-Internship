@@ -213,7 +213,7 @@ public class TutorialManager : MonoBehaviour
         {
             if(handClicked == false)
             {
-                AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.dontFollowDirections, 1);
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[8], 1);
 
                 // Achievement: Get all achievements
                 // Bronze: All bronze or better
@@ -241,7 +241,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (handClicked == false)
             {
-                AchievementManager.Instance.getAchievement(ref AchievementManager.Instance.dontFollowDirections, 1);
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[8], 1);
 
                 // Achievement: Get all achievements
                 // Bronze: All bronze or better

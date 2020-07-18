@@ -26,90 +26,7 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
-    // COMMENT TEMPLATE
-    // ----------------
-    // Achievement: 
-    // Bronze: 
-    // Silver: 
-    // Gold: 
-
-    // Achievement: Beat a Classic Mode game with no questions wrong
-    // Bronze: 1 game
-    // Silver: 2 games
-    // Gold: 3 games
-    public Achievement noneWrong;
-
-    // Achievement: Get a certain amount of stars
-    // Bronze: 50 stars
-    // Silver: 100 stars
-    // Gold: 200 stars
-    public Achievement getStars;
-
-    // Achievement: Complete each difficulty on classic mode
-    // Bronze: Complete easy
-    // Silver: Complete medium
-    // Gold: Complete hard
-    public Achievement classicDifficulty;
-
-    // Achievement: Complete each difficulty on time trial mode
-    // Bronze: Complete 10q20s
-    // Silver: Complete 20q40s
-    // Gold: Complete 30q60s
-    public Achievement timeDifficulty;
-
-    // Achievement: Complete each difficulty on endless mode
-    // Bronze: Complete regenerative
-    // Silver: Complete 3 wrong
-    // Gold: Complete 1 wrong
-    public Achievement endlessDifficulty;
-
-    // Achievement: Clear a Classic Mode game in a certain amount of time
-    // Bronze: 10 seconds per question
-    // Silver: 5 seconds per question
-    // Gold: 2 seconds per question
-    public Achievement classicTimed;
-
-    // Achievement: Last for a given number of questions in Endless Mode
-    // Bronze: 10 questions
-    // Silver: 20 questions
-    // Gold: 50 questions
-    public Achievement endlessStreak;
-
-    // Achievement: Complete each game mode at least once
-    // Bronze: 1 mode
-    // Silver: 2 modes
-    // Gold: 3 modes
-    public Achievement modesComplete;
-
-    // Achievement: Click the wrong hand in the tutorial a given number of times
-    // Bronze: 1 time
-    // Silver: 2 times
-    // Gold: 3 times
-    public Achievement dontFollowDirections;
-
-    // Achievement: Finish a game with no questions right
-    // Bronze: 1 game
-    // Silver: 2 games
-    // Gold: 3 games
-    public Achievement youreBadAtThis;
-
-    // Achievement: Click on each distraction
-    // Bronze: 5 distractions
-    // Silver: 10 distractions
-    // Gold: 15 distractions
-    public Achievement getDistracted;
-
-    // Achievement: Stand Idle at the results screen
-    // Bronze: 3 minutes
-    // Silver: 5 minutes
-    // Gold: 10 minutes
-    public Achievement nothingBetterToDo;
-
-    // Achievement: Get all achievements
-    // Bronze: All bronze or better
-    // Silver: All silver or better
-    // Gold: All gold or better
-    public Achievement youreGoodAtThis;
+    public List<Achievement> achievementList;
 
     bool classic;
     bool timeTrial;
@@ -117,64 +34,97 @@ public class AchievementManager : MonoBehaviour
 
     public void loadAchievements()
     {
-        noneWrong.privateName = "noneWrong_";
-        noneWrong.friendlyName = "None Wrong (Classic Mode)";
-        noneWrong.state = PlayerPrefs.GetInt(noneWrong.privateName + SetPrefabs.name, 0);
+        // COMMENT TEMPLATE
+        // ----------------
+        // Achievement: 
+        // Bronze: 
+        // Silver: 
+        // Gold: 
 
-        getStars.privateName = "getStars_";
-        getStars.friendlyName = "Get Stars";
-        getStars.state = PlayerPrefs.GetInt(getStars.privateName + SetPrefabs.name, 0);
+        // Achievement: Beat a Classic Mode game with no questions wrong
+        // Bronze: 1 game
+        // Silver: 2 games
+        // Gold: 3 games
+        achievementList.Add(new Achievement("noneWrong_", "None Wrong (Classic Mode)"));
 
-        classicDifficulty.privateName = "classicDifficulty_";
-        classicDifficulty.friendlyName = "Cleared Mode (Classic Mode)";
-        classicDifficulty.state = PlayerPrefs.GetInt(classicDifficulty.privateName + SetPrefabs.name, 0);
+        // Achievement: Get a certain amount of stars
+        // Bronze: 50 stars
+        // Silver: 100 stars
+        // Gold: 200 stars
+        achievementList.Add(new Achievement("getStars_", "Get Stars"));
 
-        timeDifficulty.privateName = "timeDifficulty_";
-        timeDifficulty.friendlyName = "Cleared Mode (Time Trial Mode)";
-        timeDifficulty.state = PlayerPrefs.GetInt(timeDifficulty.privateName + SetPrefabs.name, 0);
+        // Achievement: Complete each difficulty on classic mode
+        // Bronze: Complete easy
+        // Silver: Complete medium
+        // Gold: Complete hard
+        achievementList.Add(new Achievement("classicDifficulty_", "Cleared Mode (Classic Mode)"));
 
-        endlessDifficulty.privateName = "endlessDifficulty_";
-        endlessDifficulty.friendlyName = "Cleared Mode (Endless Mode)";
-        endlessDifficulty.state = PlayerPrefs.GetInt(endlessDifficulty.privateName + SetPrefabs.name, 0);
+        // Achievement: Complete each difficulty on time trial mode
+        // Bronze: Complete 10q20s
+        // Silver: Complete 20q40s
+        // Gold: Complete 30q60s
+        achievementList.Add(new Achievement("timeDifficulty_", "Cleared Mode (Time Trial Mode)"));
 
-        classicTimed.privateName = "classicTimed_";
-        classicTimed.friendlyName = "Timed Clear (Classic Mode)";
-        classicTimed.state = PlayerPrefs.GetInt(classicTimed.privateName + SetPrefabs.name, 0);
+        // Achievement: Complete each difficulty on endless mode
+        // Bronze: Complete regenerative
+        // Silver: Complete 3 wrong
+        // Gold: Complete 1 wrong
+        achievementList.Add(new Achievement("endlessDifficulty_", "Cleared Mode (Endless Mode)"));
 
-        endlessStreak.privateName = "endlessStreak_";
-        endlessStreak.friendlyName = "Streak (Endless Mode)";
-        endlessStreak.state = PlayerPrefs.GetInt(endlessStreak.privateName + SetPrefabs.name, 0);
+        // Achievement: Clear a Classic Mode game in a certain amount of time
+        // Bronze: 10 seconds per question
+        // Silver: 5 seconds per question
+        // Gold: 2 seconds per question
+        achievementList.Add(new Achievement("classicTimed_", "Timed Clear (Classic Mode)"));
 
-        modesComplete.privateName = "modesComplete_";
-        modesComplete.friendlyName = "Modes Completed";
-        modesComplete.state = PlayerPrefs.GetInt(modesComplete.privateName + SetPrefabs.name, 0);
+        // Achievement: Last for a given number of questions in Endless Mode
+        // Bronze: 10 questions
+        // Silver: 20 questions
+        // Gold: 50 questions
+        achievementList.Add(new Achievement("endlessStreak_", "Streak (Endless Mode)"));
 
-        dontFollowDirections.privateName = "dontFollowDirections_";
-        dontFollowDirections.friendlyName = "Wrong Hand (Tutorial)";
-        dontFollowDirections.state = PlayerPrefs.GetInt(dontFollowDirections.privateName + SetPrefabs.name, 0);
+        // Achievement: Complete each game mode at least once
+        // Bronze: 1 mode
+        // Silver: 2 modes
+        // Gold: 3 modes
+        achievementList.Add(new Achievement("modesComplete_", "Modes Completed"));
 
-        youreBadAtThis.privateName = "youreBadAtThis_";
-        youreBadAtThis.friendlyName = "No Questions Right";
-        youreBadAtThis.state = PlayerPrefs.GetInt(youreBadAtThis.privateName + SetPrefabs.name, 0);
+        // Achievement: Click the wrong hand in the tutorial a given number of times
+        // Bronze: 1 time
+        // Silver: 2 times
+        // Gold: 3 times
+        achievementList.Add(new Achievement("dontFollowDirections_", "Wrong Hand (Tutorial)"));
 
-        getDistracted.privateName = "getDistracted_";
-        getDistracted.friendlyName = "Clicked Distractions";
-        getDistracted.state = PlayerPrefs.GetInt(getDistracted.privateName + SetPrefabs.name, 0);
+        // Achievement: Finish a game with no questions right
+        // Bronze: 1 game
+        // Silver: 2 games
+        // Gold: 3 games
+        achievementList.Add(new Achievement("youreBadAtThis_", "No Questions Right"));
 
-        nothingBetterToDo.privateName = "nothingBetterToDo_";
-        nothingBetterToDo.friendlyName = "Stay at Results Screen";
-        nothingBetterToDo.state = PlayerPrefs.GetInt(nothingBetterToDo.privateName + SetPrefabs.name, 0);
+        // Achievement: Click on each distraction
+        // Bronze: 5 distractions
+        // Silver: 10 distractions
+        // Gold: 15 distractions
+        achievementList.Add(new Achievement("getDistracted_", "Clicked Distractions"));
 
-        youreGoodAtThis.privateName = "youreGoodAtThis_";
-        youreGoodAtThis.friendlyName = "Get Achievements";
-        youreGoodAtThis.state = PlayerPrefs.GetInt(youreGoodAtThis.privateName + SetPrefabs.name, 0);
+        // Achievement: Stand Idle at the results screen
+        // Bronze: 3 minutes
+        // Silver: 5 minutes
+        // Gold: 10 minutes
+        achievementList.Add(new Achievement("nothingBetterToDo_", "Stay at Results Screen"));
+
+        // Achievement: Get all achievements
+        // Bronze: All bronze or better
+        // Silver: All silver or better
+        // Gold: All gold or better
+        achievementList.Add(new Achievement("youreGoodAtThis_", "Get Achievements"));
 
         classic = PlayerPrefs.GetInt("classicAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
         timeTrial = PlayerPrefs.GetInt("timeTrialAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
         endless = PlayerPrefs.GetInt("endlessAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
     }
 
-    public void getAchievement(ref Achievement achievement, int toAdd)
+    public void getAchievement(Achievement achievement, int toAdd)
     {
         if (achievement.state >= 3 || toAdd == 0)
         {
@@ -239,19 +189,19 @@ public class AchievementManager : MonoBehaviour
             return;
         }
 
-        getAchievement(ref modesComplete, newCleared - alreadyCleared);
+        getAchievement(achievementList[7], newCleared - alreadyCleared);
     }
 
     public void achievementsAchievement()
     {
-        if (youreGoodAtThis.state == 3)
+        if (achievementList[12].state == 3)
         {
             return;
         }
 
-        int[] achieveList = { noneWrong.state , getStars.state , classicDifficulty.state , timeDifficulty.state , endlessDifficulty.state ,
-                              classicTimed.state , endlessStreak.state , modesComplete.state , dontFollowDirections.state ,
-                              youreBadAtThis.state , getDistracted.state , nothingBetterToDo.state };
+        int[] achieveList = { achievementList[0].state , achievementList[1].state , achievementList[2].state , achievementList[3].state , achievementList[4].state ,
+                              achievementList[5].state , achievementList[6].state , achievementList[7].state , achievementList[8].state ,
+                              achievementList[9].state , achievementList[10].state , achievementList[11].state };
 
         int max = 4;
 
@@ -263,37 +213,37 @@ public class AchievementManager : MonoBehaviour
             }
         }
 
-        getAchievement(ref youreGoodAtThis, max - youreGoodAtThis.state);
+        getAchievement(achievementList[12], max - achievementList[12].state);
     }
 
     public void resetAchievements()
     {
-        noneWrong.state = 0;
-        PlayerPrefs.SetInt(noneWrong.privateName + SetPrefabs.name, 0);
-        getStars.state = 0;
-        PlayerPrefs.SetInt(getStars.privateName + SetPrefabs.name, 0);
-        classicDifficulty.state = 0;
-        PlayerPrefs.SetInt(classicDifficulty.privateName + SetPrefabs.name, 0);
-        timeDifficulty.state = 0;
-        PlayerPrefs.SetInt(timeDifficulty.privateName + SetPrefabs.name, 0);
-        endlessDifficulty.state = 0;
-        PlayerPrefs.SetInt(endlessDifficulty.privateName + SetPrefabs.name, 0);
-        classicTimed.state = 0;
-        PlayerPrefs.SetInt(classicTimed.privateName + SetPrefabs.name, 0);
-        endlessStreak.state = 0;
-        PlayerPrefs.SetInt(endlessStreak.privateName + SetPrefabs.name, 0);
-        modesComplete.state = 0;
-        PlayerPrefs.SetInt(modesComplete.privateName + SetPrefabs.name, 0);
-        dontFollowDirections.state = 0;
-        PlayerPrefs.SetInt(dontFollowDirections.privateName + SetPrefabs.name, 0);
-        youreBadAtThis.state = 0;
-        PlayerPrefs.SetInt(youreBadAtThis.privateName + SetPrefabs.name, 0);
-        getDistracted.state = 0;
-        PlayerPrefs.SetInt(getDistracted.privateName + SetPrefabs.name, 0);
-        nothingBetterToDo.state = 0;
-        PlayerPrefs.SetInt(nothingBetterToDo.privateName + SetPrefabs.name, 0);
-        youreGoodAtThis.state = 0;
-        PlayerPrefs.SetInt(youreGoodAtThis.privateName + SetPrefabs.name, 0);
+        achievementList[0].state = 0;
+        PlayerPrefs.SetInt(achievementList[0].privateName + SetPrefabs.name, 0);
+        achievementList[1].state = 0;
+        PlayerPrefs.SetInt(achievementList[1].privateName + SetPrefabs.name, 0);
+        achievementList[2].state = 0;
+        PlayerPrefs.SetInt(achievementList[2].privateName + SetPrefabs.name, 0);
+        achievementList[3].state = 0;
+        PlayerPrefs.SetInt(achievementList[3].privateName + SetPrefabs.name, 0);
+        achievementList[4].state = 0;
+        PlayerPrefs.SetInt(achievementList[4].privateName + SetPrefabs.name, 0);
+        achievementList[5].state = 0;
+        PlayerPrefs.SetInt(achievementList[5].privateName + SetPrefabs.name, 0);
+        achievementList[6].state = 0;
+        PlayerPrefs.SetInt(achievementList[6].privateName + SetPrefabs.name, 0);
+        achievementList[7].state = 0;
+        PlayerPrefs.SetInt(achievementList[7].privateName + SetPrefabs.name, 0);
+        achievementList[8].state = 0;
+        PlayerPrefs.SetInt(achievementList[8].privateName + SetPrefabs.name, 0);
+        achievementList[9].state = 0;
+        PlayerPrefs.SetInt(achievementList[9].privateName + SetPrefabs.name, 0);
+        achievementList[10].state = 0;
+        PlayerPrefs.SetInt(achievementList[10].privateName + SetPrefabs.name, 0);
+        achievementList[11].state = 0;
+        PlayerPrefs.SetInt(achievementList[11].privateName + SetPrefabs.name, 0);
+        achievementList[12].state = 0;
+        PlayerPrefs.SetInt(achievementList[12].privateName + SetPrefabs.name, 0);
 
         PlayerPrefs.SetInt("classicAchieve_" + SetPrefabs.name, false ? 1 : 0);
         classic = false;
