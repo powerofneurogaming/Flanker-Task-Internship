@@ -667,6 +667,11 @@ MonoBehaviour:
   arrows: {fileID: 715181074}
   scoreboard: {fileID: 1574444363}
   starboard: {fileID: 756759464}
+  bombSprite: {fileID: 1656036103}
+  bombText: {fileID: 1192953111}
+  bomb3: {fileID: -4011325717761871949, guid: f0037d3d5188eaa4e9fc2a0869a5f16f, type: 3}
+  bomb2: {fileID: -537645301627575122, guid: f0037d3d5188eaa4e9fc2a0869a5f16f, type: 3}
+  bomb1: {fileID: 6188298218411486454, guid: f0037d3d5188eaa4e9fc2a0869a5f16f, type: 3}
 --- !u!4 &483397938
 Transform:
   m_ObjectHideFlags: 0
@@ -2542,7 +2547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2109692611
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     int wrongSentinel; // Wrong answers including missed questions (for Endless Mode)
     int maxWrong; // Max wrong answers based on difficulty mode
     int comboCounter; // Combo counter, also used for regenerative mode
-    bool regen; // Regenerative Mode sentinel
     int numWrong; // Wrong answers excluding missed questions (for results / data collection)
     int numUnanswered;
     private float maxTime;
@@ -83,10 +82,18 @@ public class GameManager : MonoBehaviour
     public GameObject arrows;
     public GameObject scoreboard;
     public GameObject starboard;
+    public GameObject bombSprite;
+    public GameObject bombText;
+    public Sprite bomb3 ;
+    public Sprite bomb2;
+    public Sprite bomb1;
 
     // Set up starting game state
     private void Start()
     {
+        bombSprite.GetComponent<SpriteRenderer>().enabled = false;
+        bombText.GetComponent<Text>().enabled = false;
+
         // Only the left/right hands are tagged "button", so this assigns the left and right hands to the buttons array
         buttons = GameObject.FindGameObjectsWithTag("button");
 
@@ -153,7 +160,6 @@ public class GameManager : MonoBehaviour
             if (difficulty == 0)
             {
                 maxWrong = 3;
-                regen = true;
             }
             else if (difficulty == 1)
             {
@@ -244,6 +250,12 @@ public class GameManager : MonoBehaviour
     // Start a trial
     public void startTrial()
     {
+        if(endlessMode == true)
+        {
+            bombSprite.GetComponent<SpriteRenderer>().enabled = true;
+            bombText.GetComponent<Text>().enabled = true;
+        }
+
         arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
         // Turn the arrows on
         arrows.SetActive(true);
@@ -410,6 +422,7 @@ public class GameManager : MonoBehaviour
                 if(difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel != 0)
                 {
                     wrongSentinel--;
+                    updateBomb();
                 }
             }
 
@@ -463,6 +476,7 @@ public class GameManager : MonoBehaviour
             if (endlessMode == true)
             {
                 wrongSentinel++;
+                updateBomb();
                 comboCounter = 0;
             }
 
@@ -509,6 +523,25 @@ public class GameManager : MonoBehaviour
 
             // Transition automatically without needing plus button
             startTrial();
+        }
+    }
+
+    public void updateBomb()
+    {
+        int numLeft = maxWrong - wrongSentinel;
+        bombText.GetComponent<Text>().text = numLeft.ToString();
+
+        if (numLeft == 3)
+        {
+            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb3;
+        }
+        else if (numLeft == 2)
+        {
+            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb2;
+        }
+        else
+        {
+            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
         }
     }
 
