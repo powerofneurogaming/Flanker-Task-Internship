@@ -55,6 +55,17 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Time Select");
     }
 
+    // Transition to Endless Mode setup screen
+    public void toEndless()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        musicSource.Pause();
+        SceneManager.LoadScene("Endless Select");
+    }
+
     // Transition to Tutorial
     public void toTutorial()
     {

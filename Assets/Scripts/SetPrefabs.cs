@@ -107,6 +107,13 @@ public class SetPrefabs : MonoBehaviour
         SceneManager.LoadScene("Flanker Main");
     }
 
+    // Code for starting Endless mode
+    public void setEndless()
+    {
+        PlayerPrefs.SetInt("GameMode", 2);
+        SceneManager.LoadScene("Flanker Main");
+    }
+
     // 
     public void Update()
     {

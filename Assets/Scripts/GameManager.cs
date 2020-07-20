@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     public int score;
     public int numAnswered;
     int wrongSentinel; // Wrong answers including missed questions (for Endless Mode)
+    int maxWrong; // Max wrong answers based on difficulty mode
+    int comboCounter; // Combo counter, also used for regenerative mode
+    bool regen; // Regenerative Mode sentinel
     int numWrong; // Wrong answers excluding missed questions (for results / data collection)
     int numUnanswered;
     private float maxTime;
@@ -128,8 +131,8 @@ public class GameManager : MonoBehaviour
             endlessMode = true;
         }
 
-        // Set up time multipliers for classic and endless modes
-        if(timeTrial != true)
+        // Set up time multipliers for classic mode
+        if (timeTrial != true && endlessMode != true)
         {
             if (difficulty == 0)
             {
@@ -144,6 +147,25 @@ public class GameManager : MonoBehaviour
                 multiplier = 1.5f;
             }
         }
+        else if (endlessMode == true)
+        {
+            multiplier = 2.5f;
+            if (difficulty == 0)
+            {
+                maxWrong = 3;
+                regen = true;
+            }
+            else if (difficulty == 1)
+            {
+                maxWrong = 3;
+            }
+            else
+            {
+                maxWrong = 1;
+            }
+        }
+
+
 
         // Initialize array of trial questions based on the number of questions desired
         allTrialQuestions = new Question[givenQuestions];
@@ -310,12 +332,6 @@ public class GameManager : MonoBehaviour
             obj.SetActive(false);
         }
 
-        // If Endless mode is on, increment wrong answer sentinel
-        if (endlessMode == true)
-        {
-            wrongSentinel++;
-        }
-
         // Start general end-state logic
         userSelectEnd(false, false);
     }
@@ -389,6 +405,12 @@ public class GameManager : MonoBehaviour
             if (endlessMode == true)
             {
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
+                comboCounter++;
+
+                if(difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel != 0)
+                {
+                    wrongSentinel--;
+                }
             }
 
             // Set best time
@@ -438,6 +460,12 @@ public class GameManager : MonoBehaviour
                 Timer.globalTimer--;
             }
 
+            if (endlessMode == true)
+            {
+                wrongSentinel++;
+                comboCounter = 0;
+            }
+
             // Reset per question timer in any game mode
             Timer.resetTimer(false);
         }
@@ -448,10 +476,6 @@ public class GameManager : MonoBehaviour
             numAnswered++;
             if(correct == false) // DO NOT put this in the above 'else' block or it will trigger when not answering at all
             {
-                if (endlessMode == true)
-                {
-                    wrongSentinel++;
-                }
                 numWrong++;
                 Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
             }
@@ -469,7 +493,7 @@ public class GameManager : MonoBehaviour
         //      Exhausted number of questions in Classic or Time Trial mode
         //      Exhausted number of wrong answers in Endless mode
         //      Ran out of time in Time Trial mode
-        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= 3 || (timeTrial == true && Timer.globalTimer <= 0.0f))
+        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= maxWrong || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
             moveToResults();
         }

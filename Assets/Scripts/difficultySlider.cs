@@ -29,6 +29,10 @@ public class difficultySlider : MonoBehaviour
         {
             difficultyText.text = "20 seconds, 10 questions";
         }
+        else
+        {
+            difficultyText.text = "3 Wrong - Regenerative";
+        }
     }
 
     // Logic for changing difficulty slider text
@@ -50,6 +54,11 @@ public class difficultySlider : MonoBehaviour
             {
                 difficultyText.text = "20 seconds, 10 questions";
             }
+            else
+            {
+                difficultyText.text = "3 Wrong - Regenerative";
+            }
+
         }
         // If medium
         else if(difficulty == 1)
@@ -64,6 +73,10 @@ public class difficultySlider : MonoBehaviour
             {
                 difficultyText.text = "40 seconds, 20 questions";
             }
+            else
+            {
+                difficultyText.text = "3 Wrong";
+            }
         }
         // If hard
         else
@@ -77,6 +90,10 @@ public class difficultySlider : MonoBehaviour
             else if (currentScene.name == "Time Select")
             {
                 difficultyText.text = "60 seconds, 30 questions";
+            }
+            else
+            {
+                difficultyText.text = "1 Wrong";
             }
         }
 
