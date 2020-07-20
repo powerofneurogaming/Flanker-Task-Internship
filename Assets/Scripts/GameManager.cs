@@ -757,7 +757,7 @@ public class GameManager : MonoBehaviour
             {
                 if (AchievementManager.Instance.achievementList[1].state == 2)
                 {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
                 }
                 else if (AchievementManager.Instance.achievementList[1].state == 1)
                 {
@@ -765,18 +765,18 @@ public class GameManager : MonoBehaviour
                 }
                 else if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
                 }
             }
             else if (starScore >= 100)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 1)
                 {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
                 }
                 else if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
+                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
                 }
             }
             else if (starScore >= 50)
