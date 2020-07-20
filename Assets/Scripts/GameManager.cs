@@ -493,7 +493,7 @@ public class GameManager : MonoBehaviour
         //      Exhausted number of questions in Classic or Time Trial mode
         //      Exhausted number of wrong answers in Endless mode
         //      Ran out of time in Time Trial mode
-        if ((globalIndex >= givenQuestions && endlessMode == false) || wrongSentinel >= maxWrong || (timeTrial == true && Timer.globalTimer <= 0.0f))
+        if ((globalIndex >= givenQuestions && endlessMode == false) || (endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
             moveToResults();
         }
