@@ -491,7 +491,7 @@ public class GameManager : MonoBehaviour
                 updateBomb();
                 comboCounter = 0;
 
-                comboBox.GetComponent<SpriteRenderer>().sprite = -plusButton;
+                comboBox.GetComponent<SpriteRenderer>().sprite = plusButton;
                 comboText.GetComponent<Text>().text = "";
             }
 
