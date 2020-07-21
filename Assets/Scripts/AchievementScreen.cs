@@ -37,7 +37,7 @@ public class AchievementScreen : MonoBehaviour
             }
             if (AchievementManager.Instance.achievementList[5 + offset].state > 0)
             {
-                secrets[3].text = "STAY AT\nRESULTS SCREEN";
+                secrets[3].text = "STAY AT\nRESULTS";
             }
         }
 
