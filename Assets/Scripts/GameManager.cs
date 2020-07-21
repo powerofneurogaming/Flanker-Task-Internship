@@ -427,7 +427,7 @@ public class GameManager : MonoBehaviour
 
                 if(comboCounter >= 2)
                 {
-                    comboBox.GetComponent<SpriteRenderer>().sprite = blankPlus;
+                    comboBox.GetComponent<Image>().sprite = blankPlus;
                     comboText.GetComponent<Text>().text = comboCounter.ToString();
                 }
 
@@ -491,7 +491,7 @@ public class GameManager : MonoBehaviour
                 updateBomb();
                 comboCounter = 0;
 
-                comboBox.GetComponent<SpriteRenderer>().sprite = plusButton;
+                comboBox.GetComponent<Image>().sprite = plusButton;
                 comboText.GetComponent<Text>().text = "";
             }
 
