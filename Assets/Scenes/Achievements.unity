@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7d5b20c196202274a80c1cfb1e683ed5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c53bb4e360e19dc449a61590db952a42, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2124,6 +2124,7 @@ MonoBehaviour:
   - {fileID: 1856866074}
   - {fileID: 2036692162}
   - {fileID: 2009867207}
+  secrets: []
 --- !u!1 &1479831370
 GameObject:
   m_ObjectHideFlags: 0
