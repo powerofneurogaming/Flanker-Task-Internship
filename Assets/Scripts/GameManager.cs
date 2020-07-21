@@ -84,9 +84,14 @@ public class GameManager : MonoBehaviour
     public GameObject starboard;
     public GameObject bombSprite;
     public GameObject bombText;
-    public Sprite bomb3 ;
+    public Sprite bomb3;
     public Sprite bomb2;
     public Sprite bomb1;
+
+    public GameObject comboBox;
+    public GameObject comboText;
+    public Sprite plusButton;
+    public Sprite blankPlus;
 
     // Set up starting game state
     private void Start()
@@ -171,8 +176,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-
         // Initialize array of trial questions based on the number of questions desired
         allTrialQuestions = new Question[givenQuestions];
 
@@ -208,6 +211,9 @@ public class GameManager : MonoBehaviour
 
         // Turn off arrow textbox
         arrows.SetActive(false);
+
+        // Blank Combo Counter
+        comboText.GetComponent<Text>().text = "";
 
         // Set up questions
         LoadTrials();
@@ -419,6 +425,12 @@ public class GameManager : MonoBehaviour
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
                 comboCounter++;
 
+                if(comboCounter >= 2)
+                {
+                    comboBox.GetComponent<SpriteRenderer>().sprite = blankPlus;
+                    comboText.GetComponent<Text>().text = comboCounter.ToString();
+                }
+
                 if(difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel != 0)
                 {
                     wrongSentinel--;
@@ -478,6 +490,9 @@ public class GameManager : MonoBehaviour
                 wrongSentinel++;
                 updateBomb();
                 comboCounter = 0;
+
+                comboBox.GetComponent<SpriteRenderer>().sprite = -plusButton;
+                comboText.GetComponent<Text>().text = "";
             }
 
             // Reset per question timer in any game mode
