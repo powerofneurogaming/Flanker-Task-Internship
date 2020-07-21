@@ -2092,12 +2092,12 @@ MonoBehaviour:
   - {fileID: -4296969237699094177, guid: 6dab3602bd08d5b46a28383fb115010d, type: 3}
   - {fileID: -3141853523703230512, guid: 6dab3602bd08d5b46a28383fb115010d, type: 3}
   medals:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 191132507}
+  - {fileID: 1622368951}
+  - {fileID: 466493070}
+  - {fileID: 1203132407}
+  - {fileID: 1070504152}
+  - {fileID: 429184371}
   secrets: []
 --- !u!1 &1479831370
 GameObject:
