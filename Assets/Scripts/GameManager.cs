@@ -82,12 +82,15 @@ public class GameManager : MonoBehaviour
     public GameObject starboard;
     public GameObject bombSprite;
     public GameObject bombText;
+    public GameObject ttBombSprite;
+    public GameObject ttBombText;
     public Sprite bomb3;
     public Sprite bomb2;
     public Sprite bomb1;
 
     public GameObject comboBox;
     public GameObject comboText;
+    public GameObject plusBox;
     public Sprite plusButton;
     public Sprite blankPlus;
 
@@ -96,6 +99,8 @@ public class GameManager : MonoBehaviour
     {
         bombSprite.GetComponent<SpriteRenderer>().enabled = false;
         bombText.GetComponent<Text>().enabled = false;
+        ttBombSprite.GetComponent<SpriteRenderer>().enabled = false;
+        ttBombText.GetComponent<Text>().enabled = false;
 
         // Only the left/right hands are tagged "button", so this assigns the left and right hands to the buttons array
         buttons = GameObject.FindGameObjectsWithTag("button");
@@ -112,7 +117,7 @@ public class GameManager : MonoBehaviour
         }
         else if (gameMode == 1) // if time trial mode
         {
-            bombText.GetComponent<Text>().fontSize = 10;
+            ttBombText.GetComponent<Text>().fontSize = 10;
             scoreboard.GetComponent<Text>().enabled = false;
             // Set number of questions and seconds per game based on difficulty 
             if (difficulty == 0)
@@ -258,10 +263,16 @@ public class GameManager : MonoBehaviour
     // Start a trial
     public void startTrial()
     {
-        if(endlessMode == true || timeTrial == true)
+        if (endlessMode == true)
         {
             bombSprite.GetComponent<SpriteRenderer>().enabled = true;
             bombText.GetComponent<Text>().enabled = true;
+        }
+        else if (timeTrial == true)
+        {
+            plusBox.SetActive(false);
+            ttBombSprite.GetComponent<SpriteRenderer>().enabled = true;
+            ttBombText.GetComponent<Text>().enabled = true;
         }
 
         arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
@@ -545,14 +556,14 @@ public class GameManager : MonoBehaviour
 
     public void updateTimebomb()
     {
-        bombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.globalTimer * 1000) / 1000);
+        ttBombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.globalTimer * 1000) / 1000);
         if (Timer.globalTimer < givenQuestions * 2 / 3)
         {
-            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
+            ttBombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
         }
         else if (Timer.globalTimer < givenQuestions * 2 / 3 * 2)
         {
-            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb2;
+            ttBombSprite.GetComponent<SpriteRenderer>().sprite = bomb2;
         }
     }
 
