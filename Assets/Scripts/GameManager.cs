@@ -50,8 +50,6 @@ public class GameManager : MonoBehaviour
     float multiplier;
     float currentTimer;
 
-    int starScore;
-
     // Number of congruent vs incongruent questions answered, for calculating final time states
     public int congruentQuestions;
     public int incongruentQuestions;
@@ -106,8 +104,7 @@ public class GameManager : MonoBehaviour
         gameMode = PlayerPrefs.GetInt("GameMode");
         difficulty = PlayerPrefs.GetInt("Difficulty");
 
-        starScore = PlayerPrefs.GetInt("starScore_" + SetPrefabs.name, 0);
-        starboard.GetComponent<Text>().text = starScore.ToString();
+        starboard.GetComponent<Text>().text = starManager.Instance.getStars().ToString();
 
         // Set up game state based on chosen mode and difficulty
         if (gameMode == 0) // if classic mode
@@ -174,7 +171,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 maxWrong = 1;
-                updateTimebomb();
+                updateBomb();
             }
         }
 
@@ -414,18 +411,18 @@ public class GameManager : MonoBehaviour
             // Giving the player stars based on difficulty
             if(difficulty == 0)
             {
-                starScore++; 
+                starManager.Instance.addStars(1); 
             }
             else if (difficulty == 1)
             {
-                starScore += 2;
+                starManager.Instance.addStars(2);
             }
             else
             {
-                starScore += 4;
+                starManager.Instance.addStars(4);
             }
 
-            starboard.GetComponent<Text>().text = starScore.ToString();
+            starboard.GetComponent<Text>().text = starManager.Instance.getStars().ToString();
             
             if (endlessMode == true)
             {
@@ -821,7 +818,7 @@ public class GameManager : MonoBehaviour
             // Bronze: 50 stars
             // Silver: 100 stars
             // Gold: 200 stars
-            if (starScore >= 200)
+            if (starManager.Instance.getStars() >= 200)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 2)
                 {
@@ -836,7 +833,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
                 }
             }
-            else if (starScore >= 100)
+            else if (starManager.Instance.getStars() >= 100)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 1)
                 {
@@ -847,7 +844,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
                 }
             }
-            else if (starScore >= 50)
+            else if (starManager.Instance.getStars() >= 50)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
@@ -875,7 +872,9 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("worstIncongTime", worstIncongTime);
         PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
         PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
-        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, starScore);
+
+        starManager.Instance.saveStars();
+
         Instance = null;
         Music.Instance.musicSource.Pause();
         SceneManager.LoadScene("Flanker Result");
