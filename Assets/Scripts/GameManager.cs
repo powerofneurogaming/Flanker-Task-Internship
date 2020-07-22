@@ -104,8 +104,6 @@ public class GameManager : MonoBehaviour
         gameMode = PlayerPrefs.GetInt("GameMode");
         difficulty = PlayerPrefs.GetInt("Difficulty");
 
-        starboard.GetComponent<Text>().text = starManager.Instance.getStars().ToString();
-
         // Set up game state based on chosen mode and difficulty
         if (gameMode == 0) // if classic mode
         {

@@ -1084,7 +1084,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: dca7dfc8e0ab98b47890b36cb8a9400e, type: 3}
-    m_FontSize: 30
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1095,7 +1095,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 999
 --- !u!222 &756759467
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1523,6 +1523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1285582539}
   - component: {fileID: 1285582540}
+  - component: {fileID: 1285582541}
   m_Layer: 0
   m_Name: Star Counter
   m_TagString: Untagged
@@ -1595,6 +1596,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1285582541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285582538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600402623e33b01448bc4e4648f336c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starText: {fileID: 756759466}
 --- !u!1 &1449424866
 GameObject:
   m_ObjectHideFlags: 0
