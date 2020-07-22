@@ -40,7 +40,6 @@ public class miscButtons : MonoBehaviour
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        musicSource.Pause();
         SceneManager.LoadScene("Classic Select");
     }
 
@@ -51,7 +50,6 @@ public class miscButtons : MonoBehaviour
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        musicSource.Pause();
         SceneManager.LoadScene("Time Select");
     }
 
@@ -62,7 +60,6 @@ public class miscButtons : MonoBehaviour
         {
             sfxSource.PlayOneShot(typekey, volume);
         }
-        musicSource.Pause();
         SceneManager.LoadScene("Endless Select");
     }
 

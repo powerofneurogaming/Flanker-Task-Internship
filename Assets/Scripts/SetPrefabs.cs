@@ -105,6 +105,10 @@ public class SetPrefabs : MonoBehaviour
     public void setTimed()
     {
         PlayerPrefs.SetInt("GameMode", 1);
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+        }
         SceneManager.LoadScene("Flanker Main");
     }
 
@@ -112,6 +116,10 @@ public class SetPrefabs : MonoBehaviour
     public void setEndless()
     {
         PlayerPrefs.SetInt("GameMode", 2);
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+        }
         SceneManager.LoadScene("Flanker Main");
     }
 
