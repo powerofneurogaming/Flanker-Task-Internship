@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
         }
         else if (gameMode == 1) // if time trial mode
         {
+            bombText.GetComponent<Text>().fontSize = 10;
             scoreboard.GetComponent<Text>().enabled = false;
             // Set number of questions and seconds per game based on difficulty 
             if (difficulty == 0)
@@ -173,6 +174,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 maxWrong = 1;
+                updateTimebomb();
             }
         }
 
@@ -234,6 +236,11 @@ public class GameManager : MonoBehaviour
         {
             userSelectNone();
         }
+
+        if (timeTrial == true)
+        {
+            updateTimebomb();
+        }
     }
 
     // Initialize questions in question array
@@ -256,7 +263,7 @@ public class GameManager : MonoBehaviour
     // Start a trial
     public void startTrial()
     {
-        if(endlessMode == true)
+        if(endlessMode == true || timeTrial == true)
         {
             bombSprite.GetComponent<SpriteRenderer>().enabled = true;
             bombText.GetComponent<Text>().enabled = true;
@@ -538,6 +545,19 @@ public class GameManager : MonoBehaviour
 
             // Transition automatically without needing plus button
             startTrial();
+        }
+    }
+
+    public void updateTimebomb()
+    {
+        bombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.globalTimer * 1000) / 1000);
+        if (Timer.globalTimer < givenQuestions * 2 / 3)
+        {
+            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
+        }
+        else if (Timer.globalTimer < givenQuestions * 2 / 3 * 2)
+        {
+            bombSprite.GetComponent<SpriteRenderer>().sprite = bomb2;
         }
     }
 
