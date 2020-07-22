@@ -1391,6 +1391,7 @@ GameObject:
   - component: {fileID: 1449424867}
   - component: {fileID: 1449424870}
   - component: {fileID: 1449424871}
+  - component: {fileID: 1449424872}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1474,6 +1475,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   achievementList: []
+--- !u!114 &1449424872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449424866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f6b9e1a6c0d1641aab2fe399fcee7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1452572160
 GameObject:
   m_ObjectHideFlags: 0
