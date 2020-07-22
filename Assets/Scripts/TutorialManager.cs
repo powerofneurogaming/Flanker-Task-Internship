@@ -59,9 +59,17 @@ public class TutorialManager : MonoBehaviour
     // Left and right hand buttons
     GameObject[] buttons;
 
+    [SerializeField]
+    GameObject persistBackButton;
+
     // Set up starting game state
     private void Start()
     {
+        if(tutorialGate.Instance.hasPlayedTutorial == true)
+        {
+            persistBackButton.SetActive(true);
+        }
+
         buttons = GameObject.FindGameObjectsWithTag("button");
         globalIndex = 0;
 
@@ -282,6 +290,7 @@ public class TutorialManager : MonoBehaviour
     public void endTutorial()
     {
         // Disable plus button and enable return button
+        persistBackButton.SetActive(false);
         plusButton.SetActive(false);
         backButton.SetActive(true);
 
