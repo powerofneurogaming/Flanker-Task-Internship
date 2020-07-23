@@ -48,6 +48,9 @@ public class Score : MonoBehaviour
 
     // Game elements for results readout and 'View Results' button
     public Text scoreText;
+    public Text leftText;
+    public Text rightText;
+    public Text bottomText;
     public GameObject resultsButton;
     public Button restartButton;
     public Button mainMenuButton;
@@ -144,7 +147,7 @@ public class Score : MonoBehaviour
         // Else, output best time, and if it is an all-time best time, update the all-time best and worst times
         else
         {
-            bestString = "\nBest Correct Time: " + bestTimeRound;
+            bestString = "\nBest Time: " + bestTimeRound;
             allTimeBest = PlayerPrefs.GetFloat("allBestTime_" + SetPrefabs.name, float.NaN);
             allTimeWorst = PlayerPrefs.GetFloat("allWorstTime_" + SetPrefabs.name, float.NaN);
             if (bestTimeRound < allTimeBest || float.IsNaN(allTimeBest))
@@ -303,7 +306,7 @@ public class Score : MonoBehaviour
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + Congrats_Text.Player + "," + gameMode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
+        File.AppendAllText(filePath, resultNum + "," + SetPrefabs.name + "," + gameMode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
     }
 
     private void Update()
@@ -352,6 +355,9 @@ public class Score : MonoBehaviour
         mainMenuButton.gameObject.SetActive(true);
 
         scoreText.enabled = true; // Enable game results text
+        leftText.enabled = true; // Enable game results text
+        rightText.enabled = true; // Enable game results text
+        bottomText.enabled = true; // Enable game results text
         resultsButton.SetActive(false); // Hide 'View Results' button
 
         // handle NaNs for divide-by-zero
@@ -373,14 +379,13 @@ public class Score : MonoBehaviour
         }
 
         // Populate game results text with information
-        scoreText.text = "End Summary:" +
-                         "\nScore: " + score +
-                         "\nWrong: " + wrong +
-                         "\nUnanswered: " + unanswered +
-                         "\nAvg Time: " + avgTimeRound +
-                         bestString + 
+        scoreText.text = "Score: " + score;
+        leftText.text = "\nWrong: " + wrong +
+                        "\nAvg Time: " + avgTimeRound +
+                        bestString;
+        rightText.text = "\nUnanswered: " + unanswered +
                          "\nCongruent Avg: " + congTimeAvgRound +
-                         "\nIncongruent Avg: " + incongTimeAvgRound +
-                         "\nFlanker Effect: " + flankerRound;
+                         "\nIncongruent Avg: " + incongTimeAvgRound;
+        bottomText.text = "\nFlanker Effect: " + flankerRound;
     }
 }

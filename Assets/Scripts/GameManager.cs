@@ -117,7 +117,6 @@ public class GameManager : MonoBehaviour
         }
         else if (gameMode == 1) // if time trial mode
         {
-            ttBombText.GetComponent<Text>().fontSize = 10;
             scoreboard.GetComponent<Text>().enabled = false;
             // Set number of questions and seconds per game based on difficulty 
             if (difficulty == 0)
