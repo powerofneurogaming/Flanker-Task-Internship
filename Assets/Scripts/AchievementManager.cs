@@ -119,9 +119,9 @@ public class AchievementManager : MonoBehaviour
         // Gold: All gold or better
         achievementList.Add(new Achievement("youreGoodAtThis_", "Get Achievements"));
 
-        classic = PlayerPrefs.GetInt("classicAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
-        timeTrial = PlayerPrefs.GetInt("timeTrialAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
-        endless = PlayerPrefs.GetInt("endlessAchieve_" + SetPrefabs.name, 0) == 1 ? true : false;
+        classic = PlayerPrefs.GetInt("classicAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
+        timeTrial = PlayerPrefs.GetInt("timeTrialAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
+        endless = PlayerPrefs.GetInt("endlessAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
     }
 
     public void getAchievement(Achievement achievement, int toAdd)
@@ -152,7 +152,7 @@ public class AchievementManager : MonoBehaviour
             type = "Gold";
         }
 
-        PlayerPrefs.SetInt(achievement.privateName + SetPrefabs.name, achievement.state);
+        PlayerPrefs.SetInt(achievement.privateName + stateManager.Instance.playerName, achievement.state);
 
         Debug.Log("You got: " + achievement.friendlyName + " - " + type);
     }
@@ -168,17 +168,17 @@ public class AchievementManager : MonoBehaviour
 
         if (gameMode == 0)
         {
-            PlayerPrefs.SetInt("classicAchieve_" + SetPrefabs.name, true ? 1 : 0);
+            PlayerPrefs.SetInt("classicAchieve_" + stateManager.Instance.playerName, true ? 1 : 0);
             classic = true;
         }
         else if (gameMode == 1)
         {
-            PlayerPrefs.SetInt("timeTrialAchieve_" + SetPrefabs.name, true ? 1 : 0);
+            PlayerPrefs.SetInt("timeTrialAchieve_" + stateManager.Instance.playerName, true ? 1 : 0);
             timeTrial = true;
         }
         else if (gameMode == 2)
         {
-            PlayerPrefs.SetInt("endlessAchieve_" + SetPrefabs.name, true ? 1 : 0);
+            PlayerPrefs.SetInt("endlessAchieve_" + stateManager.Instance.playerName, true ? 1 : 0);
             endless = true;
         }
 
@@ -219,39 +219,39 @@ public class AchievementManager : MonoBehaviour
     public void resetAchievements()
     {
         achievementList[0].state = 0;
-        PlayerPrefs.SetInt(achievementList[0].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[0].privateName + stateManager.Instance.playerName, 0);
         achievementList[1].state = 0;
-        PlayerPrefs.SetInt(achievementList[1].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[1].privateName + stateManager.Instance.playerName, 0);
         achievementList[2].state = 0;
-        PlayerPrefs.SetInt(achievementList[2].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[2].privateName + stateManager.Instance.playerName, 0);
         achievementList[3].state = 0;
-        PlayerPrefs.SetInt(achievementList[3].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[3].privateName + stateManager.Instance.playerName, 0);
         achievementList[4].state = 0;
-        PlayerPrefs.SetInt(achievementList[4].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[4].privateName + stateManager.Instance.playerName, 0);
         achievementList[5].state = 0;
-        PlayerPrefs.SetInt(achievementList[5].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[5].privateName + stateManager.Instance.playerName, 0);
         achievementList[6].state = 0;
-        PlayerPrefs.SetInt(achievementList[6].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[6].privateName + stateManager.Instance.playerName, 0);
         achievementList[7].state = 0;
-        PlayerPrefs.SetInt(achievementList[7].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[7].privateName + stateManager.Instance.playerName, 0);
         achievementList[8].state = 0;
-        PlayerPrefs.SetInt(achievementList[8].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[8].privateName + stateManager.Instance.playerName, 0);
         achievementList[9].state = 0;
-        PlayerPrefs.SetInt(achievementList[9].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[9].privateName + stateManager.Instance.playerName, 0);
         achievementList[10].state = 0;
-        PlayerPrefs.SetInt(achievementList[10].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[10].privateName + stateManager.Instance.playerName, 0);
         achievementList[11].state = 0;
-        PlayerPrefs.SetInt(achievementList[11].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[11].privateName + stateManager.Instance.playerName, 0);
         achievementList[12].state = 0;
-        PlayerPrefs.SetInt(achievementList[12].privateName + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt(achievementList[12].privateName + stateManager.Instance.playerName, 0);
 
-        PlayerPrefs.SetInt("classicAchieve_" + SetPrefabs.name, false ? 1 : 0);
+        PlayerPrefs.SetInt("classicAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         classic = false;
 
-        PlayerPrefs.SetInt("timeTrialAchieve_" + SetPrefabs.name, false ? 1 : 0);
+        PlayerPrefs.SetInt("timeTrialAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         timeTrial = false;
 
-        PlayerPrefs.SetInt("endlessAchieve_" + SetPrefabs.name, false ? 1 : 0);
+        PlayerPrefs.SetInt("endlessAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         endless = false;
 
         Instance = null;

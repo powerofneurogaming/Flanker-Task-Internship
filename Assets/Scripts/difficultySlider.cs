@@ -17,7 +17,7 @@ public class difficultySlider : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene();
         difficulty = 0;
-        PlayerPrefs.SetInt("Difficulty", difficulty);
+        stateManager.Instance.difficulty = difficulty;
 
         // Classic Mode
         if(currentScene.name == "Classic Select")
@@ -98,6 +98,6 @@ public class difficultySlider : MonoBehaviour
         }
 
         // Save difficulty so it can be accessed by the main game
-        PlayerPrefs.SetInt("Difficulty", difficulty);
+        stateManager.Instance.difficulty = difficulty;
     }
 }

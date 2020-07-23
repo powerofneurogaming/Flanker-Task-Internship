@@ -24,7 +24,7 @@ public class starManager : MonoBehaviour
     // Start is called before the first frame update
     public void loadStars()
     {
-        starScore = PlayerPrefs.GetInt("starScore_" + SetPrefabs.name, 0);
+        starScore = PlayerPrefs.GetInt("starScore_" + stateManager.Instance.playerName, 0);
     }
 
     public int getStars()
@@ -39,6 +39,6 @@ public class starManager : MonoBehaviour
 
     public void saveStars()
     {
-        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, starScore);
+        PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, starScore);
     }
 }

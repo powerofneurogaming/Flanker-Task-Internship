@@ -27,20 +27,20 @@ public class tutorialGate : MonoBehaviour
     // Setter for true
     public void setTrue()
     {
-        PlayerPrefs.SetInt("HasPlayedTutorial_" + SetPrefabs.name, true ? 1 : 0);
+        PlayerPrefs.SetInt("HasPlayedTutorial_" + stateManager.Instance.playerName, true ? 1 : 0);
         hasPlayedTutorial = true;
     }
 
     // Setter for false (for resetting player profile)
     public void setFalse()
     {
-        PlayerPrefs.SetInt("HasPlayedTutorial_" + SetPrefabs.name, false ? 1 : 0);
+        PlayerPrefs.SetInt("HasPlayedTutorial_" + stateManager.Instance.playerName, false ? 1 : 0);
         hasPlayedTutorial = false;
     }
 
     // Getter for whether has played tutorial
     public void getPlayed()
     {
-        hasPlayedTutorial = PlayerPrefs.GetInt("HasPlayedTutorial_" + SetPrefabs.name, 0) == 1 ? true : false;
+        hasPlayedTutorial = PlayerPrefs.GetInt("HasPlayedTutorial_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
     }
 }

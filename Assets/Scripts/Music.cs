@@ -21,4 +21,20 @@ public class Music : MonoBehaviour
     }
 
     public AudioSource musicSource;
+
+    private void Start()
+    {
+        musicSource.volume = 0.5f;
+    }
+
+    public void setVolume(float volume)
+    {
+        musicSource.volume = volume;
+    }
+
+    public bool mute()
+    {
+        musicSource.mute = !musicSource.mute;
+        return musicSource.mute;
+    }
 }

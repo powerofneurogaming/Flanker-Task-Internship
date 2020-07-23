@@ -139,20 +139,6 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Title");
     }
 
-    // Transition to title screen from settings screen
-    //
-    // For now all this does differently is preserve the music
-    // Eventually it will contain getters and setters for saving settings.
-    // TODO: actually make the settings menu
-    public void settingsBackToTitle()
-    {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
-        SceneManager.LoadScene("Title");
-    }
-
     public void resetUser()
     {
         AchievementManager.Instance.resetAchievements();
@@ -169,12 +155,12 @@ public class miscButtons : MonoBehaviour
         PlayerPrefs.SetFloat("worstIncongTime", 0);
         PlayerPrefs.SetFloat("avgCongTime", 0);
         PlayerPrefs.SetFloat("avgIncongTime", 0);
-        PlayerPrefs.SetInt("starScore_" + SetPrefabs.name, 0);
+        PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, 0);
 
-        PlayerPrefs.SetFloat("allBestTime_" + SetPrefabs.name, 0);
-        PlayerPrefs.SetFloat("allBestAvg_" + SetPrefabs.name, 0);
-        PlayerPrefs.SetFloat("allBestCongAvg_" + SetPrefabs.name, 0);
-        PlayerPrefs.SetFloat("allBestIncongAvg_" + SetPrefabs.name, 0);
+        PlayerPrefs.SetFloat("allBestTime_" + stateManager.Instance.playerName, 0);
+        PlayerPrefs.SetFloat("allBestAvg_" + stateManager.Instance.playerName, 0);
+        PlayerPrefs.SetFloat("allBestCongAvg_" + stateManager.Instance.playerName, 0);
+        PlayerPrefs.SetFloat("allBestIncongAvg_" + stateManager.Instance.playerName, 0);
 
         tutorialGate.Instance.setFalse();
 

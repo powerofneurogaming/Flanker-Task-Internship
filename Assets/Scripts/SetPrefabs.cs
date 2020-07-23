@@ -13,7 +13,7 @@ public class SetPrefabs : MonoBehaviour
     // When I need to start adding more complex user menus I need to ask Khalil for help.
     public GameObject playerName;
 
-    public static string name;
+    public string name;
 
     // Set fresh game state 
     public void setupPrefabs()
@@ -39,11 +39,11 @@ public class SetPrefabs : MonoBehaviour
         // If name is blank, use default
         if (name.Length <= 0)
         {
-            PlayerPrefs.SetString("PlayerName", "NoName");
+            stateManager.Instance.playerName = "NoName";
         }
         else
         {
-            PlayerPrefs.SetString("PlayerName", name);
+            stateManager.Instance.playerName = name;
         }
 
         AchievementManager.Instance.loadAchievements();
@@ -132,16 +132,9 @@ public class SetPrefabs : MonoBehaviour
             {
                 setupPrefabs();
             }
-            else if(SceneManager.GetActiveScene().name == "Select Screen")
+            else if(SceneManager.GetActiveScene().name == "Classic Select")
             {
-                if(SceneManager.GetActiveScene().name == "Classic Select")
-                {
-                    setLevel();
-                }
-                else if (SceneManager.GetActiveScene().name == "Classic Select")
-                {
-                    setTimed();
-                }
+                setLevel();
             }
         }
     }

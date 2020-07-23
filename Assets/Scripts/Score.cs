@@ -93,11 +93,6 @@ public class Score : MonoBehaviour
         allTimeWorstAvgCong = float.NaN;
         allTimeWorstAvgIncong = float.NaN;
 
-        // Disable game results text
-        scoreText.enabled = false;
-        restartButton.gameObject.SetActive(false);
-        mainMenuButton.gameObject.SetActive(false);
-
         // Set file path to CSV file
         string filePath = "flanker.csv";
 
@@ -139,6 +134,8 @@ public class Score : MonoBehaviour
         // Round Flanker Effect for results text
         flankerRound = Mathf.Round(flankerEffect * 1000) / 1000;
 
+        allTimeBest = PlayerPrefs.GetFloat("allBestTime_" + stateManager.Instance.playerName, float.NaN);
+        allTimeWorst = PlayerPrefs.GetFloat("allWorstTime_" + stateManager.Instance.playerName, float.NaN);
         // If no best time, don't output a best time
         if (float.IsNaN(bestTimeRound))
         {
@@ -148,150 +145,148 @@ public class Score : MonoBehaviour
         else
         {
             bestString = "\nBest Time: " + bestTimeRound;
-            allTimeBest = PlayerPrefs.GetFloat("allBestTime_" + SetPrefabs.name, float.NaN);
-            allTimeWorst = PlayerPrefs.GetFloat("allWorstTime_" + SetPrefabs.name, float.NaN);
             if (bestTimeRound < allTimeBest || float.IsNaN(allTimeBest))
             {
-                PlayerPrefs.SetFloat("allBestTime_" + SetPrefabs.name, bestTimeRound);
+                PlayerPrefs.SetFloat("allBestTime_" + stateManager.Instance.playerName, bestTimeRound);
                 allTimeBest = bestTimeRound;
             }
             
             if (worstTimeRound > allTimeWorst || float.IsNaN(allTimeWorst))
             {
-                PlayerPrefs.SetFloat("allWorstTime_" + SetPrefabs.name, worstTimeRound);
+                PlayerPrefs.SetFloat("allWorstTime_" + stateManager.Instance.playerName, worstTimeRound);
                 allTimeWorst = worstTimeRound;
             }
         }
 
+        allTimeBestAvg = PlayerPrefs.GetFloat("allBestAvg_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time best average time
         if (!float.IsNaN(avgTimeRound))
         {
-            allTimeBestAvg = PlayerPrefs.GetFloat("allBestAvg_" + SetPrefabs.name, float.NaN);
             if (avgTimeRound < allTimeBestAvg || float.IsNaN(allTimeBestAvg))
             {
-                PlayerPrefs.SetFloat("allBestAvg_" + SetPrefabs.name, avgTimeRound);
+                PlayerPrefs.SetFloat("allBestAvg_" + stateManager.Instance.playerName, avgTimeRound);
                 allTimeBestAvg = avgTimeRound;
             }
         }
 
 
+        allTimeWorstAvg = PlayerPrefs.GetFloat("allWorstAvg_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time worst average time
         if (!float.IsNaN(avgTimeRound))
         {
-            allTimeWorstAvg = PlayerPrefs.GetFloat("allWorstAvg_" + SetPrefabs.name, float.NaN);
             if (avgTimeRound > allTimeWorstAvg || float.IsNaN(allTimeWorstAvg))
             {
-                PlayerPrefs.SetFloat("allWorstAvg_" + SetPrefabs.name, avgTimeRound);
+                PlayerPrefs.SetFloat("allWorstAvg_" + stateManager.Instance.playerName, avgTimeRound);
                 allTimeWorstAvg = avgTimeRound;
             }
         }
 
+        allTimeBestAvgCong = PlayerPrefs.GetFloat("allBestCongAvg_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time best average congruent time
         if (!float.IsNaN(congTimeAvgRound))
         {
-            allTimeBestAvgCong = PlayerPrefs.GetFloat("allBestCongAvg_" + SetPrefabs.name, float.NaN);
             if (congTimeAvgRound < allTimeBestAvgCong || float.IsNaN(allTimeBestAvgCong))
             {
-                PlayerPrefs.SetFloat("allBestCongAvg_" + SetPrefabs.name, congTimeAvgRound);
+                PlayerPrefs.SetFloat("allBestCongAvg_" + stateManager.Instance.playerName, congTimeAvgRound);
                 allTimeBestAvgCong = congTimeAvgRound;
             }
         }
 
+        allTimeBestAvgIncong = PlayerPrefs.GetFloat("allBestIncongAvg_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time best average incongruent time
         if (!float.IsNaN(incongTimeAvgRound))
         {
-            allTimeBestAvgIncong = PlayerPrefs.GetFloat("allBestIncongAvg_" + SetPrefabs.name, float.NaN);
             if (incongTimeAvgRound < allTimeBestAvgIncong || float.IsNaN(allTimeBestAvgIncong))
             {
-                PlayerPrefs.SetFloat("allBestIncongAvg_" + SetPrefabs.name, incongTimeAvgRound);
+                PlayerPrefs.SetFloat("allBestIncongAvg_" + stateManager.Instance.playerName, incongTimeAvgRound);
                 allTimeBestAvgIncong = incongTimeAvgRound;
             }
         }
 
+        allTimeWorstAvgCong = PlayerPrefs.GetFloat("allWorstCongAvg_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time worst average congruent time
         if (!float.IsNaN(congTimeAvgRound))
         {
-            allTimeWorstAvgCong = PlayerPrefs.GetFloat("allWorstCongAvg_" + SetPrefabs.name, float.NaN);
             if (congTimeAvgRound > allTimeWorstAvgCong || float.IsNaN(allTimeWorstAvgCong))
             {
-                PlayerPrefs.SetFloat("allWorstCongAvg_" + SetPrefabs.name, congTimeAvgRound);
+                PlayerPrefs.SetFloat("allWorstCongAvg_" + stateManager.Instance.playerName, congTimeAvgRound);
                 allTimeWorstAvgCong = congTimeAvgRound;
             }
         }
 
+        allTimeWorstAvgIncong = PlayerPrefs.GetFloat("allWorstIncongAvg_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time worst average incongruent time
         if (!float.IsNaN(incongTimeAvgRound))
         {
-            allTimeWorstAvgIncong = PlayerPrefs.GetFloat("allWorstIncongAvg_" + SetPrefabs.name, float.NaN);
             if (incongTimeAvgRound > allTimeWorstAvgIncong || float.IsNaN(allTimeWorstAvgIncong))
             {
-                PlayerPrefs.SetFloat("allWorstIncongAvg_" + SetPrefabs.name, incongTimeAvgRound);
+                PlayerPrefs.SetFloat("allWorstIncongAvg_" + stateManager.Instance.playerName, incongTimeAvgRound);
                 allTimeWorstAvgIncong = incongTimeAvgRound;
             }
         }
 
+        allTimeBestCong = PlayerPrefs.GetFloat("allBestCong_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time best congruent time
         if (!float.IsNaN(bestCongTimeRound))
         {
-            allTimeBestCong = PlayerPrefs.GetFloat("allBestCong_" + SetPrefabs.name, float.NaN);
             if (bestCongTimeRound < allTimeBestCong || float.IsNaN(allTimeBestCong))
             {
-                PlayerPrefs.SetFloat("allBestCong_" + SetPrefabs.name, bestCongTimeRound);
+                PlayerPrefs.SetFloat("allBestCong_" + stateManager.Instance.playerName, bestCongTimeRound);
                 allTimeBestCong = bestCongTimeRound;
             }
         }
 
+        allTimeBestIncong = PlayerPrefs.GetFloat("allBestIncong_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time best incongruent time
         if (!float.IsNaN(bestIncongTimeRound))
         {
-            allTimeBestIncong = PlayerPrefs.GetFloat("allBestIncong_" + SetPrefabs.name, float.NaN);
             if (bestIncongTimeRound < allTimeBestIncong || float.IsNaN(allTimeBestIncong))
             {
-                PlayerPrefs.SetFloat("allBestIncong_" + SetPrefabs.name, bestIncongTimeRound);
+                PlayerPrefs.SetFloat("allBestIncong_" + stateManager.Instance.playerName, bestIncongTimeRound);
                 allTimeBestIncong = bestIncongTimeRound;
             }
         }
 
+        allTimeWorstCong = PlayerPrefs.GetFloat("allWorstCong_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time worst congruent time
         if (!float.IsNaN(worstCongTimeRound))
         {
-            allTimeWorstCong = PlayerPrefs.GetFloat("allWorstCong_" + SetPrefabs.name, float.NaN);
             if (worstCongTimeRound > allTimeWorstCong || float.IsNaN(allTimeWorstCong))
             {
-                PlayerPrefs.SetFloat("allWorstCong_" + SetPrefabs.name, worstCongTimeRound);
+                PlayerPrefs.SetFloat("allWorstCong_" + stateManager.Instance.playerName, worstCongTimeRound);
                 allTimeWorstCong = worstCongTimeRound;
             }
         }
 
+        allTimeWorstIncong = PlayerPrefs.GetFloat("allWorstIncong_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time worst incongruent time
         if (!float.IsNaN(worstIncongTimeRound))
         {
-            allTimeWorstIncong = PlayerPrefs.GetFloat("allWorstIncong_" + SetPrefabs.name, float.NaN);
             if (worstIncongTimeRound > allTimeWorstIncong || float.IsNaN(allTimeWorstIncong))
             {
-                PlayerPrefs.SetFloat("allWorstIncong_" + SetPrefabs.name, worstIncongTimeRound);
+                PlayerPrefs.SetFloat("allWorstIncong_" + stateManager.Instance.playerName, worstIncongTimeRound);
                 allTimeWorstIncong = worstIncongTimeRound;
             }
         }
 
+        allTimeBestFlanker = PlayerPrefs.GetFloat("allBestFlanker_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time best incongruent time
         if (!float.IsNaN(flankerRound))
         {
-            allTimeBestFlanker = PlayerPrefs.GetFloat("allBestFlanker_" + SetPrefabs.name, float.NaN);
             if (flankerRound < allTimeBestFlanker || float.IsNaN(allTimeBestFlanker))
             {
-                PlayerPrefs.SetFloat("allBestFlanker_" + SetPrefabs.name, flankerRound);
+                PlayerPrefs.SetFloat("allBestFlanker_" + stateManager.Instance.playerName, flankerRound);
                 allTimeBestFlanker = flankerRound;
             }
         }
 
+        allTimeWorstFlanker = PlayerPrefs.GetFloat("allWorstFlanker_" + stateManager.Instance.playerName, float.NaN);
         // Update all-time worst incongruent time
         if (!float.IsNaN(flankerRound))
         {
-            allTimeWorstFlanker = PlayerPrefs.GetFloat("allWorstFlanker_" + SetPrefabs.name, float.NaN);
             if (flankerRound > allTimeWorstFlanker || float.IsNaN(allTimeWorstFlanker))
             {
-                PlayerPrefs.SetFloat("allWorstFlanker_" + SetPrefabs.name, flankerRound);
+                PlayerPrefs.SetFloat("allWorstFlanker_" + stateManager.Instance.playerName, flankerRound);
                 allTimeWorstFlanker = flankerRound;
             }
         }
@@ -306,7 +301,35 @@ public class Score : MonoBehaviour
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + SetPrefabs.name + "," + gameMode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
+        File.AppendAllText(filePath, resultNum + "," + stateManager.Instance.playerName + "," + gameMode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
+
+        // handle NaNs for divide-by-zero
+        if (float.IsNaN(avgTimeRound))
+        {
+            avgTimeRound = 0.0f;
+        }
+        if (float.IsNaN(congTimeAvgRound))
+        {
+            congTimeAvgRound = 0.0f;
+        }
+        if (float.IsNaN(incongTimeAvgRound))
+        {
+            incongTimeAvgRound = 0.0f;
+        }
+        if (float.IsNaN(flankerRound))
+        {
+            flankerRound = 0.0f;
+        }
+
+        // Populate game results text with information
+        scoreText.text = "Score: " + score;
+        leftText.text = "\nWrong: " + wrong +
+                        "\nAvg Time: " + avgTimeRound +
+                        bestString;
+        rightText.text = "\nUnanswered: " + unanswered +
+                         "\nCongruent Avg: " + congTimeAvgRound +
+                         "\nIncongruent Avg: " + incongTimeAvgRound;
+        bottomText.text = "\nFlanker Effect: " + flankerRound;
     }
 
     private void Update()
@@ -345,47 +368,5 @@ public class Score : MonoBehaviour
             // Gold: All gold or better
             AchievementManager.Instance.achievementsAchievement();
         }
-    }
-
-    // When you click 'View Results', display game results
-    public void displayResults()
-    {
-        // UI buttons
-        restartButton.gameObject.SetActive(true);
-        mainMenuButton.gameObject.SetActive(true);
-
-        scoreText.enabled = true; // Enable game results text
-        leftText.enabled = true; // Enable game results text
-        rightText.enabled = true; // Enable game results text
-        bottomText.enabled = true; // Enable game results text
-        resultsButton.SetActive(false); // Hide 'View Results' button
-
-        // handle NaNs for divide-by-zero
-        if (float.IsNaN(avgTimeRound))
-        {
-            avgTimeRound = 0.0f;
-        }
-        if (float.IsNaN(congTimeAvgRound))
-        {
-            congTimeAvgRound = 0.0f;
-        }
-        if (float.IsNaN(incongTimeAvgRound))
-        {
-            incongTimeAvgRound = 0.0f;
-        }
-        if (float.IsNaN(flankerRound))
-        {
-            flankerRound = 0.0f;
-        }
-
-        // Populate game results text with information
-        scoreText.text = "Score: " + score;
-        leftText.text = "\nWrong: " + wrong +
-                        "\nAvg Time: " + avgTimeRound +
-                        bestString;
-        rightText.text = "\nUnanswered: " + unanswered +
-                         "\nCongruent Avg: " + congTimeAvgRound +
-                         "\nIncongruent Avg: " + incongTimeAvgRound;
-        bottomText.text = "\nFlanker Effect: " + flankerRound;
     }
 }

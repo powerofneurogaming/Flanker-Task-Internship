@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         // Need to get these early to determine game mode config
         gameMode = PlayerPrefs.GetInt("GameMode");
-        difficulty = PlayerPrefs.GetInt("Difficulty");
+        difficulty = stateManager.Instance.difficulty;
 
         // Set up game state based on chosen mode and difficulty
         if (gameMode == 0) // if classic mode

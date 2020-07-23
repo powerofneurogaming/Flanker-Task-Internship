@@ -13,6 +13,6 @@ public class Achievement
     {
         privateName = pName;
         friendlyName = fName;
-        state = PlayerPrefs.GetInt(pName + SetPrefabs.name, 0);
+        state = PlayerPrefs.GetInt(pName + stateManager.Instance.playerName, 0);
     }
 }

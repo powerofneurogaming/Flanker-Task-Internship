@@ -8,8 +8,6 @@ public class SoundManager : MonoBehaviour
     // Singleton
     public static SoundManager Instance { get; private set; }
 
-    public AudioSource audioSource;
-
     private void Awake()
     {
         if (Instance == null)
@@ -21,5 +19,23 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource.volume = 0.5f;
+    }
+
+    public void setVolume(float volume)
+    {
+        audioSource.volume = volume;
+    }
+
+    public bool mute()
+    {
+        audioSource.mute = !audioSource.mute;
+        return audioSource.mute;
     }
 }
