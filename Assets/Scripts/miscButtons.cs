@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditorInternal;
 
 // UI button interactions
 public class miscButtons : MonoBehaviour
@@ -143,24 +144,9 @@ public class miscButtons : MonoBehaviour
     {
         AchievementManager.Instance.resetAchievements();
 
-        PlayerPrefs.SetInt("PlayerScore", 0);
-        PlayerPrefs.SetInt("Wrong Answers", 0);
-        PlayerPrefs.SetInt("Unanswered Trials", 0);
-        PlayerPrefs.SetFloat("avgTime", 0);
-        PlayerPrefs.SetFloat("bestTime", 0);
-        PlayerPrefs.SetFloat("worstTime", 0);
-        PlayerPrefs.SetFloat("bestCongTime", 0);
-        PlayerPrefs.SetFloat("worstCongTime", 0);
-        PlayerPrefs.SetFloat("bestIncongTime", 0);
-        PlayerPrefs.SetFloat("worstIncongTime", 0);
-        PlayerPrefs.SetFloat("avgCongTime", 0);
-        PlayerPrefs.SetFloat("avgIncongTime", 0);
+        stateManager.Instance.score = 0;
+        stateManager.Instance.unanswered = 0;
         PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, 0);
-
-        PlayerPrefs.SetFloat("allBestTime_" + stateManager.Instance.playerName, 0);
-        PlayerPrefs.SetFloat("allBestAvg_" + stateManager.Instance.playerName, 0);
-        PlayerPrefs.SetFloat("allBestCongAvg_" + stateManager.Instance.playerName, 0);
-        PlayerPrefs.SetFloat("allBestIncongAvg_" + stateManager.Instance.playerName, 0);
 
         tutorialGate.Instance.setFalse();
 

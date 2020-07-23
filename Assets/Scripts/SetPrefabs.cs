@@ -24,15 +24,6 @@ public class SetPrefabs : MonoBehaviour
             SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
         }
 
-        // Initialize player data to default
-        PlayerPrefs.SetInt("PlayerLevel", 0);
-        PlayerPrefs.SetInt("PlayerScore", 0);
-        PlayerPrefs.SetInt("Wrong Answers", 0);
-        PlayerPrefs.SetInt("Unanswered Trials", 0);
-        PlayerPrefs.SetFloat("avgTime", 0.0f);
-        PlayerPrefs.SetFloat("avgCongTime", 0.0f);
-        PlayerPrefs.SetFloat("avgIncongTime", 0.0f);
-
         // Get name from text box
         name = playerName.GetComponent<Text>().text;
 
@@ -67,44 +58,33 @@ public class SetPrefabs : MonoBehaviour
     // If non-number, set to zero (endless mode)
     public void setLevel()
     {
-        // Temporary code for starting Endless Mode from Classic Mode screen
-        if (endlessModeToggle.endlessMode == true)
-        {
-            PlayerPrefs.SetInt("PlayerLevel", 0);
-            PlayerPrefs.SetInt("GameMode", 2);
-            SceneManager.LoadScene("Flanker Main");
-        }
-        // Else, regular Classic Mode code
-        else
-        {
-            // Get number of levels from user text input
-            string level = playerName.GetComponent<Text>().text;
+        // Get number of levels from user text input
+        string level = playerName.GetComponent<Text>().text;
 
-            // parse user input
-            int.TryParse(level, out int level_int);
+        // parse user input
+        int.TryParse(level, out int level_int);
 
-            // If valid user input and not endless mode, process input
-            if (level_int != 0 && endlessModeToggle.endlessMode == false)
+        // If valid user input and not endless mode, process input
+        if (level_int != 0)
+        {
+            if (level_int > 100)
             {
-                if (level_int > 100)
-                {
-                    level_int = 100;
-                }
-                PlayerPrefs.SetInt("PlayerLevel", level_int);
-                if (!SoundManager.Instance.audioSource.isPlaying)
-                {
-                    SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
-                }
-                PlayerPrefs.SetInt("GameMode", 0);
-                SceneManager.LoadScene("Flanker Main");
+                level_int = 100;
             }
+            stateManager.Instance.levels = level_int;
+            if (!SoundManager.Instance.audioSource.isPlaying)
+            {
+                SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+            }
+            stateManager.Instance.gameMode = 0;
+            SceneManager.LoadScene("Flanker Main");
         }
     }
 
     // Code for starting Time Trial mode
     public void setTimed()
     {
-        PlayerPrefs.SetInt("GameMode", 1);
+        stateManager.Instance.gameMode = 1;
         if (!SoundManager.Instance.audioSource.isPlaying)
         {
             SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
@@ -115,7 +95,7 @@ public class SetPrefabs : MonoBehaviour
     // Code for starting Endless mode
     public void setEndless()
     {
-        PlayerPrefs.SetInt("GameMode", 2);
+        stateManager.Instance.gameMode = 2;
         if (!SoundManager.Instance.audioSource.isPlaying)
         {
             SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);

@@ -31,8 +31,7 @@ public class GameManager : MonoBehaviour
 
     // Variables used to initialize given questions
     int givenQuestions; // Number of trials to be given (locked to '1' for Endless Mode)
-    int gameMode; // Game mode indicator
-    int difficulty; // Difficulty indicator
+
     private Question previousQuestion; // Prevents duplicate questions
     private Question currentQuestion; // Prevents duplicate questions
     private int randQuestionIndex; // Used for choosing which of four questions
@@ -105,26 +104,22 @@ public class GameManager : MonoBehaviour
         // Only the left/right hands are tagged "button", so this assigns the left and right hands to the buttons array
         buttons = GameObject.FindGameObjectsWithTag("button");
 
-        // Need to get these early to determine game mode config
-        gameMode = PlayerPrefs.GetInt("GameMode");
-        difficulty = stateManager.Instance.difficulty;
-
         // Set up game state based on chosen mode and difficulty
-        if (gameMode == 0) // if classic mode
+        if (stateManager.Instance.gameMode == 0) // if classic mode
         {
             scoreboard.GetComponent<Text>().enabled = false;
-            givenQuestions = PlayerPrefs.GetInt("PlayerLevel");
+            givenQuestions = stateManager.Instance.levels;
         }
-        else if (gameMode == 1) // if time trial mode
+        else if (stateManager.Instance.gameMode == 1) // if time trial mode
         {
             scoreboard.GetComponent<Text>().enabled = false;
             // Set number of questions and seconds per game based on difficulty 
-            if (difficulty == 0)
+            if (stateManager.Instance.difficulty == 0)
             {
                 givenQuestions = 10;
                 Timer.globalTimer = 20.0f;
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 givenQuestions = 20;
                 Timer.globalTimer = 40.0f;
@@ -146,11 +141,11 @@ public class GameManager : MonoBehaviour
         // Set up time multipliers for classic mode
         if (timeTrial != true && endlessMode != true)
         {
-            if (difficulty == 0)
+            if (stateManager.Instance.difficulty == 0)
             {
                 multiplier = 2.5f;
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 multiplier = 2.0f;
             }
@@ -162,11 +157,11 @@ public class GameManager : MonoBehaviour
         else if (endlessMode == true)
         {
             multiplier = 2.5f;
-            if (difficulty == 0)
+            if (stateManager.Instance.difficulty == 0)
             {
                 maxWrong = 3;
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 maxWrong = 3;
             }
@@ -224,7 +219,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Congruency: " + question.isCongruent.ToString() +", Leftness: " + question.isLeft.ToString());
         }
-        Debug.Log("Difficulty: " + difficulty);
+        Debug.Log("Difficulty: " + stateManager.Instance.difficulty);
     }
 
     // Update timer every frame that a question is active; if over time, trigger 'none' selection
@@ -417,11 +412,11 @@ public class GameManager : MonoBehaviour
             score++;
             
             // Giving the player stars based on difficulty
-            if(difficulty == 0)
+            if(stateManager.Instance.difficulty == 0)
             {
                 starManager.Instance.addStars(1); 
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 starManager.Instance.addStars(2);
             }
@@ -443,7 +438,7 @@ public class GameManager : MonoBehaviour
                     comboText.GetComponent<Text>().text = comboCounter.ToString();
                 }
 
-                if(difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel != 0)
+                if(stateManager.Instance.difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel != 0)
                 {
                     wrongSentinel--;
                     updateBomb();
@@ -487,7 +482,7 @@ public class GameManager : MonoBehaviour
             }
 
             Timer.resetTimer(true);
-            Debug.Log("Correct, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
+            Debug.Log("Correct, Score: " + stateManager.Instance.score + ", Time: " + Timer.getTimer());
         }
         else
         {
@@ -518,7 +513,7 @@ public class GameManager : MonoBehaviour
             if(correct == false) // DO NOT put this in the above 'else' block or it will trigger when not answering at all
             {
                 numWrong++;
-                Debug.Log("Incorrect, Score: " + PlayerPrefs.GetInt("PlayerScore") + ", Time: " + Timer.getTimer());
+                Debug.Log("Incorrect, Score: " + stateManager.Instance.score + ", Time: " + Timer.getTimer());
             }
         }
         else
@@ -597,7 +592,7 @@ public class GameManager : MonoBehaviour
         // Bronze: 1 mode
         // Silver: 2 modes
         // Gold: 3 modes
-        AchievementManager.Instance.completeGamemode(gameMode);
+        AchievementManager.Instance.completeGamemode(stateManager.Instance.gameMode);
 
         // Achievement: Finish a game with no questions right
         // Bronze: 1 game
@@ -608,7 +603,7 @@ public class GameManager : MonoBehaviour
             AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[9], 1);
         }
 
-        if (gameMode == 0)
+        if (stateManager.Instance.gameMode == 0)
         {
             // Achievement: Beat a Classic Mode game with no questions wrong
             // Bronze: 1 game
@@ -661,14 +656,14 @@ public class GameManager : MonoBehaviour
             // Bronze: Complete easy
             // Silver: Complete medium
             // Gold: Complete hard
-            if (difficulty == 0)
+            if (stateManager.Instance.difficulty == 0)
             {
                 if (AchievementManager.Instance.achievementList[2].state == 0)
                 {
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[2], 1);
                 }
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 if (AchievementManager.Instance.achievementList[2].state == 1)
                 {
@@ -695,20 +690,20 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if (gameMode == 1)
+        else if (stateManager.Instance.gameMode == 1)
         {
             // Achievement: Complete each difficulty on time trial mode
             // Bronze: Complete 10q20s
             // Silver: Complete 20q40s
             // Gold: Complete 30q60s
-            if (difficulty == 0)
+            if (stateManager.Instance.difficulty == 0)
             {
                 if (AchievementManager.Instance.achievementList[3].state == 0)
                 {
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[3], 1);
                 }
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 if (AchievementManager.Instance.achievementList[3].state == 1)
                 {
@@ -735,7 +730,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if (gameMode == 2)
+        else if (stateManager.Instance.gameMode == 2)
         {
             // Achievement: Last for a given number of questions in Endless Mode
             // Bronze: 10 questions
@@ -779,14 +774,14 @@ public class GameManager : MonoBehaviour
             // Bronze: Complete regenerative
             // Silver: Complete 3 wrong
             // Gold: Complete 1 wrong
-            if (difficulty == 0)
+            if (stateManager.Instance.difficulty == 0)
             {
                 if (AchievementManager.Instance.achievementList[4].state == 0)
                 {
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[4], 1);
                 }
             }
-            else if (difficulty == 1)
+            else if (stateManager.Instance.difficulty == 1)
             {
                 if (AchievementManager.Instance.achievementList[4].state == 1)
                 {
@@ -868,18 +863,18 @@ public class GameManager : MonoBehaviour
         }
 
         // Save data and transition to results screen
-        PlayerPrefs.SetInt("PlayerScore", score);
-        PlayerPrefs.SetInt("Wrong Answers", numWrong);
-        PlayerPrefs.SetInt("Unanswered Trials", numUnanswered);
-        PlayerPrefs.SetFloat("avgTime", finalTime);
-        PlayerPrefs.SetFloat("bestTime", bestTime);
-        PlayerPrefs.SetFloat("worstTime", worstTime);
-        PlayerPrefs.SetFloat("bestCongTime", bestCongTime);
-        PlayerPrefs.SetFloat("worstCongTime", worstCongTime);
-        PlayerPrefs.SetFloat("bestIncongTime", bestIncongTime);
-        PlayerPrefs.SetFloat("worstIncongTime", worstIncongTime);
-        PlayerPrefs.SetFloat("avgCongTime", finalCongTime);
-        PlayerPrefs.SetFloat("avgIncongTime", finalIncongTime);
+        stateManager.Instance.score = score;
+        stateManager.Instance.wrong = numWrong;
+        stateManager.Instance.unanswered = numUnanswered;
+        stateManager.Instance.avgTime = finalTime;
+        stateManager.Instance.bestTime = bestTime;
+        stateManager.Instance.worstTime = worstTime;
+        stateManager.Instance.bestCongTime = bestCongTime;
+        stateManager.Instance.worstCongTime = worstCongTime;
+        stateManager.Instance.bestIncongTime = bestIncongTime;
+        stateManager.Instance.worstIncongTime = worstIncongTime;
+        stateManager.Instance.congTimeAvg = finalCongTime;
+        stateManager.Instance.incongTimeAvg = finalIncongTime;
 
         starManager.Instance.saveStars();
 

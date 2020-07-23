@@ -19,10 +19,27 @@ public class stateManager : MonoBehaviour
         }
     }
 
+    public string playerName;
+
     public float music_volume;
     public float sfx_volume;
+
+    public int wrong;
+    public int unanswered;
+    public int score;
+    public float avgTime;
+    public float bestTime;
+    public float worstTime;
+    public float bestCongTime;
+    public float worstCongTime;
+    public float bestIncongTime;
+    public float worstIncongTime;
+    public float congTimeAvg;
+    public float incongTimeAvg;
+
+    public int gameMode;
     public int difficulty;
-    public string playerName;
+    public int levels;
 
     public void Start()
     {

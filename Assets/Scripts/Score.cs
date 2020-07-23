@@ -9,22 +9,7 @@ using UnityEngine.UI;
 // Sets up and manages results screen
 public class Score : MonoBehaviour
 {
-    int gameMode;
-    int difficulty;
-
     // Holders for final game state
-    int unanswered;
-    int wrong;
-    int score;
-    float avgTime;
-    float bestTime;
-    float worstTime;
-    float bestCongTime;
-    float worstCongTime;
-    float bestIncongTime;
-    float worstIncongTime;
-    float congTimeAvg;
-    float incongTimeAvg;
     float flankerEffect;
 
     // Holders for rounded averages / Flanker Effect (for results screen)
@@ -76,9 +61,6 @@ public class Score : MonoBehaviour
     {
         Timer.timerStart = true;
 
-        gameMode = PlayerPrefs.GetInt("GameMode");
-        difficulty = PlayerPrefs.GetInt("Difficulty");
-
         allTimeBest = float.NaN;
         allTimeBestAvg = float.NaN;
         allTimeBestCong = float.NaN;
@@ -96,39 +78,25 @@ public class Score : MonoBehaviour
         // Set file path to CSV file
         string filePath = "flanker.csv";
 
-        // Get game state from previous scene
-        wrong = PlayerPrefs.GetInt("Wrong Answers");
-        unanswered = PlayerPrefs.GetInt("Unanswered Trials");
-        score = PlayerPrefs.GetInt("PlayerScore");
-        avgTime = PlayerPrefs.GetFloat("avgTime");
-        bestTime = PlayerPrefs.GetFloat("bestTime");
-        worstTime = PlayerPrefs.GetFloat("worstTime");
-        bestCongTime = PlayerPrefs.GetFloat("bestCongTime");
-        worstCongTime = PlayerPrefs.GetFloat("worstCongTime");
-        bestIncongTime = PlayerPrefs.GetFloat("bestIncongTime");
-        worstIncongTime = PlayerPrefs.GetFloat("worstIncongTime");
-        congTimeAvg = PlayerPrefs.GetFloat("avgCongTime");
-        incongTimeAvg = PlayerPrefs.GetFloat("avgIncongTime");
-
         // Calculate rounded averages for results text
-        avgTimeRound = Mathf.Round(avgTime * 1000) / 1000;
-        bestTimeRound = Mathf.Round(bestTime * 1000) / 1000;
-        worstTimeRound = Mathf.Round(worstTime * 1000) / 1000;
-        bestCongTimeRound = Mathf.Round(bestCongTime * 1000) / 1000;
-        bestIncongTimeRound = Mathf.Round(bestIncongTime * 1000) / 1000;
-        worstCongTimeRound = Mathf.Round(worstCongTime * 1000) / 1000;
-        worstIncongTimeRound = Mathf.Round(worstIncongTime * 1000) / 1000;
-        congTimeAvgRound = Mathf.Round(congTimeAvg * 1000) / 1000;
-        incongTimeAvgRound = Mathf.Round(incongTimeAvg * 1000) / 1000;
+        avgTimeRound = Mathf.Round(stateManager.Instance.avgTime * 1000) / 1000;
+        bestTimeRound = Mathf.Round(stateManager.Instance.bestTime * 1000) / 1000;
+        worstTimeRound = Mathf.Round(stateManager.Instance.worstTime * 1000) / 1000;
+        bestCongTimeRound = Mathf.Round(stateManager.Instance.bestCongTime * 1000) / 1000;
+        bestIncongTimeRound = Mathf.Round(stateManager.Instance.bestIncongTime * 1000) / 1000;
+        worstCongTimeRound = Mathf.Round(stateManager.Instance.worstCongTime * 1000) / 1000;
+        worstIncongTimeRound = Mathf.Round(stateManager.Instance.worstIncongTime * 1000) / 1000;
+        congTimeAvgRound = Mathf.Round(stateManager.Instance.congTimeAvg * 1000) / 1000;
+        incongTimeAvgRound = Mathf.Round(stateManager.Instance.incongTimeAvg * 1000) / 1000;
 
         // Calculate Flanker Effect
-        if (congTimeAvg >= incongTimeAvg)
+        if (stateManager.Instance.congTimeAvg >= stateManager.Instance.incongTimeAvg)
         {
-            flankerEffect = congTimeAvg - incongTimeAvg;
+            flankerEffect = stateManager.Instance.congTimeAvg - stateManager.Instance.incongTimeAvg;
         }
         else
         {
-            flankerEffect = incongTimeAvg - congTimeAvg;
+            flankerEffect = stateManager.Instance.incongTimeAvg - stateManager.Instance.congTimeAvg;
         }
 
         // Round Flanker Effect for results text
@@ -301,9 +269,9 @@ public class Score : MonoBehaviour
         resultNum = File.ReadLines(filePath).Count();
 
         // Write current game to CSV file
-        File.AppendAllText(filePath, resultNum + "," + stateManager.Instance.playerName + "," + gameMode + "," + difficulty + "," + score + "," + wrong + "," + unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + bestCongTime + "," + worstCongTime + "," + bestIncongTime + "," + worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
-
-        // handle NaNs for divide-by-zero
+        File.AppendAllText(filePath, resultNum + "," + stateManager.Instance.playerName + "," + stateManager.Instance.gameMode + "," + stateManager.Instance.difficulty + "," + stateManager.Instance.score + "," + stateManager.Instance.wrong + "," + stateManager.Instance.unanswered + "," + avgTimeRound + "," + congTimeAvgRound + "," + incongTimeAvgRound + "," + flankerRound + "," + bestTimeRound + "," + worstTimeRound + "," + stateManager.Instance.bestCongTime + "," + stateManager.Instance.worstCongTime + "," + stateManager.Instance.bestIncongTime + "," + stateManager.Instance.worstIncongTime + "," + allTimeBest + "," + allTimeWorst + "," + allTimeBestAvg + ","  + allTimeWorstAvg + "," + allTimeBestCong + "," + allTimeWorstCong + "," + allTimeBestIncong + "," + allTimeWorstIncong + "," + allTimeBestAvgCong + "," + allTimeWorstAvgCong + "," + allTimeBestAvgIncong + "," + allTimeWorstAvgIncong + "," + allTimeBestFlanker + "," + allTimeWorstFlanker+ ",\n");
+    
+            // handle NaNs for divide-by-zero
         if (float.IsNaN(avgTimeRound))
         {
             avgTimeRound = 0.0f;
@@ -322,11 +290,11 @@ public class Score : MonoBehaviour
         }
 
         // Populate game results text with information
-        scoreText.text = "Score: " + score;
-        leftText.text = "\nWrong: " + wrong +
+        scoreText.text = "Score: " + stateManager.Instance.score;
+        leftText.text = "\nWrong: " + stateManager.Instance.wrong +
                         "\nAvg Time: " + avgTimeRound +
                         bestString;
-        rightText.text = "\nUnanswered: " + unanswered +
+        rightText.text = "\nUnanswered: " + stateManager.Instance.unanswered +
                          "\nCongruent Avg: " + congTimeAvgRound +
                          "\nIncongruent Avg: " + incongTimeAvgRound;
         bottomText.text = "\nFlanker Effect: " + flankerRound;
