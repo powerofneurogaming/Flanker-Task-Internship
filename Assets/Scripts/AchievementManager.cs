@@ -101,12 +101,6 @@ public class AchievementManager : MonoBehaviour
         // Gold: 3 games
         achievementList.Add(new Achievement("youreBadAtThis_", "No Questions Right"));
 
-        // Achievement: Click on each distraction
-        // Bronze: 5 distractions
-        // Silver: 10 distractions
-        // Gold: 15 distractions
-        achievementList.Add(new Achievement("getDistracted_", "Clicked Distractions"));
-
         // Achievement: Stand Idle at the results screen
         // Bronze: 3 minutes
         // Silver: 5 minutes
@@ -194,18 +188,18 @@ public class AchievementManager : MonoBehaviour
 
     public void achievementsAchievement()
     {
-        if (achievementList[12].state == 3)
+        if (achievementList[11].state == 3)
         {
             return;
         }
 
         int[] achieveList = { achievementList[0].state , achievementList[1].state , achievementList[2].state , achievementList[3].state , achievementList[4].state ,
                               achievementList[5].state , achievementList[6].state , achievementList[7].state , achievementList[8].state ,
-                              achievementList[9].state , achievementList[10].state , achievementList[11].state };
+                              achievementList[9].state , achievementList[10].state };
 
         int max = 4;
 
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 11; i++)
         {
             if (achieveList[i] < max)
             {
@@ -213,7 +207,7 @@ public class AchievementManager : MonoBehaviour
             }
         }
 
-        getAchievement(achievementList[12], max - achievementList[12].state);
+        getAchievement(achievementList[11], max - achievementList[11].state);
     }
 
     public void resetAchievements()
@@ -242,8 +236,6 @@ public class AchievementManager : MonoBehaviour
         PlayerPrefs.SetInt(achievementList[10].privateName + stateManager.Instance.playerName, 0);
         achievementList[11].state = 0;
         PlayerPrefs.SetInt(achievementList[11].privateName + stateManager.Instance.playerName, 0);
-        achievementList[12].state = 0;
-        PlayerPrefs.SetInt(achievementList[12].privateName + stateManager.Instance.playerName, 0);
 
         PlayerPrefs.SetInt("classicAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         classic = false;

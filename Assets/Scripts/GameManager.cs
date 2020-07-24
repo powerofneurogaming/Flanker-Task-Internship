@@ -812,10 +812,10 @@ public class GameManager : MonoBehaviour
         int starRating = 4;
         int achieveRating = 4;
 
-        while(starRating != AchievementManager.Instance.achievementList[1].state || achieveRating != AchievementManager.Instance.achievementList[12].state)
+        while(starRating != AchievementManager.Instance.achievementList[1].state || achieveRating != AchievementManager.Instance.achievementList[11].state)
         {
             starRating = AchievementManager.Instance.achievementList[1].state;
-            achieveRating = AchievementManager.Instance.achievementList[12].state;
+            achieveRating = AchievementManager.Instance.achievementList[11].state;
 
             // Achievement: Get a certain amount of stars
             // Bronze: 50 stars

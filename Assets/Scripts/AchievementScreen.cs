@@ -33,11 +33,11 @@ public class AchievementScreen : MonoBehaviour
             }
             if (AchievementManager.Instance.achievementList[4 + offset].state > 0)
             {
-                secrets[2].text = "CLICK ALL\nDISTRACTIONS";
+                secrets[2].text = "STAY AT\nRESULTS";
             }
             if (AchievementManager.Instance.achievementList[5 + offset].state > 0)
             {
-                secrets[3].text = "STAY AT\nRESULTS";
+                secrets[3].text = "GET ALL\nACHIEVEMENTS";
             }
         }
 
