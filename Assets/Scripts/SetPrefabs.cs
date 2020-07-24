@@ -11,9 +11,9 @@ public class SetPrefabs : MonoBehaviour
 
     // Can't figure out where this is hooked up... I try to rename it to 'PlayerInput' and everything breaks.
     // When I need to start adding more complex user menus I need to ask Khalil for help.
-    public GameObject playerName;
+    public Text playerName;
 
-    public string name;
+    public string pName;
 
     // Set fresh game state 
     public void setupPrefabs()
@@ -25,7 +25,7 @@ public class SetPrefabs : MonoBehaviour
         }
 
         // Get name from text box
-        name = playerName.GetComponent<Text>().text;
+        pName = playerName.text;
 
         // If name is blank, use default
         if (name.Length <= 0)
@@ -59,7 +59,7 @@ public class SetPrefabs : MonoBehaviour
     public void setLevel()
     {
         // Get number of levels from user text input
-        string level = playerName.GetComponent<Text>().text;
+        string level = playerName.text;
 
         // parse user input
         int.TryParse(level, out int level_int);

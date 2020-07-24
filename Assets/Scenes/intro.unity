@@ -1562,7 +1562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carriage_return: {fileID: 8300000, guid: 9c52507d64a2b44409a2fb5809f96bb0, type: 3}
   volume: 0.5
-  playerName: {fileID: 1192818314}
+  playerName: {fileID: 1192818316}
   name: 
 --- !u!114 &1449424871
 MonoBehaviour:
@@ -1601,10 +1601,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2eedc9b8d0b0042ba8a20f62d2b844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
   music_volume: 0
   sfx_volume: 0
+  wrong: 0
+  unanswered: 0
+  score: 0
+  avgTime: 0
+  bestTime: 0
+  worstTime: 0
+  bestCongTime: 0
+  worstCongTime: 0
+  bestIncongTime: 0
+  worstIncongTime: 0
+  congTimeAvg: 0
+  incongTimeAvg: 0
+  gameMode: 0
   difficulty: 0
-  playerName: 
+  levels: 0
 --- !u!1 &1521741746
 GameObject:
   m_ObjectHideFlags: 0

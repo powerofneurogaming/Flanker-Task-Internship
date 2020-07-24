@@ -253,8 +253,5 @@ public class AchievementManager : MonoBehaviour
 
         PlayerPrefs.SetInt("endlessAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         endless = false;
-
-        Instance = null;
-        Destroy(this);
     }
 }

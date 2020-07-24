@@ -1326,7 +1326,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carriage_return: {fileID: 8300000, guid: 9c52507d64a2b44409a2fb5809f96bb0, type: 3}
   volume: 0.5
-  playerName: {fileID: 1602663371}
+  playerName: {fileID: 1602663373}
+  name: 
 --- !u!1 &1537001612
 GameObject:
   m_ObjectHideFlags: 0

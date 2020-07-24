@@ -143,13 +143,27 @@ public class miscButtons : MonoBehaviour
     public void resetUser()
     {
         AchievementManager.Instance.resetAchievements();
-
-        stateManager.Instance.score = 0;
-        stateManager.Instance.unanswered = 0;
         PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, 0);
+
+        PlayerPrefs.SetFloat("allBestTime_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstTime_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allBestAvg_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstAvg_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allBestCongAvg_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allBestIncongAvg_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstCongAvg_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstIncongAvg_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allBestCong_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allBestIncong_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstCong_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstIncong_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allBestFlanker_" + stateManager.Instance.playerName, float.NaN);
+        PlayerPrefs.SetFloat("allWorstFlanker_" + stateManager.Instance.playerName, float.NaN);
+
+        AchievementManager.Instance.loadAchievements();
 
         tutorialGate.Instance.setFalse();
 
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadScene("Title");
     }
 }
