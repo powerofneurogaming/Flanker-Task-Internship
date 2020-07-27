@@ -11,6 +11,9 @@ TextureImporter:
   - first:
       213: -4011325717761871949
     second: bomb3
+  - first:
+      213: -3773858881527611279
+    second: bomb0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -176,7 +179,7 @@ TextureImporter:
         width: 1365
         height: 999
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,12 +195,12 @@ TextureImporter:
       name: bomb2
       rect:
         serializedVersion: 2
-        x: 1365
+        x: 1358
         y: 0
         width: 1365
         height: 999
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,7 +221,7 @@ TextureImporter:
         width: 1365
         height: 999
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,6 +229,27 @@ TextureImporter:
       bones: []
       spriteID: 3bf2a6a3388e458c0800000000000000
       internalID: -4011325717761871949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb0
+      rect:
+        serializedVersion: 2
+        x: 4095
+        y: 0
+        width: 1365
+        height: 999
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170081e875f80abc0800000000000000
+      internalID: -3773858881527611279
       vertices: []
       indices: 
       edges: []

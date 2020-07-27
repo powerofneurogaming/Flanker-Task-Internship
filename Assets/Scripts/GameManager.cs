@@ -529,7 +529,12 @@ public class GameManager : MonoBehaviour
         //      Exhausted number of questions in Classic or Time Trial mode
         //      Exhausted number of wrong answers in Endless mode
         //      Ran out of time in Time Trial mode
-        if ((globalIndex >= givenQuestions && endlessMode == false) || (endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
+        if ((globalIndex >= givenQuestions && endlessMode == false))
+        {
+            StartCoroutine(bombOver());
+            moveToResults();
+        }
+        else if ((endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
             moveToResults();
         }
@@ -578,6 +583,24 @@ public class GameManager : MonoBehaviour
         {
             bombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
         }
+    }
+
+    // Display newly set current trial
+    IEnumerator bombOver()
+    {
+        GameObject bomb;
+
+        if(timeTrial == true)
+        {
+            bomb = ttBombSprite;
+        }
+        else if(endlessMode == true)
+        {
+            bomb = bombSprite;
+        }
+
+        // Wait for given time between questions
+        yield return new WaitForSeconds(questionTransitionTime);
     }
 
     // At end of game, transition to results screen
