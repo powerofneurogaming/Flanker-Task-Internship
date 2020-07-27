@@ -26,6 +26,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Sound sources
+    AudioSource musicSource;
+    AudioSource sfxSource;
+
+    // Typewriter sound
+    public AudioClip bombsound;
+
     public Question[] questions; // Array of possible questions
     public static Question[] allTrialQuestions; // Array of randomly selected questions
 
@@ -81,11 +88,14 @@ public class GameManager : MonoBehaviour
     public GameObject starboard;
     public GameObject bombSprite;
     public GameObject bombText;
+    public GameObject explosion;
     public GameObject ttBombSprite;
     public GameObject ttBombText;
+    public GameObject ttExplosion;
     public Sprite bomb3;
     public Sprite bomb2;
     public Sprite bomb1;
+    public Sprite bomb0;
 
     public GameObject comboBox;
     public GameObject comboText;
@@ -93,13 +103,20 @@ public class GameManager : MonoBehaviour
     public Sprite plusButton;
     public Sprite blankPlus;
 
+    public float volume;
+
     // Set up starting game state
     private void Start()
     {
+        musicSource = Music.Instance.musicSource;
+        sfxSource = SoundManager.Instance.audioSource;
+
         bombSprite.GetComponent<SpriteRenderer>().enabled = false;
         bombText.GetComponent<Text>().enabled = false;
+        explosion.GetComponent<SpriteRenderer>().enabled = false;
         ttBombSprite.GetComponent<SpriteRenderer>().enabled = false;
         ttBombText.GetComponent<Text>().enabled = false;
+        ttExplosion.GetComponent<SpriteRenderer>().enabled = false;
 
         // Only the left/right hands are tagged "button", so this assigns the left and right hands to the buttons array
         buttons = GameObject.FindGameObjectsWithTag("button");
@@ -529,12 +546,11 @@ public class GameManager : MonoBehaviour
         //      Exhausted number of questions in Classic or Time Trial mode
         //      Exhausted number of wrong answers in Endless mode
         //      Ran out of time in Time Trial mode
-        if ((globalIndex >= givenQuestions && endlessMode == false))
+        if ((endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
             StartCoroutine(bombOver());
-            moveToResults();
         }
-        else if ((endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
+        else if ((globalIndex >= givenQuestions && timeTrial == true) || (globalIndex >= givenQuestions && endlessMode == false))
         {
             moveToResults();
         }
@@ -556,6 +572,12 @@ public class GameManager : MonoBehaviour
     public void updateTimebomb()
     {
         ttBombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.globalTimer * 1000) / 1000);
+
+        if (Timer.globalTimer <= 0.0f || globalIndex >= givenQuestions)
+        {
+            return;
+        }
+
         if (Timer.globalTimer < givenQuestions * 2 / 3)
         {
             ttBombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
@@ -588,19 +610,27 @@ public class GameManager : MonoBehaviour
     // Display newly set current trial
     IEnumerator bombOver()
     {
-        GameObject bomb;
+        GameObject bombRender;
+        GameObject explodeRender;
 
         if(timeTrial == true)
         {
-            bomb = ttBombSprite;
+            bombRender = ttBombSprite;
+            explodeRender = ttExplosion;
         }
-        else if(endlessMode == true)
+        else
         {
-            bomb = bombSprite;
+            bombRender = bombSprite;
+            explodeRender = explosion;
         }
 
-        // Wait for given time between questions
-        yield return new WaitForSeconds(questionTransitionTime);
+        bombRender.GetComponent<SpriteRenderer>().sprite = bomb0;
+        explodeRender.GetComponent<SpriteRenderer>().enabled = true;
+        sfxSource.PlayOneShot(bombsound, volume);
+
+        yield return new WaitForSeconds(2.65f);
+
+        moveToResults();
     }
 
     // At end of game, transition to results screen

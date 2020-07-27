@@ -34,7 +34,7 @@ public class SetPrefabs : MonoBehaviour
         }
         else
         {
-            stateManager.Instance.playerName = name;
+            stateManager.Instance.playerName = pName;
         }
 
         AchievementManager.Instance.loadAchievements();
@@ -46,6 +46,7 @@ public class SetPrefabs : MonoBehaviour
         // Transition to either title screen or tutorial depending on if the tutorial has been played before
         if(tutorialGate.Instance.hasPlayedTutorial == true)
         {
+            Debug.Log("Name: " + stateManager.Instance.playerName);
             SceneManager.LoadScene("Title");
         }
         else

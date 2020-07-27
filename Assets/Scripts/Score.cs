@@ -306,9 +306,9 @@ public class Score : MonoBehaviour
         // Bronze: 3 minutes
         // Silver: 5 minutes
         // Gold: 10 minutes
-        if (Timer.getTimer() >= 180 && AchievementManager.Instance.achievementList[10].state == 2)
+        if (Timer.getTimer() >= 180 && AchievementManager.Instance.achievementList[10].state < 3)
         {
-            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[10], 1);
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[10], 3);
 
             // Achievement: Get all achievements
             // Bronze: All bronze or better
