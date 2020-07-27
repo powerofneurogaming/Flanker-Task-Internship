@@ -27,11 +27,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Sound sources
-    AudioSource musicSource;
     AudioSource sfxSource;
 
     // Typewriter sound
     public AudioClip bombsound;
+    public AudioClip drumroll;
 
     public Question[] questions; // Array of possible questions
     public static Question[] allTrialQuestions; // Array of randomly selected questions
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
 
     // Text box for arrows / hand sprites
     public GameObject arrows;
+    public GameObject intro;
     public GameObject scoreboard;
     public GameObject starboard;
     public GameObject bombSprite;
@@ -108,7 +109,6 @@ public class GameManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
-        musicSource = Music.Instance.musicSource;
         sfxSource = SoundManager.Instance.audioSource;
 
         bombSprite.GetComponent<SpriteRenderer>().enabled = false;
@@ -317,15 +317,6 @@ public class GameManager : MonoBehaviour
         // disable timer
         Timer.timerStart = false;
 
-        // Set Arrows textbox to the plus symbol sprite
-        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-        // Get left/right buttons and turn them off
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
-
         // If right is correct, trigger correct answer logic, else trigger incorrect question logic
         if (!allTrialQuestions[globalIndex].isLeft)
         {
@@ -342,14 +333,6 @@ public class GameManager : MonoBehaviour
     {
         // disable timer
         Timer.timerStart = false;
-
-        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
-
-        // Get left/right buttons and turn them off
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
 
         // If left is correct, trigger correct answer logic, else trigger incorrect question logic
         if (allTrialQuestions[globalIndex].isLeft)
@@ -368,12 +351,6 @@ public class GameManager : MonoBehaviour
         // disable per-question timer
         Timer.timerStart = false;
 
-        // Get left/right buttons and turn them off
-        foreach (GameObject obj in buttons)
-        {
-            obj.SetActive(false);
-        }
-
         // Start general end-state logic
         userSelectEnd(false, false);
     }
@@ -381,6 +358,12 @@ public class GameManager : MonoBehaviour
     // General end-state logic
     public void userSelectEnd(bool answered, bool correct)
     {
+        // Get left/right buttons and turn them off
+        foreach (GameObject obj in buttons)
+        {
+            obj.SetActive(false);
+        }
+
         // Timer adjust logic: scaling multiplier x correct score average
         if (timeTrial == false) // Time mujltipliers do not apply in time trial mode
         {
@@ -548,11 +531,19 @@ public class GameManager : MonoBehaviour
         //      Ran out of time in Time Trial mode
         if ((endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
         {
+            // Set Arrows textbox to the plus symbol sprite
+            arrows.GetComponent<TextMeshProUGUI>().text = "";
+            intro.SetActive(true);
+            intro.GetComponent<Text>().text = "THE END";
             StartCoroutine(bombOver());
         }
-        else if ((globalIndex >= givenQuestions && timeTrial == true) || (globalIndex >= givenQuestions && endlessMode == false))
+        else if ((globalIndex >= givenQuestions && endlessMode == false))
         {
-            moveToResults();
+            // Set Arrows textbox to the plus symbol sprite
+            arrows.GetComponent<TextMeshProUGUI>().text = "";
+            intro.SetActive(true);
+            intro.GetComponent<Text>().text = "THE END";
+            StartCoroutine(winOver());
         }
         // Else, proceed with game
         // Else, proceed with game
@@ -607,13 +598,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Display newly set current trial
+    // Game fail state
     IEnumerator bombOver()
     {
         GameObject bombRender;
         GameObject explodeRender;
 
-        if(timeTrial == true)
+        if (timeTrial == true)
         {
             bombRender = ttBombSprite;
             explodeRender = ttExplosion;
@@ -629,6 +620,16 @@ public class GameManager : MonoBehaviour
         sfxSource.PlayOneShot(bombsound, volume);
 
         yield return new WaitForSeconds(2.65f);
+
+        moveToResults();
+    }
+
+    // Game win state
+    IEnumerator winOver()
+    {
+        sfxSource.PlayOneShot(drumroll, volume);
+
+        yield return new WaitForSeconds(2.00f);
 
         moveToResults();
     }
