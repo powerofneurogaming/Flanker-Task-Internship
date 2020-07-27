@@ -701,6 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombsound: {fileID: 8300000, guid: f90d7ef473e94c14f8f903379343571a, type: 3}
+  drumroll: {fileID: 8300000, guid: f645e02479c61664e8c5efc1de05776e, type: 3}
   questions:
   - flankerArrows: <sprite="handsprites2" name="right_hand"><sprite="handsprites2"
       name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
@@ -747,6 +748,7 @@ MonoBehaviour:
   timeTrial: 0
   questionTransitionTime: 1
   arrows: {fileID: 715181074}
+  intro: {fileID: 1019382609}
   scoreboard: {fileID: 1574444363}
   starboard: {fileID: 756759464}
   bombSprite: {fileID: 1656036103}
@@ -1722,7 +1724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e4fc0607a54ba4998e76ec0bef870a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugTimer: {fileID: 1201044271}
+  debugTimer: {fileID: 0}
 --- !u!114 &1201044271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1755,7 +1757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Debug Timer:'
+  m_Text: 
 --- !u!222 &1201044272
 CanvasRenderer:
   m_ObjectHideFlags: 0

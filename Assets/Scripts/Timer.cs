@@ -40,7 +40,6 @@ public class Timer : MonoBehaviour
         if (timerStart == true)
         {
             timer += Time.deltaTime;
-            debugTimer.text = "Debug Timer: " + (Mathf.Round(timer * 1000) / 1000).ToString();
             Debug.Log("Time: " + timer);
 
             // If there is time remaining, decrements timer
