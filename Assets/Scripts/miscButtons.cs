@@ -95,6 +95,15 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Achievements");
     }
 
+    public void toShop()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        SceneManager.LoadScene("Shop");
+    }
+
     // Transition to Achievements screen
     public void toAchieveP2()
     {

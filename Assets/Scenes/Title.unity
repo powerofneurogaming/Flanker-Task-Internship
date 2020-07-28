@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 215705586}
   - component: {fileID: 215705585}
   - component: {fileID: 215705584}
+  - component: {fileID: 215705588}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -215,13 +216,13 @@ RectTransform:
   - {fileID: 1745868405}
   - {fileID: 1660657473}
   - {fileID: 1830051057}
+  - {fileID: 706468881}
   - {fileID: 1321320588}
   - {fileID: 926287709}
   - {fileID: 972987470}
   - {fileID: 701219446}
   - {fileID: 1589439921}
   - {fileID: 337520660}
-  - {fileID: 706468881}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -230,6 +231,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &215705588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215705583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc803012eb5b1c741b6e5ce7e5843149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ttMode: {fileID: 1660657472}
+  endlessMode: {fileID: 1830051056}
 --- !u!1 &337520659
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +274,7 @@ Transform:
   m_LocalScale: {x: 12, y: 10.587985, z: 5.257104}
   m_Children: []
   m_Father: {fileID: 215705587}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &337520661
 SpriteRenderer:
@@ -563,7 +578,7 @@ RectTransform:
   m_Children:
   - {fileID: 1472961721}
   m_Father: {fileID: 215705587}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -781,7 +796,7 @@ GameObject:
   - component: {fileID: 706468883}
   - component: {fileID: 706468882}
   m_Layer: 5
-  m_Name: Achievements (1)
+  m_Name: Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,11 +815,11 @@ RectTransform:
   m_Children:
   - {fileID: 868957249}
   m_Father: {fileID: 215705587}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.10001, y: -37.6}
+  m_AnchoredPosition: {x: -90, y: -37.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &706468882
@@ -865,7 +880,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 706468882}
-        m_MethodName: toAchievements
+        m_MethodName: toShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1023,7 +1038,7 @@ RectTransform:
   m_Children:
   - {fileID: 1909651722}
   m_Father: {fileID: 215705587}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1251,7 +1266,7 @@ RectTransform:
   m_Children:
   - {fileID: 1896651500}
   m_Father: {fileID: 215705587}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1552,11 +1567,11 @@ RectTransform:
   m_Children:
   - {fileID: 1579989924}
   m_Father: {fileID: 215705587}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.1, y: -72.7}
+  m_AnchoredPosition: {x: 90, y: -37.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1321320589
@@ -1982,7 +1997,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 0}
   m_Children: []
   m_Father: {fileID: 215705587}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1594472098
 GameObject:

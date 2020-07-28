@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Endless Select.unity
     guid: 718d22c3ed466e64684b6f53c583de49
   - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 9e0eee3a04729604496f269184d2797c
+  - enabled: 1
     path: Assets/Scenes/Achievements.unity
     guid: 3664818428e3b6c46b1eaf8af2cbe8de
   - enabled: 1

@@ -39,6 +39,7 @@ public class SetPrefabs : MonoBehaviour
 
         AchievementManager.Instance.loadAchievements();
         stateManager.Instance.loadStars();
+        stateManager.Instance.loadItems();
 
         // Check if tutorial has been played before by the given user
         tutorialGate.Instance.getPlayed();

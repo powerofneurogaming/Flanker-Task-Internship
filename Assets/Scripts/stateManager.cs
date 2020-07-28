@@ -40,12 +40,13 @@ public class stateManager : MonoBehaviour
     public int difficulty;
     public int levels;
 
-    // ITEMS
+    // ITEMS - UNLOCKABLES
     public bool timeTrial;
     public bool endlessMode;
-    public bool nightItem;
-    public bool handdPurchased;
-    public bool[] characters;
+    public bool nightPurchased;
+    public bool handPurchased;
+
+    // ITEMS - CONSUMABLES
     public int longFuse;
     public int stopwatch;
     public int goodGloves;
@@ -70,7 +71,16 @@ public class stateManager : MonoBehaviour
     {
         timeTrial = PlayerPrefs.GetInt("timeTrial_" + playerName, 0) == 1 ? true : false;
         endlessMode = PlayerPrefs.GetInt("endlessMode_" + playerName, 0) == 1 ? true : false;
-        timeTrial = PlayerPrefs.GetInt("timeTrial_" + playerName, 0) == 1 ? true : false;
+        nightPurchased = PlayerPrefs.GetInt("nightPurchased_" + playerName, 0) == 1 ? true : false;
+        handPurchased = PlayerPrefs.GetInt("handPurchased_" + playerName, 0) == 1 ? true : false;
+
+        longFuse = PlayerPrefs.GetInt("longFuse_" + playerName, 0);
+        stopwatch = PlayerPrefs.GetInt("stopwatch_" + playerName, 0);
+        goodGloves = PlayerPrefs.GetInt("goodGloves_" + playerName, 0);
+        goodLuckKiss = PlayerPrefs.GetInt("goodLuckKiss_" + playerName, 0);
+
+        nightMode = PlayerPrefs.GetInt("nightMode_" + playerName, 0) == 1 ? true : false;
+        oldHand = PlayerPrefs.GetInt("oldHand_" + playerName, 0) == 1 ? true : false;
     }
 
     public void loadStars()
@@ -86,6 +96,11 @@ public class stateManager : MonoBehaviour
     public void addStars(int stars)
     {
         starScore += stars;
+    }
+
+    public void removeStars(int stars)
+    {
+        starScore -= stars;
     }
 
     public void saveStars()
