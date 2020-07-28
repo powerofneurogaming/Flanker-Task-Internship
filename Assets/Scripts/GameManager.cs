@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEditorInternal;
 
 // Monolithic code block for anaging game state
 public class GameManager : MonoBehaviour
@@ -133,18 +134,42 @@ public class GameManager : MonoBehaviour
             // Set number of questions and seconds per game based on difficulty 
             if (stateManager.Instance.difficulty == 0)
             {
-                givenQuestions = 10;
-                Timer.globalTimer = 20.0f;
+                if (stateManager.Instance.stopwatch > 0)
+                {
+                    givenQuestions = 10;
+                    Timer.globalTimer = 40.0f;
+                }
+                else
+                {
+                    givenQuestions = 10;
+                    Timer.globalTimer = 20.0f;
+                }
             }
             else if (stateManager.Instance.difficulty == 1)
             {
-                givenQuestions = 20;
-                Timer.globalTimer = 40.0f;
+                if (stateManager.Instance.stopwatch > 0)
+                {
+                    givenQuestions = 20;
+                    Timer.globalTimer = 80.0f;
+                }
+                else
+                {
+                    givenQuestions = 20;
+                    Timer.globalTimer = 40.0f;
+                }
             }
             else
             {
-                givenQuestions = 30;
-                Timer.globalTimer = 60.0f;
+                if (stateManager.Instance.stopwatch > 0)
+                {
+                    givenQuestions = 30;
+                    Timer.globalTimer = 120.0f;
+                }
+                else
+                {
+                    givenQuestions = 30;
+                    Timer.globalTimer = 60.0f;
+                }
             }
             timeTrial = true;
         }
@@ -174,17 +199,13 @@ public class GameManager : MonoBehaviour
         else if (endlessMode == true)
         {
             multiplier = 2.5f;
-            if (stateManager.Instance.difficulty == 0)
+            if (stateManager.Instance.difficulty != 2)
             {
-                maxWrong = 3;
-            }
-            else if (stateManager.Instance.difficulty == 1)
-            {
-                maxWrong = 3;
+                maxWrong = 3 + stateManager.Instance.longFuse;
             }
             else
             {
-                maxWrong = 1;
+                maxWrong = 1 + stateManager.Instance.longFuse;
                 updateBomb();
             }
         }
@@ -209,11 +230,18 @@ public class GameManager : MonoBehaviour
         // Initialize max time to initial values
         if(timeTrial == false) // If not time trial mode, give a large block of time to establish an average
         {
-            maxTime = 5f;
+            maxTime = 10f;
         }
         else // if time trial mode, all questions are given two seconds
         {
-            maxTime = 2f;
+            if(stateManager.Instance.stopwatch > 0)
+            {
+                maxTime = 4f;
+            }
+            else
+            {
+                maxTime = 2f;
+            }
         }
 
         // Turn off left/right buttons
@@ -371,33 +399,33 @@ public class GameManager : MonoBehaviour
             {
                 float avg = Timer.getTime() / score; // Get average correct time
 
-                // currMultiplier is the multiplier amount over 1x; this is needed to calculate steps from
+                // currMultiplier is the multiplier amount over 1.25x; this is needed to calculate steps from
                 // (difficulty)x to 1x (versus steps from (difficulty)x to 0x)  
-                float currMultiplier = multiplier - 1.0f;
+                float currMultiplier = multiplier - 1.25f;
 
                 // If endless mode is off, the timer scales from (difficulty)x to 1x over the length of the game
                 // Steps for multiplier decrease are based on number of questions
                 //
-                // Note I am adding +1 to the multiplier, since I removed it above
+                // Note I am adding +1.25 to the multiplier, since I removed it above
                 if (endlessMode == false)
                 {
-                    currMultiplier = (currMultiplier / givenQuestions * (givenQuestions - globalIndex)) + 1;
+                    currMultiplier = (currMultiplier / givenQuestions * (givenQuestions - globalIndex)) + 1.25f;
                 }
 
                 // If endless mdoe is on, the timer scales from (difficulty)x to 1.1x over 25 questions
                 // The timer should LOCK at 1.1x average; 1.1x is chosen to give the player a fair shot at the
                 // minimum timer multiplier
                 //
-                // Note I am adding +1 to the multiplier, since I removed it above
+                // Note I am adding +1.25 to the multiplier, since I removed it above
                 else
                 {
-                    currMultiplier = (currMultiplier / 25 * (25 - (numAnswered + numUnanswered))) + 1;
+                    currMultiplier = (currMultiplier / 25 * (25 - (numAnswered + numUnanswered))) + 1.25f;
                 }
 
                 // If in endless mode and the multiplier somehow ends up under 1.1x, reset to 1.1x
-                if (endlessMode == true && currMultiplier < 1.1f)
+                if (endlessMode == true && currMultiplier < 1.5f)
                 {
-                    currMultiplier = 1.1f;
+                    currMultiplier = 1.25f;
                 }
 
                 // Set time, output to console
@@ -414,18 +442,39 @@ public class GameManager : MonoBehaviour
             // Giving the player stars based on difficulty
             if(stateManager.Instance.difficulty == 0)
             {
-                starManager.Instance.addStars(1); 
+                if(stateManager.Instance.goodLuckKiss > 0)
+                {
+                    stateManager.Instance.addStars(2);
+                }
+                else
+                {
+                    stateManager.Instance.addStars(1);
+                }
             }
             else if (stateManager.Instance.difficulty == 1)
             {
-                starManager.Instance.addStars(2);
+                if (stateManager.Instance.goodLuckKiss > 0)
+                {
+                    stateManager.Instance.addStars(4);
+                }
+                else
+                {
+                    stateManager.Instance.addStars(2);
+                }
             }
             else
             {
-                starManager.Instance.addStars(4);
+                if (stateManager.Instance.goodLuckKiss > 0)
+                {
+                    stateManager.Instance.addStars(8);
+                }
+                else
+                {
+                    stateManager.Instance.addStars(4);
+                }
             }
 
-            starboard.GetComponent<Text>().text = starManager.Instance.getStars().ToString();
+            starboard.GetComponent<Text>().text = stateManager.Instance.getStars().ToString();
             
             if (endlessMode == true)
             {
@@ -438,7 +487,7 @@ public class GameManager : MonoBehaviour
                     comboText.GetComponent<Text>().text = comboCounter.ToString();
                 }
 
-                if(stateManager.Instance.difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel != 0)
+                if(stateManager.Instance.difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel > 0)
                 {
                     wrongSentinel--;
                     updateBomb();
@@ -537,7 +586,7 @@ public class GameManager : MonoBehaviour
             intro.GetComponent<Text>().text = "THE END";
             StartCoroutine(bombOver());
         }
-        else if ((globalIndex >= givenQuestions && endlessMode == false))
+        else if (globalIndex >= givenQuestions && endlessMode == false)
         {
             // Set Arrows textbox to the plus symbol sprite
             arrows.GetComponent<TextMeshProUGUI>().text = "";
@@ -584,7 +633,7 @@ public class GameManager : MonoBehaviour
         int numLeft = maxWrong - wrongSentinel;
         bombText.GetComponent<Text>().text = numLeft.ToString();
 
-        if (numLeft == 3)
+        if (numLeft >= 3)
         {
             bombSprite.GetComponent<SpriteRenderer>().sprite = bomb3;
         }
@@ -637,6 +686,30 @@ public class GameManager : MonoBehaviour
     // At end of game, transition to results screen
     public void moveToResults()
     {
+        // Remove items if exist
+        if(timeTrial == true)
+        {
+            if (stateManager.Instance.stopwatch > 0)
+            {
+                stateManager.Instance.stopwatch--;
+            }
+        }
+        else if(endlessMode == true)
+        {
+            if (stateManager.Instance.goodGloves > 0)
+            {
+                stateManager.Instance.goodGloves--;
+            }
+            if (stateManager.Instance.longFuse > 0)
+            {
+                stateManager.Instance.longFuse = 0;
+            }
+        }
+        if(stateManager.Instance.goodLuckKiss > 0)
+        {
+            stateManager.Instance.goodLuckKiss--;
+        }
+
         // calculate average times
         finalTime = Timer.getTime() / score;
         finalCongTime = Timer.getCongTime() / congruentQuestions;
@@ -790,7 +863,7 @@ public class GameManager : MonoBehaviour
             // Bronze: 10 questions
             // Silver: 20 questions
             // Gold: 50 questions
-            if (score + wrongSentinel >= 50)
+            if (score + numWrong + numUnanswered >= 50)
             {
                 if (AchievementManager.Instance.achievementList[6].state == 2)
                 {
@@ -805,7 +878,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 3);
                 }
             }
-            else if (score + wrongSentinel >= 20)
+            else if (score + numWrong + numUnanswered >= 20)
             {
                 if (AchievementManager.Instance.achievementList[6].state == 1)
                 {
@@ -816,7 +889,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[6], 2);
                 }
             }
-            else if (score + wrongSentinel >= 10)
+            else if (score + numWrong + numUnanswered >= 10)
             {
                 if (AchievementManager.Instance.achievementList[6].state == 0)
                 {
@@ -875,7 +948,7 @@ public class GameManager : MonoBehaviour
             // Bronze: 50 stars
             // Silver: 100 stars
             // Gold: 200 stars
-            if (starManager.Instance.getStars() >= 200)
+            if (stateManager.Instance.getStars() >= 200)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 2)
                 {
@@ -890,7 +963,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
                 }
             }
-            else if (starManager.Instance.getStars() >= 100)
+            else if (stateManager.Instance.getStars() >= 100)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 1)
                 {
@@ -901,7 +974,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
                 }
             }
-            else if (starManager.Instance.getStars() >= 50)
+            else if (stateManager.Instance.getStars() >= 50)
             {
                 if (AchievementManager.Instance.achievementList[1].state == 0)
                 {
@@ -930,7 +1003,7 @@ public class GameManager : MonoBehaviour
         stateManager.Instance.congTimeAvg = finalCongTime;
         stateManager.Instance.incongTimeAvg = finalIncongTime;
 
-        starManager.Instance.saveStars();
+        stateManager.Instance.saveStars();
 
         Instance = null;
         Music.Instance.musicSource.Pause();
