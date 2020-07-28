@@ -11,6 +11,6 @@ public class starCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        starText.text = starManager.Instance.getStars().ToString();
+        starText.text = stateManager.Instance.getStars().ToString();
     }
 }

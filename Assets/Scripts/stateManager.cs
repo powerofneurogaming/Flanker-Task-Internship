@@ -21,8 +21,7 @@ public class stateManager : MonoBehaviour
 
     public string playerName;
 
-    public float music_volume;
-    public float sfx_volume;
+    int starScore;
 
     public int wrong;
     public int unanswered;
@@ -41,6 +40,23 @@ public class stateManager : MonoBehaviour
     public int difficulty;
     public int levels;
 
+    // ITEMS
+    public bool timeTrial;
+    public bool endlessMode;
+    public bool nightItem;
+    public bool handdPurchased;
+    public bool[] characters;
+    public int longFuse;
+    public int stopwatch;
+    public int goodGloves;
+    public int goodLuckKiss;
+
+    // SETTINGS
+    public float music_volume;
+    public float sfx_volume;
+    public bool nightMode;
+    public bool oldHand;
+
     public void Start()
     {
         music_volume = PlayerPrefs.GetFloat("musicVol", 0.5f);
@@ -48,5 +64,32 @@ public class stateManager : MonoBehaviour
 
         sfx_volume = PlayerPrefs.GetFloat("sfxVol", 0.5f);
         SoundManager.Instance.audioSource.volume = sfx_volume;
+    }
+
+    public void loadItems()
+    {
+        timeTrial = PlayerPrefs.GetInt("timeTrial_" + playerName, 0) == 1 ? true : false;
+        endlessMode = PlayerPrefs.GetInt("endlessMode_" + playerName, 0) == 1 ? true : false;
+        timeTrial = PlayerPrefs.GetInt("timeTrial_" + playerName, 0) == 1 ? true : false;
+    }
+
+    public void loadStars()
+    {
+        starScore = PlayerPrefs.GetInt("starScore_" + playerName, 0);
+    }
+
+    public int getStars()
+    {
+        return starScore;
+    }
+
+    public void addStars(int stars)
+    {
+        starScore += stars;
+    }
+
+    public void saveStars()
+    {
+        PlayerPrefs.SetInt("starScore_" + playerName, starScore);
     }
 }
