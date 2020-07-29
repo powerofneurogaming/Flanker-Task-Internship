@@ -25,10 +25,4 @@ public class modeEnabler : MonoBehaviour
             endlessMode.GetComponentInChildren<Text>().text = "LOCKED";
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -142,16 +142,21 @@ public class miscButtons : MonoBehaviour
         PlayerPrefs.SetFloat("allWorstFlanker_" + stateManager.Instance.playerName, float.NaN);
 
         PlayerPrefs.SetInt("timeTrial_" + stateManager.Instance.playerName, false ? 1 : 0);
+        stateManager.Instance.timeTrial = false;
+
         PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, false ? 1 : 0);
+        stateManager.Instance.endlessMode = false;
+
         PlayerPrefs.SetInt("nightPurchased_" + stateManager.Instance.playerName, false ? 1 : 0);
+        stateManager.Instance.nightPurchased = false;
+        PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, false ? 1 : 0);
+        stateManager.Instance.nightMode = false;
 
         PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, 0);
         
-        PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, false ? 1 : 0);
-
         AchievementManager.Instance.loadAchievements();
 
         tutorialGate.Instance.setFalse();
