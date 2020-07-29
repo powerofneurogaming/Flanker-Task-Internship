@@ -364,6 +364,11 @@ public class ShopInterface : MonoBehaviour
             buttonDisabler(nightButton, 2);
         }
 
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
         if (stateManager.Instance.getStars() < price[4])
         {
             buttonDisabler(watchButton, 2);
@@ -415,6 +420,11 @@ public class ShopInterface : MonoBehaviour
         if (stateManager.Instance.getStars() < price[3])
         {
             buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
         }
 
         if (stateManager.Instance.getStars() < price[5])
@@ -470,6 +480,11 @@ public class ShopInterface : MonoBehaviour
             buttonDisabler(watchButton, 2);
         }
 
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
         if (stateManager.Instance.getStars() < price[6])
         {
             buttonDisabler(kissButton, 2);
@@ -521,6 +536,11 @@ public class ShopInterface : MonoBehaviour
         if (stateManager.Instance.getStars() < price[5])
         {
             buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
         }
 
         stateManager.Instance.saveStars();
