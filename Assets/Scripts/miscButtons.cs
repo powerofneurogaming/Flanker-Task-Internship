@@ -149,6 +149,15 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Title");
     }
 
+    public void quitGame()
+    {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+        Application.Quit();
+    }
+
     public void resetUser()
     {
         AchievementManager.Instance.resetAchievements();

@@ -60,10 +60,10 @@ public class stateManager : MonoBehaviour
 
     public void Start()
     {
-        music_volume = PlayerPrefs.GetFloat("musicVol", 0.5f);
+        music_volume = PlayerPrefs.GetFloat("musicVol", 0.2f);
         Music.Instance.musicSource.volume = music_volume;
 
-        sfx_volume = PlayerPrefs.GetFloat("sfxVol", 0.5f);
+        sfx_volume = PlayerPrefs.GetFloat("sfxVol", 1.0f);
         SoundManager.Instance.audioSource.volume = sfx_volume;
     }
 
@@ -72,7 +72,6 @@ public class stateManager : MonoBehaviour
         timeTrial = PlayerPrefs.GetInt("timeTrial_" + playerName, 0) == 1 ? true : false;
         endlessMode = PlayerPrefs.GetInt("endlessMode_" + playerName, 0) == 1 ? true : false;
         nightPurchased = PlayerPrefs.GetInt("nightPurchased_" + playerName, 0) == 1 ? true : false;
-        handPurchased = PlayerPrefs.GetInt("handPurchased_" + playerName, 0) == 1 ? true : false;
 
         longFuse = PlayerPrefs.GetInt("longFuse_" + playerName, 0);
         stopwatch = PlayerPrefs.GetInt("stopwatch_" + playerName, 0);
@@ -80,7 +79,6 @@ public class stateManager : MonoBehaviour
         goodLuckKiss = PlayerPrefs.GetInt("goodLuckKiss_" + playerName, 0);
 
         nightMode = PlayerPrefs.GetInt("nightMode_" + playerName, 0) == 1 ? true : false;
-        oldHand = PlayerPrefs.GetInt("oldHand_" + playerName, 0) == 1 ? true : false;
     }
 
     public void loadStars()

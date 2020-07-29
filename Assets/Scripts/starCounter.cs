@@ -13,4 +13,9 @@ public class starCounter : MonoBehaviour
     {
         starText.text = stateManager.Instance.getStars().ToString();
     }
+
+    private void Update()
+    {
+        starText.text = stateManager.Instance.getStars().ToString();
+    }
 }

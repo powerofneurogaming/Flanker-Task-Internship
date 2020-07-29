@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour
             if (stateManager.Instance.difficulty != 2)
             {
                 maxWrong = 3 + stateManager.Instance.longFuse;
+                updateBomb();
             }
             else
             {
@@ -479,7 +480,14 @@ public class GameManager : MonoBehaviour
             if (endlessMode == true)
             {
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
-                comboCounter++;
+                if(stateManager.Instance.goodGloves > 0)
+                {
+                    comboCounter += 2;
+                }
+                else
+                {
+                    comboCounter++;
+                }
 
                 if(comboCounter >= 2)
                 {
@@ -692,23 +700,31 @@ public class GameManager : MonoBehaviour
             if (stateManager.Instance.stopwatch > 0)
             {
                 stateManager.Instance.stopwatch--;
+                PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, stateManager.Instance.stopwatch);
             }
         }
-        else if(endlessMode == true)
+        else if(endlessMode == true && stateManager.Instance.difficulty == 0)
         {
             if (stateManager.Instance.goodGloves > 0)
             {
                 stateManager.Instance.goodGloves--;
+                PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, stateManager.Instance.goodGloves);
             }
             if (stateManager.Instance.longFuse > 0)
             {
                 stateManager.Instance.longFuse = 0;
+                PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, stateManager.Instance.longFuse);
             }
         }
         if(stateManager.Instance.goodLuckKiss > 0)
         {
             stateManager.Instance.goodLuckKiss--;
+            PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, stateManager.Instance.goodLuckKiss);
         }
+
+
+
+
 
         // calculate average times
         finalTime = Timer.getTime() / score;

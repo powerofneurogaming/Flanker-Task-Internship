@@ -1,10 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopInterface : MonoBehaviour
 {
+    AudioSource sfxSource;
+    float volume;
+
+    // Typewriter sound
+    public AudioClip typekey;
+
     [SerializeField]
     GameObject timeButton;
     
@@ -22,12 +29,6 @@ public class ShopInterface : MonoBehaviour
 
     [SerializeField]
     GameObject nightInfo;
-
-    [SerializeField]
-    GameObject handButton;
-
-    [SerializeField]
-    GameObject handInfo;
 
     [SerializeField]
     GameObject fuseButton;
@@ -63,6 +64,12 @@ public class ShopInterface : MonoBehaviour
     GameObject infoText;
 
     [SerializeField]
+    GameObject infoSprite;
+
+    [SerializeField]
+    float[] spriteSizes;
+
+    [SerializeField]
     string[] itemNames;
 
     [SerializeField]
@@ -71,169 +78,227 @@ public class ShopInterface : MonoBehaviour
     [SerializeField]
     Sprite[] itemSprites;
 
+    [SerializeField]
+    int[] price;
+
     // Start is called before the first frame update
     void Start()
     {
+        sfxSource = SoundManager.Instance.audioSource;
+        volume = 0.5f;
+
         infoPanel.SetActive(false);
 
         if (stateManager.Instance.timeTrial == true)
         {
-            buttonDisabler(timeButton, false);
+            buttonDisabler(timeButton, 0);
         }
+        else if(stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
         if (stateManager.Instance.endlessMode == true)
         {
-            buttonDisabler(endlessButton, false);
+            buttonDisabler(endlessButton, 0);
         }
+        else if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
         if (stateManager.Instance.nightPurchased == true)
         {
-            buttonDisabler(nightButton, false);
+            buttonDisabler(nightButton, 0);
         }
-        if (stateManager.Instance.handPurchased == true)
+        else if (stateManager.Instance.getStars() < price[2])
         {
-            buttonDisabler(handButton, false);
+            buttonDisabler(nightButton, 2);
         }
-        if(stateManager.Instance.longFuse >= 3)
+
+        if (stateManager.Instance.longFuse >= 3)
         {
-            buttonDisabler(fuseButton, true);
+            buttonDisabler(fuseButton, 1);
         }
-        if(stateManager.Instance.stopwatch >= 3)
+        else if (stateManager.Instance.getStars() < price[3])
         {
-            buttonDisabler(watchButton, true);
+            buttonDisabler(fuseButton, 2);
         }
-        if(stateManager.Instance.goodGloves >= 3)
+
+        if (stateManager.Instance.stopwatch >= 3)
         {
-            buttonDisabler(gloveButton, true);
+            buttonDisabler(watchButton, 1);
         }
-        if(stateManager.Instance.goodLuckKiss >= 3)
+        else if (stateManager.Instance.getStars() < price[4])
         {
-            buttonDisabler(kissButton, true);
+            buttonDisabler(watchButton, 2);
         }
+
+        if (stateManager.Instance.goodGloves >= 3)
+        {
+            buttonDisabler(gloveButton, 1);
+        }
+        else if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.goodLuckKiss >= 3)
+        {
+            buttonDisabler(kissButton, 1);
+        }
+        else if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
     }
 
-    public void buttonDisabler(GameObject button, bool consumable)
+    public void buttonDisabler(GameObject button, int disableType)
     {
         button.GetComponent<Button>().interactable = false;
-        if (consumable == false)
+        if (disableType == 0)
         {
             button.GetComponentInChildren<Text>().fontSize = 9;
             button.GetComponentInChildren<Text>().text = "PURCHASED";
         }
+        else if (disableType == 1)
+        {
+            button.GetComponentInChildren<Text>().fontSize = 7;
+            button.GetComponentInChildren<Text>().text = "OUT OF\nSTOCK";
+        }
         else
         {
             button.GetComponentInChildren<Text>().fontSize = 7;
-            button.GetComponentInChildren<Text>().text = "OUT OF STOCK";
+            button.GetComponentInChildren<Text>().text = "NOT ENOUGH\nSTARS";
         }
     }
 
     public void showInfo(int which)
     {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+
         infoPanel.SetActive(true);
         infoName.GetComponent<Text>().text = itemNames[which];
         infoText.GetComponent<Text>().text = itemBlurbs[which];
+        infoSprite.transform.localScale = new Vector2(spriteSizes[which], spriteSizes[which]);
+        infoSprite.GetComponent<SpriteRenderer>().sprite = itemSprites[which];
     }
 
     public void hideInfo()
     {
+        if (!sfxSource.isPlaying)
+        {
+            sfxSource.PlayOneShot(typekey, volume);
+        }
+
         infoPanel.SetActive(false);
     }
 
-    public void buyTT(int price)
+    public void buyTT()
     {
-        if (stateManager.Instance.timeTrial == true)
+        if (stateManager.Instance.timeTrial == true || stateManager.Instance.getStars() < price[0])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
+        stateManager.Instance.removeStars(price[0]);
         stateManager.Instance.timeTrial = true;
-        buttonDisabler(timeButton, false);
+        buttonDisabler(timeButton, 0);
         PlayerPrefs.SetInt("timeTrial_" + stateManager.Instance.playerName, true ? 1 : 0);
     }
 
-    public void buyEM(int price)
+    public void buyEM()
     {
-        if (stateManager.Instance.endlessMode == true)
+        if (stateManager.Instance.endlessMode == true || stateManager.Instance.getStars() < price[1])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
+        stateManager.Instance.removeStars(price[1]);
         stateManager.Instance.endlessMode = true;
-        buttonDisabler(endlessButton, false);
-        PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, true ? 1 : 0);
+        buttonDisabler(endlessButton, 0);
+        PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, true ? 1 : 0); 
     }
 
-    public void buyNight(int price)
+    public void buyNight()
     {
-        if (stateManager.Instance.nightPurchased == true)
+        if (stateManager.Instance.nightPurchased == true || stateManager.Instance.getStars() < price[2])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
+        stateManager.Instance.removeStars(price[2]);
         stateManager.Instance.nightPurchased = true;
         stateManager.Instance.nightMode = true;
-        buttonDisabler(nightButton, false);
+        buttonDisabler(nightButton, 0);
         PlayerPrefs.SetInt("nightPurchased_" + stateManager.Instance.playerName, true ? 1 : 0);
         PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, true ? 1 : 0);
     }
 
-    public void buyHand(int price)
+    public void buyFuse()
     {
-        if (stateManager.Instance.handPurchased == true)
+        if (stateManager.Instance.longFuse >= 3 || stateManager.Instance.getStars() < price[3])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
-        stateManager.Instance.handPurchased = true;
-        stateManager.Instance.oldHand = true;
-        buttonDisabler(handButton, false);
-        PlayerPrefs.SetInt("handPurchased_" + stateManager.Instance.playerName, true ? 1 : 0);
-        PlayerPrefs.SetInt("oldHand_" + stateManager.Instance.playerName, true ? 1 : 0);
-    }
-
-    public void buyFuse(int price)
-    {
+        stateManager.Instance.removeStars(price[3]);
+        stateManager.Instance.longFuse++;
         if (stateManager.Instance.longFuse >= 3)
         {
-            return;
+            buttonDisabler(fuseButton, 1);
         }
-        stateManager.Instance.removeStars(price);
-        stateManager.Instance.longFuse++;
-        buttonDisabler(fuseButton, true);
         PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, stateManager.Instance.longFuse);
     }
 
-    public void buyStopwatch(int price)
+    public void buyStopwatch()
     {
-        if (stateManager.Instance.stopwatch >= 3)
+        if (stateManager.Instance.stopwatch >= 3 || stateManager.Instance.getStars() < price[4])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
+        stateManager.Instance.removeStars(price[4]);
         stateManager.Instance.stopwatch++;
-        buttonDisabler(watchButton, true);
+        if (stateManager.Instance.stopwatch >= 3)
+        {
+            buttonDisabler(watchButton, 1);
+        }
         PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, stateManager.Instance.stopwatch);
     }
 
-    public void buyGloves(int price)
+    public void buyGloves()
     {
-        if (stateManager.Instance.goodGloves >= 3)
+        if (stateManager.Instance.goodGloves >= 3 || stateManager.Instance.getStars() < price[5])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
+        stateManager.Instance.removeStars(price[5]);
         stateManager.Instance.goodGloves++;
-        buttonDisabler(gloveButton, true);
+        if (stateManager.Instance.goodGloves >= 3)
+        {
+            buttonDisabler(gloveButton, 1);
+        }
         PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, stateManager.Instance.goodGloves);
     }
 
-    public void buyKiss(int price)
+    public void buyKiss()
     {
-        if (stateManager.Instance.goodLuckKiss >= 3)
+        if (stateManager.Instance.goodLuckKiss >= 3 || stateManager.Instance.getStars() < price[6])
         {
             return;
         }
-        stateManager.Instance.removeStars(price);
+        stateManager.Instance.removeStars(price[6]);
         stateManager.Instance.goodLuckKiss++;
-        buttonDisabler(kissButton, true);
+        if(stateManager.Instance.goodLuckKiss >= 3)
+        {
+            buttonDisabler(kissButton, 1);
+        }
         PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, stateManager.Instance.goodLuckKiss);
+    }
+
+    public void giveStars()
+    {
+        stateManager.Instance.addStars(25);
+        stateManager.Instance.saveStars();
     }
 }

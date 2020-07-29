@@ -15,6 +15,9 @@ public class settings : MonoBehaviour
     [SerializeField]
     Text sfxText;
 
+    [SerializeField]
+    GameObject nightMode;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,13 @@ public class settings : MonoBehaviour
 
         sfxSetter.value = stateManager.Instance.sfx_volume * 100;
         sfxText.text = "Sound: " + sfxSetter.value + "%";
+
+        if(stateManager.Instance.nightPurchased == false)
+        {
+            nightMode.GetComponent<Toggle>().interactable = false;
+            nightMode.GetComponentInChildren<Text>().text = "Night Mode\n(LOCKED)";
+        }
+        nightMode.GetComponent<Toggle>().isOn = stateManager.Instance.nightMode;
     }
 
     // Update is called once per frame
@@ -45,5 +55,11 @@ public class settings : MonoBehaviour
     {
         PlayerPrefs.SetFloat("musicVol", musicSetter.value / 100);
         PlayerPrefs.SetFloat("sfxVol", sfxSetter.value / 100);
+        PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.nightMode, true ? 1 : 0);
+    }
+
+    public void setNightMode()
+    {
+        stateManager.Instance.nightMode = nightMode.GetComponent<Toggle>().isOn;
     }
 }
