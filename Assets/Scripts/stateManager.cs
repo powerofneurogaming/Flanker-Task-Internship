@@ -101,6 +101,11 @@ public class stateManager : MonoBehaviour
         starScore -= stars;
     }
 
+    public void resetStars()
+    {
+        starScore = 0;
+    }
+
     public void saveStars()
     {
         PlayerPrefs.SetInt("starScore_" + playerName, starScore);

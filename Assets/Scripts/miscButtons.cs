@@ -161,7 +161,9 @@ public class miscButtons : MonoBehaviour
     public void resetUser()
     {
         AchievementManager.Instance.resetAchievements();
+
         PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, 0);
+        stateManager.Instance.resetStars();
 
         PlayerPrefs.SetFloat("allBestTime_" + stateManager.Instance.playerName, float.NaN);
         PlayerPrefs.SetFloat("allWorstTime_" + stateManager.Instance.playerName, float.NaN);
@@ -177,6 +179,17 @@ public class miscButtons : MonoBehaviour
         PlayerPrefs.SetFloat("allWorstIncong_" + stateManager.Instance.playerName, float.NaN);
         PlayerPrefs.SetFloat("allBestFlanker_" + stateManager.Instance.playerName, float.NaN);
         PlayerPrefs.SetFloat("allWorstFlanker_" + stateManager.Instance.playerName, float.NaN);
+
+        PlayerPrefs.SetInt("timeTrial_" + stateManager.Instance.playerName, false ? 1 : 0);
+        PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, false ? 1 : 0);
+        PlayerPrefs.SetInt("nightPurchased_" + stateManager.Instance.playerName, false ? 1 : 0);
+
+        PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, 0);
+        PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, 0);
+        PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, 0);
+        PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, 0);
+        
+        PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, false ? 1 : 0);
 
         AchievementManager.Instance.loadAchievements();
 
