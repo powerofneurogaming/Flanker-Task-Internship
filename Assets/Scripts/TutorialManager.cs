@@ -30,6 +30,13 @@ public class TutorialManager : MonoBehaviour
     public string[] prompts; // Array of tutorial messages
     public static Question[] allTrialQuestions; // Array of selected questions
 
+    AudioSource sfxSource;
+
+    // whistle sounds
+    public AudioClip whistleUp;
+    public AudioClip whistleDown;
+    float volume;
+
     // Question state information
     int givenQuestions; // Number of trials to be given
     public int globalIndex; // Index for current question
@@ -65,7 +72,10 @@ public class TutorialManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
-        if(tutorialGate.Instance.hasPlayedTutorial == true)
+        sfxSource = SoundManager.Instance.audioSource;
+        volume = 0.5f;
+
+        if (tutorialGate.Instance.hasPlayedTutorial == true)
         {
             persistBackButton.SetActive(true);
         }
@@ -145,6 +155,7 @@ public class TutorialManager : MonoBehaviour
 
                 // Start tutorial
                 isHeld = false;
+                sfxSource.PlayOneShot(whistleUp, volume);
                 startTrial();
             }
         }
@@ -211,6 +222,7 @@ public class TutorialManager : MonoBehaviour
         // Only proceed if player has chosen the correct answer
         if (!allTrialQuestions[globalIndex].isLeft)
         {
+            sfxSource.PlayOneShot(whistleUp, volume);
             userSelectEnd();
         }
         // Achievement: Click the wrong hand in the tutorial a given number of times
@@ -221,6 +233,7 @@ public class TutorialManager : MonoBehaviour
         {
             if(handClicked == false)
             {
+                sfxSource.PlayOneShot(whistleDown, volume);
                 AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[8], 1);
 
                 // Achievement: Get all achievements
@@ -239,6 +252,7 @@ public class TutorialManager : MonoBehaviour
         // Only proceed if player has chosen the correct answer
         if (allTrialQuestions[globalIndex].isLeft)
         {
+            sfxSource.PlayOneShot(whistleUp, volume);
             userSelectEnd();
         }
         // Achievement: Click the wrong hand in the tutorial a given number of times
@@ -249,6 +263,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (handClicked == false)
             {
+                sfxSource.PlayOneShot(whistleDown, volume);
                 AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[8], 1);
 
                 // Achievement: Get all achievements

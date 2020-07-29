@@ -684,6 +684,8 @@ MonoBehaviour:
     just keep going! Remember: return to center after you answer.'
   - Now you're ready! Unlike this tutorial, the game is timed. Be quick but accurate!
     If you make a mistake, just keep going, and remember to return to center.
+  whistleUp: {fileID: 8300000, guid: 83098b997b91da843a3dd907a26cc14b, type: 3}
+  whistleDown: {fileID: 8300000, guid: 835530b29ccf3ec4f9074b8653526393, type: 3}
   globalIndex: 0
   plusButton: {fileID: 1107250701}
   backButton: {fileID: 1627989634}

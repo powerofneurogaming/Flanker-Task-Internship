@@ -26,10 +26,7 @@ public class miscButtons : MonoBehaviour
     // Transition to Intro scene, for changing users
     public void toIntro()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         musicSource.Pause();
         SceneManager.LoadScene("Intro");
     }
@@ -37,50 +34,35 @@ public class miscButtons : MonoBehaviour
     // Transition to Classic Mode setup screen
     public void toClassic()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Classic Select");
     }
 
     // Transition to Time Trial Mode setup screen
     public void toTimeTrial()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Time Select");
     }
 
     // Transition to Endless Mode setup screen
     public void toEndless()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Endless Select");
     }
 
     // Transition to Tutorial
     public void toTutorial()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Tutorial");
     }
 
     // Transition to Settings screen
     public void toSettings()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Settings");
     }
 
@@ -88,49 +70,34 @@ public class miscButtons : MonoBehaviour
     // Transition to Achievements screen
     public void toAchievements()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Achievements");
     }
 
     public void toShop()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Shop");
     }
 
     // Transition to Achievements screen
     public void toAchieveP2()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("Achieve P2");
     }
 
     // Transition to About screen
     public void toAbout()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         SceneManager.LoadScene("About");
     }
 
     // Transition to game
     public void toMain()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         musicSource.Pause();
         SceneManager.LoadScene("Flanker Main");
     }
@@ -138,10 +105,7 @@ public class miscButtons : MonoBehaviour
     // Transition to title screen
     public void backToTitle()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         if (musicSource.isPlaying == false)
         {
             musicSource.UnPause();
@@ -151,10 +115,7 @@ public class miscButtons : MonoBehaviour
 
     public void quitGame()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
         Application.Quit();
     }
 
