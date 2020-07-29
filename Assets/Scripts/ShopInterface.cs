@@ -176,10 +176,7 @@ public class ShopInterface : MonoBehaviour
 
     public void showInfo(int which)
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
 
         infoPanel.SetActive(true);
         infoName.GetComponent<Text>().text = itemNames[which];
@@ -190,10 +187,7 @@ public class ShopInterface : MonoBehaviour
 
     public void hideInfo()
     {
-        if (!sfxSource.isPlaying)
-        {
-            sfxSource.PlayOneShot(typekey, volume);
-        }
+        sfxSource.PlayOneShot(typekey, volume);
 
         infoPanel.SetActive(false);
     }
