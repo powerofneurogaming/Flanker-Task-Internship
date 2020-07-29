@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Sound sources
+    AudioSource musicSource;
     AudioSource sfxSource;
 
     // Typewriter sound
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        musicSource = Music.Instance.musicSource;
         sfxSource = SoundManager.Instance.audioSource;
 
         bombSprite.GetComponent<SpriteRenderer>().enabled = false;
@@ -591,7 +593,7 @@ public class GameManager : MonoBehaviour
             // Set Arrows textbox to the plus symbol sprite
             arrows.GetComponent<TextMeshProUGUI>().text = "";
             intro.SetActive(true);
-            intro.GetComponent<Text>().text = "THE END";
+            intro.GetComponent<Text>().text = "And the results are...!";
             StartCoroutine(bombOver());
         }
         else if (globalIndex >= givenQuestions && endlessMode == false)
@@ -599,7 +601,7 @@ public class GameManager : MonoBehaviour
             // Set Arrows textbox to the plus symbol sprite
             arrows.GetComponent<TextMeshProUGUI>().text = "";
             intro.SetActive(true);
-            intro.GetComponent<Text>().text = "THE END";
+            intro.GetComponent<Text>().text = "And the results are...!";
             StartCoroutine(winOver());
         }
         // Else, proceed with game
@@ -661,6 +663,8 @@ public class GameManager : MonoBehaviour
         GameObject bombRender;
         GameObject explodeRender;
 
+        musicSource.Pause();
+
         if (timeTrial == true)
         {
             bombRender = ttBombSprite;
@@ -684,6 +688,8 @@ public class GameManager : MonoBehaviour
     // Game win state
     IEnumerator winOver()
     {
+        musicSource.Pause();
+
         sfxSource.PlayOneShot(drumroll, volume);
 
         yield return new WaitForSeconds(2.00f);
@@ -721,10 +727,6 @@ public class GameManager : MonoBehaviour
             stateManager.Instance.goodLuckKiss--;
             PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, stateManager.Instance.goodLuckKiss);
         }
-
-
-
-
 
         // calculate average times
         finalTime = Timer.getTime() / score;
