@@ -11,6 +11,7 @@ public class ShopInterface : MonoBehaviour
 
     // Typewriter sound
     public AudioClip typekey;
+    public AudioClip register;
 
     [SerializeField]
     GameObject timeButton;
@@ -151,11 +152,15 @@ public class ShopInterface : MonoBehaviour
         {
             buttonDisabler(kissButton, 2);
         }
-
     }
 
     public void buttonDisabler(GameObject button, int disableType)
     {
+        if(button.GetComponent<Button>().interactable == false)
+        {
+            return;
+        }
+
         button.GetComponent<Button>().interactable = false;
         if (disableType == 0)
         {
@@ -198,10 +203,43 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[0]);
         stateManager.Instance.timeTrial = true;
         buttonDisabler(timeButton, 0);
         PlayerPrefs.SetInt("timeTrial_" + stateManager.Instance.playerName, true ? 1 : 0);
+
+        if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[2])
+        {
+            buttonDisabler(nightButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void buyEM()
@@ -210,10 +248,43 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[1]);
         stateManager.Instance.endlessMode = true;
         buttonDisabler(endlessButton, 0);
-        PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, true ? 1 : 0); 
+        PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, true ? 1 : 0);
+
+        if (stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[2])
+        {
+            buttonDisabler(nightButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void buyNight()
@@ -222,12 +293,45 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[2]);
         stateManager.Instance.nightPurchased = true;
         stateManager.Instance.nightMode = true;
         buttonDisabler(nightButton, 0);
         PlayerPrefs.SetInt("nightPurchased_" + stateManager.Instance.playerName, true ? 1 : 0);
         PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, true ? 1 : 0);
+
+        if (stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void buyFuse()
@@ -236,6 +340,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[3]);
         stateManager.Instance.longFuse++;
         if (stateManager.Instance.longFuse >= 3)
@@ -243,6 +348,38 @@ public class ShopInterface : MonoBehaviour
             buttonDisabler(fuseButton, 1);
         }
         PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, stateManager.Instance.longFuse);
+
+        if (stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[2])
+        {
+            buttonDisabler(nightButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void buyStopwatch()
@@ -251,6 +388,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[4]);
         stateManager.Instance.stopwatch++;
         if (stateManager.Instance.stopwatch >= 3)
@@ -258,6 +396,38 @@ public class ShopInterface : MonoBehaviour
             buttonDisabler(watchButton, 1);
         }
         PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, stateManager.Instance.stopwatch);
+
+        if (stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[2])
+        {
+            buttonDisabler(nightButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void buyGloves()
@@ -266,6 +436,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[5]);
         stateManager.Instance.goodGloves++;
         if (stateManager.Instance.goodGloves >= 3)
@@ -273,6 +444,38 @@ public class ShopInterface : MonoBehaviour
             buttonDisabler(gloveButton, 1);
         }
         PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, stateManager.Instance.goodGloves);
+
+        if (stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[2])
+        {
+            buttonDisabler(nightButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[6])
+        {
+            buttonDisabler(kissButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void buyKiss()
@@ -281,6 +484,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
+        sfxSource.PlayOneShot(register, volume);
         stateManager.Instance.removeStars(price[6]);
         stateManager.Instance.goodLuckKiss++;
         if(stateManager.Instance.goodLuckKiss >= 3)
@@ -288,6 +492,38 @@ public class ShopInterface : MonoBehaviour
             buttonDisabler(kissButton, 1);
         }
         PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, stateManager.Instance.goodLuckKiss);
+
+        if (stateManager.Instance.getStars() < price[0])
+        {
+            buttonDisabler(timeButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[1])
+        {
+            buttonDisabler(endlessButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[2])
+        {
+            buttonDisabler(nightButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[3])
+        {
+            buttonDisabler(fuseButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[4])
+        {
+            buttonDisabler(watchButton, 2);
+        }
+
+        if (stateManager.Instance.getStars() < price[5])
+        {
+            buttonDisabler(gloveButton, 2);
+        }
+
+        stateManager.Instance.saveStars();
     }
 
     public void giveStars()
