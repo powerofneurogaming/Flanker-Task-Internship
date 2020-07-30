@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditorInternal;
 
 // UI button interactions
 public class miscButtons : MonoBehaviour

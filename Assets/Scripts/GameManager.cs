@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEditorInternal;
 
 // Monolithic code block for anaging game state
 public class GameManager : MonoBehaviour
