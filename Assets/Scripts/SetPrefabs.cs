@@ -69,9 +69,9 @@ public class SetPrefabs : MonoBehaviour
         // If valid user input and not endless mode, process input
         if (level_int != 0)
         {
-            if (level_int > 100)
+            if (level_int > 50)
             {
-                level_int = 100;
+                level_int = 50;
             }
             stateManager.Instance.levels = level_int;
             if (!SoundManager.Instance.audioSource.isPlaying)
@@ -121,4 +121,3 @@ public class SetPrefabs : MonoBehaviour
         }
     }
 }
-   

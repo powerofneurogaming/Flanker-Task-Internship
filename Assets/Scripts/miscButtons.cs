@@ -151,6 +151,11 @@ public class miscButtons : MonoBehaviour
         PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, false ? 1 : 0);
         stateManager.Instance.nightMode = false;
 
+        stateManager.Instance.longFuse = 0;
+        stateManager.Instance.stopwatch = 0;
+        stateManager.Instance.goodGloves = 0;
+        stateManager.Instance.goodLuckKiss = 0;
+
         PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, 0);
