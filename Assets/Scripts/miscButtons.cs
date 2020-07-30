@@ -120,6 +120,8 @@ public class miscButtons : MonoBehaviour
 
     public void resetUser()
     {
+        sfxSource.PlayOneShot(typekey, volume);
+
         AchievementManager.Instance.resetAchievements();
 
         PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, 0);
