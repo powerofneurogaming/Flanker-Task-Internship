@@ -953,58 +953,49 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        int starRating = 4;
-        int achieveRating = 4;
-
-        while(starRating != AchievementManager.Instance.achievementList[1].state || achieveRating != AchievementManager.Instance.achievementList[11].state)
+        // Achievement: Get a certain amount of stars
+        // Bronze: 50 stars
+        // Silver: 100 stars
+        // Gold: 200 stars
+        if (stateManager.Instance.getStars() >= 200)
         {
-            starRating = AchievementManager.Instance.achievementList[1].state;
-            achieveRating = AchievementManager.Instance.achievementList[11].state;
-
-            // Achievement: Get a certain amount of stars
-            // Bronze: 50 stars
-            // Silver: 100 stars
-            // Gold: 200 stars
-            if (stateManager.Instance.getStars() >= 200)
+            if (AchievementManager.Instance.achievementList[1].state == 2)
             {
-                if (AchievementManager.Instance.achievementList[1].state == 2)
-                {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
-                }
-                else if (AchievementManager.Instance.achievementList[1].state == 1)
-                {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
-                }
-                else if (AchievementManager.Instance.achievementList[1].state == 0)
-                {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
-                }
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
             }
-            else if (stateManager.Instance.getStars() >= 100)
+            else if (AchievementManager.Instance.achievementList[1].state == 1)
             {
-                if (AchievementManager.Instance.achievementList[1].state == 1)
-                {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
-                }
-                else if (AchievementManager.Instance.achievementList[1].state == 0)
-                {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
-                }
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
             }
-            else if (stateManager.Instance.getStars() >= 50)
+            else if (AchievementManager.Instance.achievementList[1].state == 0)
             {
-                if (AchievementManager.Instance.achievementList[1].state == 0)
-                {
-                    AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
-                }
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 3);
             }
-
-            // Achievement: Get all achievements
-            // Bronze: All bronze or better
-            // Silver: All silver or better
-            // Gold: All gold or better
-            AchievementManager.Instance.achievementsAchievement();
         }
+        else if (stateManager.Instance.getStars() >= 100)
+        {
+            if (AchievementManager.Instance.achievementList[1].state == 1)
+            {
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
+            }
+            else if (AchievementManager.Instance.achievementList[1].state == 0)
+            {
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 2);
+            }
+        }
+        else if (stateManager.Instance.getStars() >= 50)
+        {
+            if (AchievementManager.Instance.achievementList[1].state == 0)
+            {
+                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[1], 1);
+            }
+        }
+
+        // Achievement: Get all achievements
+        // Bronze: All bronze or better
+        // Silver: All silver or better
+        // Gold: All gold or better
+        AchievementManager.Instance.achievementsAchievement();
 
         // Save data and transition to results screen
         stateManager.Instance.score = score;
