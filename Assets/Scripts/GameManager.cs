@@ -202,12 +202,12 @@ public class GameManager : MonoBehaviour
             multiplier = 2.5f;
             if (stateManager.Instance.difficulty != 2)
             {
-                maxWrong = 3 + stateManager.Instance.longFuse;
+                maxWrong = 3;
                 updateBomb();
             }
             else
             {
-                maxWrong = 1 + stateManager.Instance.longFuse;
+                maxWrong = 1;
                 updateBomb();
             }
         }
@@ -552,7 +552,14 @@ public class GameManager : MonoBehaviour
 
             if (endlessMode == true)
             {
-                wrongSentinel++;
+                if (stateManager.Instance.longFuse == 0)
+                {
+                    wrongSentinel++;
+                }
+                else
+                {
+                    stateManager.Instance.longFuse--;
+                }
                 updateBomb();
                 comboCounter = 0;
 
@@ -639,7 +646,7 @@ public class GameManager : MonoBehaviour
 
     public void updateBomb()
     {
-        int numLeft = maxWrong - wrongSentinel;
+        int numLeft = maxWrong - wrongSentinel + stateManager.Instance.longFuse;
         bombText.GetComponent<Text>().text = numLeft.ToString();
 
         if (numLeft >= 3)
@@ -718,8 +725,8 @@ public class GameManager : MonoBehaviour
             if (stateManager.Instance.longFuse > 0)
             {
                 stateManager.Instance.longFuse = 0;
-                PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, stateManager.Instance.longFuse);
             }
+            PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, stateManager.Instance.longFuse);
         }
         if(stateManager.Instance.goodLuckKiss > 0)
         {
