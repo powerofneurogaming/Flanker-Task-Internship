@@ -2862,8 +2862,9 @@ MonoBehaviour:
     chances...
   - A new game background! You've clicked hands during the day, why not try a little
     bit of late night entertainment?
-  - A longer bomb fuse! Gives you an additional chance  in Endless Mode. You can
-    buy up to 3, which will all be used in your next Endless Mode game.
+  - A longer bomb fuse! Gives more chances in Endless Mode. You can buy up to 3,
+    which will all be used in your next Endless Mode game. Long fuses cannot be earned
+    back.
   - A stopwatch! Doubles the amount of time you have to answer questions in your
     next Time Trial game. You can buy up to 3, but you can only use one at a time.
   - A helping hand! Doubles  your combo in Regenerative Endless Mode, so you earn
