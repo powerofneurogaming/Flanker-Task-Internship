@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject comboBox;
     public GameObject comboText;
+    public GameObject comboLabel;
     public GameObject plusBox;
     public Sprite plusButton;
     public Sprite blankPlus;
@@ -257,6 +258,7 @@ public class GameManager : MonoBehaviour
 
         // Blank Combo Counter
         comboText.GetComponent<Text>().text = "";
+        comboLabel.SetActive(false);
 
         // Set up questions
         LoadTrials();
@@ -494,6 +496,7 @@ public class GameManager : MonoBehaviour
                 {
                     comboBox.GetComponent<Image>().sprite = blankPlus;
                     comboText.GetComponent<Text>().text = comboCounter.ToString();
+                    comboLabel.SetActive(true);
                 }
 
                 if(stateManager.Instance.difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel > 0)
@@ -565,6 +568,7 @@ public class GameManager : MonoBehaviour
 
                 comboBox.GetComponent<Image>().sprite = plusButton;
                 comboText.GetComponent<Text>().text = "";
+                comboLabel.SetActive(false);
             }
 
             // Reset per question timer in any game mode
