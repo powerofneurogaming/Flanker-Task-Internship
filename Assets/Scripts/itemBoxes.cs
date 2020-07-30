@@ -157,9 +157,37 @@ public class itemBoxes : MonoBehaviour
             }
             else
             {
-                handPanel.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-                handItem.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-                handCount.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+                handPanel.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.25f);
+                handItem.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.25f);
+                handCount.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.25f);
+            }
+        }
+
+        if(SceneManager.GetActiveScene().name == "Shop")
+        {
+            if (stateManager.Instance.goodLuckKiss > 0)
+            {
+                lipsPanel.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                lipsItem.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                lipsCount.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+            if (stateManager.Instance.stopwatch > 0)
+            {
+                watchPanel.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                watchItem.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                watchCount.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+            if (stateManager.Instance.longFuse > 0)
+            {
+                fusePanel.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                fuseItem.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                fuseCount.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+            if (stateManager.Instance.goodGloves > 0)
+            {
+                handPanel.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                handItem.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                handCount.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             }
         }
     }
