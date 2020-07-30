@@ -1328,7 +1328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 500
+  m_Text: 350
 --- !u!222 &308588900
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2878,7 +2878,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 48bb504ea368e4c4ea2a4988d369e4cb, type: 3}
   - {fileID: 21300000, guid: 767c5267f8056e64284d0a66576fdbbd, type: 3}
   - {fileID: 21300000, guid: 11fdc9669d90e5644bc0b32112a068dd, type: 3}
-  price: 5e010000f40100004b0000003c000000500000009600000064000000
+  price: c80000005e0100004b0000003c000000500000009600000064000000
 --- !u!1 &642943424
 GameObject:
   m_ObjectHideFlags: 0
@@ -8173,7 +8173,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 350
+  m_Text: 200
 --- !u!222 &2073325249
 CanvasRenderer:
   m_ObjectHideFlags: 0
