@@ -744,7 +744,7 @@ public class GameManager : MonoBehaviour
         // Gold: 3 games
         if (score == 0)
         {
-            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[9], 1);
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[9], 3);
         }
 
         if (stateManager.Instance.gameMode == 0)
