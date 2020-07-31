@@ -3,39 +3,19 @@ using System.Collections;
 
 // Unity libraries
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 // GameManager equivalent for the tutorial
 public class TutorialManager : MonoBehaviour
 {
-    // Pseudo-singleton, see GameManager for details
-    // Again, this !! DOES NOT !! persist across scenes
-    public static TutorialManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public Question[] questions; // Array of possible questions
     public string[] prompts; // Array of tutorial messages
     public static Question[] allTrialQuestions; // Array of selected questions
 
+    // Audio source and tutorial sound effects
     AudioSource sfxSource;
-
-    // whistle sounds
     public AudioClip whistleUp;
     public AudioClip whistleDown;
-    float volume;
 
     // Question state information
     int givenQuestions; // Number of trials to be given
@@ -45,6 +25,7 @@ public class TutorialManager : MonoBehaviour
     bool isHeld; // isHeld and holdTime are used for the hold prompt on the first text message
     float holdTime;
 
+    // Sentinel to avoid constant repeated button-presses
     bool handClicked;
 
     // The plus button
@@ -72,8 +53,8 @@ public class TutorialManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        // Connect audio source 
         sfxSource = SoundManager.Instance.audioSource;
-        volume = 0.5f;
 
         if (tutorialGate.Instance.hasPlayedTutorial == true)
         {
@@ -155,7 +136,7 @@ public class TutorialManager : MonoBehaviour
 
                 // Start tutorial
                 isHeld = false;
-                sfxSource.PlayOneShot(whistleUp, volume);
+                sfxSource.PlayOneShot(whistleUp, stateManager.Instance.volume);
                 startTrial();
             }
         }
@@ -222,7 +203,7 @@ public class TutorialManager : MonoBehaviour
         // Only proceed if player has chosen the correct answer
         if (!allTrialQuestions[globalIndex].isLeft)
         {
-            sfxSource.PlayOneShot(whistleUp, volume);
+            sfxSource.PlayOneShot(whistleUp, stateManager.Instance.volume);
             userSelectEnd();
         }
         // Achievement: Click the wrong hand in the tutorial a given number of times
@@ -233,7 +214,7 @@ public class TutorialManager : MonoBehaviour
         {
             if(handClicked == false)
             {
-                sfxSource.PlayOneShot(whistleDown, volume);
+                sfxSource.PlayOneShot(whistleDown, stateManager.Instance.volume);
                 AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[8], 1);
 
                 // Achievement: Get all achievements
@@ -252,7 +233,7 @@ public class TutorialManager : MonoBehaviour
         // Only proceed if player has chosen the correct answer
         if (allTrialQuestions[globalIndex].isLeft)
         {
-            sfxSource.PlayOneShot(whistleUp, volume);
+            sfxSource.PlayOneShot(whistleUp, stateManager.Instance.volume);
             userSelectEnd();
         }
         // Achievement: Click the wrong hand in the tutorial a given number of times
@@ -263,7 +244,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (handClicked == false)
             {
-                sfxSource.PlayOneShot(whistleDown, volume);
+                sfxSource.PlayOneShot(whistleDown, stateManager.Instance.volume);
                 AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[8], 1);
 
                 // Achievement: Get all achievements
@@ -317,8 +298,5 @@ public class TutorialManager : MonoBehaviour
         {
             tutorialGate.Instance.setTrue();
         }
-
-        // Reset Instance
-        Instance = null;
     }
 }

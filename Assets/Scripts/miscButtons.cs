@@ -12,9 +12,6 @@ public class miscButtons : MonoBehaviour
     // Typewriter sound
     public AudioClip typekey;
 
-    // SFX volume
-    public float volume;
-
     // Assign Music and SFX objects to AudioSources
     private void Start()
     {
@@ -25,7 +22,7 @@ public class miscButtons : MonoBehaviour
     // Transition to Intro scene, for changing users
     public void toIntro()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         musicSource.Pause();
         SceneManager.LoadScene("Intro");
     }
@@ -33,35 +30,35 @@ public class miscButtons : MonoBehaviour
     // Transition to Classic Mode setup screen
     public void toClassic()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Classic Select");
     }
 
     // Transition to Time Trial Mode setup screen
     public void toTimeTrial()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Time Select");
     }
 
     // Transition to Endless Mode setup screen
     public void toEndless()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Endless Select");
     }
 
     // Transition to Tutorial
     public void toTutorial()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Tutorial");
     }
 
     // Transition to Settings screen
     public void toSettings()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Settings");
     }
 
@@ -69,34 +66,34 @@ public class miscButtons : MonoBehaviour
     // Transition to Achievements screen
     public void toAchievements()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Achievements");
     }
 
     public void toShop()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Shop");
     }
 
     // Transition to Achievements screen
     public void toAchieveP2()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("Achieve P2");
     }
 
     // Transition to About screen
     public void toAbout()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         SceneManager.LoadScene("About");
     }
 
     // Transition to game
     public void toMain()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         musicSource.Pause();
         SceneManager.LoadScene("Flanker Main");
     }
@@ -104,7 +101,7 @@ public class miscButtons : MonoBehaviour
     // Transition to title screen
     public void backToTitle()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         if (musicSource.isPlaying == false)
         {
             musicSource.UnPause();
@@ -114,13 +111,13 @@ public class miscButtons : MonoBehaviour
 
     public void quitGame()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         Application.Quit();
     }
 
     public void resetUser()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
 
         AchievementManager.Instance.resetAchievements();
 

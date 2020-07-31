@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ShopInterface : MonoBehaviour
 {
     AudioSource sfxSource;
-    float volume;
 
     // Typewriter sound
     public AudioClip typekey;
@@ -86,7 +85,6 @@ public class ShopInterface : MonoBehaviour
     void Start()
     {
         sfxSource = SoundManager.Instance.audioSource;
-        volume = 0.5f;
 
         infoPanel.SetActive(false);
 
@@ -181,7 +179,7 @@ public class ShopInterface : MonoBehaviour
 
     public void showInfo(int which)
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
 
         infoPanel.SetActive(true);
         infoName.GetComponent<Text>().text = itemNames[which];
@@ -192,7 +190,7 @@ public class ShopInterface : MonoBehaviour
 
     public void hideInfo()
     {
-        sfxSource.PlayOneShot(typekey, volume);
+        sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
 
         infoPanel.SetActive(false);
     }
@@ -203,7 +201,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[0]);
         stateManager.Instance.timeTrial = true;
         buttonDisabler(timeButton, 0);
@@ -248,7 +246,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[1]);
         stateManager.Instance.endlessMode = true;
         buttonDisabler(endlessButton, 0);
@@ -293,7 +291,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[2]);
         stateManager.Instance.nightPurchased = true;
         stateManager.Instance.nightMode = true;
@@ -340,7 +338,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[3]);
         stateManager.Instance.longFuse++;
         if (stateManager.Instance.longFuse >= 3)
@@ -393,7 +391,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[4]);
         stateManager.Instance.stopwatch++;
         if (stateManager.Instance.stopwatch >= 3)
@@ -446,7 +444,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[5]);
         stateManager.Instance.goodGloves++;
         if (stateManager.Instance.goodGloves >= 3)
@@ -499,7 +497,7 @@ public class ShopInterface : MonoBehaviour
         {
             return;
         }
-        sfxSource.PlayOneShot(register, volume);
+        sfxSource.PlayOneShot(register, stateManager.Instance.volume);
         stateManager.Instance.removeStars(price[6]);
         stateManager.Instance.goodLuckKiss++;
         if(stateManager.Instance.goodLuckKiss >= 3)

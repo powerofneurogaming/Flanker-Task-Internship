@@ -106,8 +106,6 @@ public class GameManager : MonoBehaviour
     public Sprite plusButton;
     public Sprite blankPlus;
 
-    public float volume;
-
     // Set up starting game state
     private void Start()
     {
@@ -685,7 +683,7 @@ public class GameManager : MonoBehaviour
 
         bombRender.GetComponent<SpriteRenderer>().sprite = bomb0;
         explodeRender.GetComponent<SpriteRenderer>().enabled = true;
-        sfxSource.PlayOneShot(bombsound, volume);
+        sfxSource.PlayOneShot(bombsound, stateManager.Instance.volume);
 
         yield return new WaitForSeconds(2.65f);
 
@@ -697,7 +695,7 @@ public class GameManager : MonoBehaviour
     {
         musicSource.Pause();
 
-        sfxSource.PlayOneShot(drumroll, volume);
+        sfxSource.PlayOneShot(drumroll, stateManager.Instance.volume);
 
         yield return new WaitForSeconds(2.00f);
 

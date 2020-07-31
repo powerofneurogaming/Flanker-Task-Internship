@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class SetPrefabs : MonoBehaviour
 {
     public AudioClip carriage_return;
-    public float volume = 0.5f;
 
     // Can't figure out where this is hooked up... I try to rename it to 'PlayerInput' and everything breaks.
     // When I need to start adding more complex user menus I need to ask Khalil for help.
@@ -21,7 +20,7 @@ public class SetPrefabs : MonoBehaviour
         // Play carriage return sound
         if (!SoundManager.Instance.audioSource.isPlaying)
         {
-            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
         }
 
         // Get name from text box
@@ -76,7 +75,7 @@ public class SetPrefabs : MonoBehaviour
             stateManager.Instance.levels = level_int;
             if (!SoundManager.Instance.audioSource.isPlaying)
             {
-                SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+                SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
             }
             stateManager.Instance.gameMode = 0;
             SceneManager.LoadScene("Flanker Main");
@@ -89,7 +88,7 @@ public class SetPrefabs : MonoBehaviour
         stateManager.Instance.gameMode = 1;
         if (!SoundManager.Instance.audioSource.isPlaying)
         {
-            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
         }
         SceneManager.LoadScene("Flanker Main");
     }
@@ -100,7 +99,7 @@ public class SetPrefabs : MonoBehaviour
         stateManager.Instance.gameMode = 2;
         if (!SoundManager.Instance.audioSource.isPlaying)
         {
-            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, volume);
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
         }
         SceneManager.LoadScene("Flanker Main");
     }

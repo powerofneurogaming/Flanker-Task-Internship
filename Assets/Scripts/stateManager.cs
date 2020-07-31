@@ -58,8 +58,11 @@ public class stateManager : MonoBehaviour
     public bool nightMode;
     public bool oldHand;
 
+    public float volume;
+
     public void Start()
     {
+        volume = 0.5f;
         music_volume = PlayerPrefs.GetFloat("musicVol", 0.2f);
         Music.Instance.musicSource.volume = music_volume;
 
