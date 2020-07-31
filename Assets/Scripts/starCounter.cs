@@ -1,19 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 
+// Star counter in the corner of the screen
 public class starCounter : MonoBehaviour
 {
     [SerializeField]
     Text starText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        starText.text = stateManager.Instance.getStars().ToString();
-    }
-
+    // Continually update star counter with current star count
     private void Update()
     {
         starText.text = stateManager.Instance.getStars().ToString();

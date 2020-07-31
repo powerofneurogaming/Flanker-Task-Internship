@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 
+// AudioSource script for music
 public class Music : MonoBehaviour
 {
     // Singleton
@@ -22,19 +22,9 @@ public class Music : MonoBehaviour
 
     public AudioSource musicSource;
 
-    private void Start()
-    {
-        musicSource.volume = 0.5f;
-    }
-
+    // Volume setter
     public void setVolume(float volume)
     {
         musicSource.volume = volume;
-    }
-
-    public bool mute()
-    {
-        musicSource.mute = !musicSource.mute;
-        return musicSource.mute;
     }
 }

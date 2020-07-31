@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿// Unity libraries
+using UnityEngine;
 
 // Handles whether to show the tutorial when starting the game for the first time
 public class tutorialGate : MonoBehaviour

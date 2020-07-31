@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 
 // AudioSource script for sound effects
@@ -23,19 +22,9 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource audioSource;
 
-    private void Start()
-    {
-        audioSource.volume = 0.5f;
-    }
-
+    // Volume setter
     public void setVolume(float volume)
     {
         audioSource.volume = volume;
-    }
-
-    public bool mute()
-    {
-        audioSource.mute = !audioSource.mute;
-        return audioSource.mute;
     }
 }

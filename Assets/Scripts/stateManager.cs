@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿// Unity libraries
+using UnityEngine;
 
 // Singleton for handling the bulk of game state data (stars, points, results screen data, etc)
 // Also contains initialization code for stars and items

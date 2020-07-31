@@ -1,24 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 
+// Settings screen logic
 public class settings : MonoBehaviour
 {
+    // Slider for music volume
     [SerializeField]
     Slider musicSetter;
     [SerializeField]
     Text musicText;
 
+    // Slider for SFX volume
     [SerializeField]
     Slider sfxSetter;
     [SerializeField]
     Text sfxText;
 
+    // Toggle for Nighttime BG
     [SerializeField]
     GameObject nightMode;
 
-    // Start is called before the first frame update
+    // Get existing settings state and set up interface to match
     void Start()
     {
         musicSetter.value = stateManager.Instance.music_volume * 100;
@@ -35,7 +38,7 @@ public class settings : MonoBehaviour
         nightMode.GetComponent<Toggle>().isOn = stateManager.Instance.nightMode;
     }
 
-    // Update is called once per frame
+    // Music volume setter
     public void setMusicVol()
     {
         stateManager.Instance.music_volume = musicSetter.value / 100;
@@ -43,7 +46,7 @@ public class settings : MonoBehaviour
         musicText.text = "Music: " + musicSetter.value + "%";
     }
 
-    // Update is called once per frame
+    // SFX volume setter
     public void setSFXVol()
     {
         stateManager.Instance.sfx_volume = sfxSetter.value / 100;
@@ -51,15 +54,17 @@ public class settings : MonoBehaviour
         sfxText.text = "Sound: " + sfxSetter.value + "%";
     }
 
+    // Night Mode toggle
+    public void setNightMode()
+    {
+        stateManager.Instance.nightMode = nightMode.GetComponent<Toggle>().isOn;
+    }
+
+    // Save settings on menu exit
     public void saveSettings()
     {
         PlayerPrefs.SetFloat("musicVol", musicSetter.value / 100);
         PlayerPrefs.SetFloat("sfxVol", sfxSetter.value / 100);
         PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.nightMode, true ? 1 : 0);
-    }
-
-    public void setNightMode()
-    {
-        stateManager.Instance.nightMode = nightMode.GetComponent<Toggle>().isOn;
     }
 }
