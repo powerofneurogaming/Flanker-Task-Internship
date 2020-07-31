@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Handles whether to show the tutorial when starting the game for the first time
 public class tutorialGate : MonoBehaviour

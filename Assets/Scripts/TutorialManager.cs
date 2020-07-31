@@ -53,15 +53,19 @@ public class TutorialManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
-        // Connect audio source 
+        // Connect audio source to SFX manager
         sfxSource = SoundManager.Instance.audioSource;
 
+        // Enable exit button if player has played tutorial before
         if (tutorialGate.Instance.hasPlayedTutorial == true)
         {
             persistBackButton.SetActive(true);
         }
 
+        // Get hand buttons
         buttons = GameObject.FindGameObjectsWithTag("button");
+
+        // Start from first prompt
         globalIndex = 0;
 
         // Get the player level from the previous scene; if zero, start endless mode
@@ -140,7 +144,6 @@ public class TutorialManager : MonoBehaviour
                 startTrial();
             }
         }
-
         // If not being held, reset hold timer
         else if(holdTime != 0.0f)
         {
