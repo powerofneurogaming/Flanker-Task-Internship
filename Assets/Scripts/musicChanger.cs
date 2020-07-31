@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 
 // Single-fire script for changing the music in the Music Source singleton

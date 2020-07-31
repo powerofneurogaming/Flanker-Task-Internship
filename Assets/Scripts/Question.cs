@@ -1,4 +1,4 @@
-﻿// No idea. My guess is this is what lets GameManager.cs initialize variables of this type.
+﻿// Allows Question objects to be serialized in GameManager
 [System.Serializable]
 
 // Class for storing Flanker Task trials ('Questions')
