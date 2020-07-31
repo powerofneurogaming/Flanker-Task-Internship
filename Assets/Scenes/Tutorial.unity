@@ -678,7 +678,7 @@ MonoBehaviour:
     way the MIDDLE hand is pointing.
   - If the MIDDLE hand is pointing left, choose the left hand
   - If the MIDDLE hand is pointing right, choose the right hand.
-  - All hands may face same-way. Sometimes the MIDDLE faces other-way. Pick the hand
+  - All hands may point the same way. Sometimes the MIDDLE does not. Pick the hand
     matching the MIDDLE. The middle is centered with the +.
   - 'Now you try! Answer as fast as you can without mistakes. If you make a mistake,
     just keep going! Remember: return to center after you answer.'
