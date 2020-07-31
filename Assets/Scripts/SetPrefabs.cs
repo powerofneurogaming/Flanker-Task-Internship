@@ -6,12 +6,13 @@ using UnityEngine.UI;
 // Handles initializin game state, as well as setting player name and number of trials
 public class SetPrefabs : MonoBehaviour
 {
+    // AudioClip for carriage return sound efect
     public AudioClip carriage_return;
 
-    // Can't figure out where this is hooked up... I try to rename it to 'PlayerInput' and everything breaks.
-    // When I need to start adding more complex user menus I need to ask Khalil for help.
+    // Text field for Player Name in Intro and number of levels in Classic Select
     public Text playerName;
 
+    // Player name temp holder
     public string pName;
 
     // Set fresh game state 
@@ -27,7 +28,7 @@ public class SetPrefabs : MonoBehaviour
         pName = playerName.text;
 
         // If name is blank, use default
-        if (name.Length <= 0)
+        if (pName.Length <= 0)
         {
             stateManager.Instance.playerName = "NoName";
         }
