@@ -96,15 +96,11 @@ public class AchievementManager : MonoBehaviour
         achievementList.Add(new Achievement("dontFollowDirections_", "Wrong Hand (Tutorial)"));
 
         // Achievement: Finish a game with no questions right
-        // Bronze: 1 game
-        // Silver: 2 games
-        // Gold: 3 games
+        // Gold: 1 game
         achievementList.Add(new Achievement("youreBadAtThis_", "No Questions Right"));
 
         // Achievement: Stand Idle at the results screen
-        // Bronze: 3 minutes
-        // Silver: 5 minutes
-        // Gold: 10 minutes
+        // Gold: 3 minutes
         achievementList.Add(new Achievement("nothingBetterToDo_", "Stay at Results Screen"));
 
         // Achievement: Get all achievements

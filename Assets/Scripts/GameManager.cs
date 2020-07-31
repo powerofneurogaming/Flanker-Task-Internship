@@ -747,9 +747,7 @@ public class GameManager : MonoBehaviour
         AchievementManager.Instance.completeGamemode(stateManager.Instance.gameMode);
 
         // Achievement: Finish a game with no questions right
-        // Bronze: 1 game
-        // Silver: 2 games
-        // Gold: 3 games
+        // Gold: 1 game
         if (score == 0)
         {
             AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[9], 3);

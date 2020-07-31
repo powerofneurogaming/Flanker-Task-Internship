@@ -303,9 +303,7 @@ public class Score : MonoBehaviour
     private void Update()
     {
         // Achievement: Stand Idle at the results screen
-        // Bronze: 3 minutes
-        // Silver: 5 minutes
-        // Gold: 10 minutes
+        // Gold: 3 minutes
         if (Timer.getTimer() >= 180 && AchievementManager.Instance.achievementList[10].state < 3)
         {
             AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[10], 3);
