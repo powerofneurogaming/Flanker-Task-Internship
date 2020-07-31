@@ -5,13 +5,16 @@ using System.Linq;
 // Unity libraries
 using UnityEngine;
 
+// Script to handle state of all achievements
 public class AchievementManager : MonoBehaviour
 {
+    // Returns number of 'true's in boolean array
     public int numTrue(params bool[] bools)
     {
         return bools.Count(n => n);
     }
 
+    // Singleton
     public static AchievementManager Instance { get; private set; }
 
     private void Awake()
@@ -27,8 +30,10 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
+    // List of all achievements
     public List<Achievement> achievementList;
 
+    // State sentinels for which modes have been played
     bool classic;
     bool timeTrial;
     bool endless;
@@ -110,26 +115,34 @@ public class AchievementManager : MonoBehaviour
         // Gold: All gold or better
         achievementList.Add(new Achievement("youreGoodAtThis_", "Get Achievements"));
 
+        // Get states for whether gamemodes have been played (for 'Complete each game mode at least once')
         classic = PlayerPrefs.GetInt("classicAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
         timeTrial = PlayerPrefs.GetInt("timeTrialAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
         endless = PlayerPrefs.GetInt("endlessAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
     }
 
+    // Unlocks/upgrades an achievement by a given number of levels
     public void getAchievement(Achievement achievement, int toAdd)
     {
+        // If not upgrading the achievement or it is already at gold level, do nothing
         if (achievement.state >= 3 || toAdd == 0)
         {
             return;
         }
 
+        // Level of achievement unlocked, for debug output
         string type;
 
+        // Upgrade/unlock achievement
         achievement.state += toAdd;
+
+        // Force achievement down to gold level if somehow past
         if (achievement.state > 3)
         {
             achievement.state = 3;
         }
 
+        // Set debug output to proper achievement type
         if (achievement.state == 1)
         {
             type = "Bronze";
@@ -143,20 +156,26 @@ public class AchievementManager : MonoBehaviour
             type = "Gold";
         }
 
+        // Save achievement
         PlayerPrefs.SetInt(achievement.privateName + stateManager.Instance.playerName, achievement.state);
 
+        // Debug output
         Debug.Log("You got: " + achievement.friendlyName + " - " + type);
     }
 
+    // getAchievement wrapper for 'Complete each game mode at least once'
     public void completeGamemode(int gameMode)
     {
+        // get the number of gamemodes already cleared
         int alreadyCleared = numTrue(classic, timeTrial, endless);
 
+        // If all gamemodes have already been cleared, player already has the achievement; return
         if (alreadyCleared == 3)
         {
             return;
         }
 
+        // Set current gamemode flag to true
         if (gameMode == 0)
         {
             PlayerPrefs.SetInt("classicAchieve_" + stateManager.Instance.playerName, true ? 1 : 0);
@@ -173,29 +192,37 @@ public class AchievementManager : MonoBehaviour
             endless = true;
         }
 
+        // Get the new number of cleared gamemodes
         int newCleared = numTrue(classic, timeTrial, endless);
 
+        // If both numbers are the same, no new achievement unlocked; return
         if (alreadyCleared == newCleared)
         {
             return;
         }
 
-        getAchievement(achievementList[7], newCleared - alreadyCleared);
+        // Else, upgrade achievement
+        getAchievement(achievementList[7], 1);
     }
 
+    // getAchievement wrapper for 'Get all achievements'
     public void achievementsAchievement()
     {
+        // If already at gold level, return
         if (achievementList[11].state == 3)
         {
             return;
         }
 
+        // create array of all other achievement states
         int[] achieveList = { achievementList[0].state , achievementList[1].state , achievementList[2].state , achievementList[3].state , achievementList[4].state ,
                               achievementList[5].state , achievementList[6].state , achievementList[7].state , achievementList[8].state ,
                               achievementList[9].state , achievementList[10].state };
 
+        // flag for lowest achievement level
         int max = 4;
 
+        // set max to the lowest level of all other achievements
         for (int i = 0; i < 11; i++)
         {
             if (achieveList[i] < max)
@@ -204,11 +231,20 @@ public class AchievementManager : MonoBehaviour
             }
         }
 
+        // if max and 'Get all achievements' state are the same, no new levels; return
+        if (max == achievementList[11].state)
+        {
+            return;
+        }
+
+        // upgrade 'Get all achievements' by the difference between the current level and the lowest achievement level
         getAchievement(achievementList[11], max - achievementList[11].state);
     }
 
+    // Resets all achievements and state variables as part of reset user function
     public void resetAchievements()
     {
+        // Reset achievements
         achievementList[0].state = 0;
         PlayerPrefs.SetInt(achievementList[0].privateName + stateManager.Instance.playerName, 0);
         achievementList[1].state = 0;
@@ -234,12 +270,11 @@ public class AchievementManager : MonoBehaviour
         achievementList[11].state = 0;
         PlayerPrefs.SetInt(achievementList[11].privateName + stateManager.Instance.playerName, 0);
 
+        // Reset flags for played gamemodes
         PlayerPrefs.SetInt("classicAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         classic = false;
-
         PlayerPrefs.SetInt("timeTrialAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         timeTrial = false;
-
         PlayerPrefs.SetInt("endlessAchieve_" + stateManager.Instance.playerName, false ? 1 : 0);
         endless = false;
     }

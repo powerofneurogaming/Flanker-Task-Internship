@@ -6,28 +6,30 @@ using UnityEngine.UI;
 // Difficulty slider logic
 public class difficultySlider : MonoBehaviour
 {
+    // Difficulty state variable
     int difficulty;
+
+    // Actual difficulty slider in-game
     public Slider difficultySetter;
     public Text difficultyText;
-    Scene currentScene;
 
     // Set difficulty sider to the easiest mode on start and display correct text
     private void Start()
     {
-        currentScene = SceneManager.GetActiveScene();
         difficulty = 0;
         stateManager.Instance.difficulty = difficulty;
 
         // Classic Mode
-        if(currentScene.name == "Classic Select")
+        if(SceneManager.GetActiveScene().name == "Classic Select")
         {
             difficultyText.text = "Easy";
         }
         // Time Trial Mode
-        else if(currentScene.name == "Time Select")
+        else if(SceneManager.GetActiveScene().name == "Time Select")
         {
             difficultyText.text = "20 seconds, 10 questions";
         }
+        // Endless Mode
         else
         {
             difficultyText.text = "3 Wrong - Regenerative";
@@ -44,15 +46,16 @@ public class difficultySlider : MonoBehaviour
         if(difficulty == 0)
         {
             // If Classic Mode
-            if (currentScene.name == "Classic Select")
+            if (SceneManager.GetActiveScene().name == "Classic Select")
             {
                 difficultyText.text = "Easy";
             }
             // If Time Trial Mode
-            else if (currentScene.name == "Time Select")
+            else if (SceneManager.GetActiveScene().name == "Time Select")
             {
                 difficultyText.text = "20 seconds, 10 questions";
             }
+            // If Endless Mode
             else
             {
                 difficultyText.text = "3 Wrong - Regenerative";
@@ -63,15 +66,16 @@ public class difficultySlider : MonoBehaviour
         else if(difficulty == 1)
         {
             // If Classic Mode
-            if (currentScene.name == "Classic Select")
+            if (SceneManager.GetActiveScene().name == "Classic Select")
             {
                 difficultyText.text = "Medium";
             }
             // If Time Trial Mode
-            else if (currentScene.name == "Time Select")
+            else if (SceneManager.GetActiveScene().name == "Time Select")
             {
                 difficultyText.text = "40 seconds, 20 questions";
             }
+            // If Endless Mode
             else
             {
                 difficultyText.text = "3 Wrong";
@@ -81,22 +85,23 @@ public class difficultySlider : MonoBehaviour
         else
         {
             // If Classic Mode
-            if (currentScene.name == "Classic Select")
+            if (SceneManager.GetActiveScene().name == "Classic Select")
             {
                 difficultyText.text = "Hard";
             }
             // If Time Trial Mode
-            else if (currentScene.name == "Time Select")
+            else if (SceneManager.GetActiveScene().name == "Time Select")
             {
                 difficultyText.text = "60 seconds, 30 questions";
             }
+            // If Endless Mode
             else
             {
                 difficultyText.text = "1 Wrong";
             }
         }
 
-        // Save difficulty so it can be accessed by the main game
+        // Set difficulty so it can be accessed by the main game
         stateManager.Instance.difficulty = difficulty;
     }
 }
