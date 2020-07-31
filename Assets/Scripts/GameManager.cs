@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-// Monolithic code block for anaging game state
+// Monolithic code block for managing game state
 public class GameManager : MonoBehaviour
 {
     // 'Pseudo-singleton' - uses static instance of GameManager to allow for access to GameManager object
@@ -86,7 +86,11 @@ public class GameManager : MonoBehaviour
     // Text box for arrows / hand sprites
     public GameObject arrows;
     public GameObject intro;
+
+    // Score text
     public GameObject scoreboard;
+
+    // Bomb timer GameObjects / sprites
     public GameObject bombSprite;
     public GameObject bombText;
     public GameObject explosion;
@@ -98,6 +102,7 @@ public class GameManager : MonoBehaviour
     public Sprite bomb1;
     public Sprite bomb0;
 
+    // Combo counter related GameObjects / sprites
     public GameObject comboBox;
     public GameObject comboText;
     public GameObject comboLabel;
@@ -108,9 +113,11 @@ public class GameManager : MonoBehaviour
     // Set up starting game state
     private void Start()
     {
+        // Connect AudioSources to sound managers
         musicSource = Music.Instance.musicSource;
         sfxSource = SoundManager.Instance.audioSource;
 
+        // Disable bomb timers
         bombSprite.GetComponent<SpriteRenderer>().enabled = false;
         bombText.GetComponent<Text>().enabled = false;
         explosion.GetComponent<SpriteRenderer>().enabled = false;
@@ -130,44 +137,32 @@ public class GameManager : MonoBehaviour
         else if (stateManager.Instance.gameMode == 1) // if time trial mode
         {
             scoreboard.GetComponent<Text>().enabled = false;
-            // Set number of questions and seconds per game based on difficulty 
+            // Set number of questions and seconds per game based on difficulty, apply stopwatch if applicable
             if (stateManager.Instance.difficulty == 0)
             {
+                givenQuestions = 10;
+                Timer.globalTimer = 20.0f;
                 if (stateManager.Instance.stopwatch > 0)
                 {
-                    givenQuestions = 10;
-                    Timer.globalTimer = 40.0f;
-                }
-                else
-                {
-                    givenQuestions = 10;
-                    Timer.globalTimer = 20.0f;
+                    Timer.globalTimer *= 2;
                 }
             }
             else if (stateManager.Instance.difficulty == 1)
             {
+                givenQuestions = 20;
+                Timer.globalTimer = 40.0f;
                 if (stateManager.Instance.stopwatch > 0)
                 {
-                    givenQuestions = 20;
-                    Timer.globalTimer = 80.0f;
-                }
-                else
-                {
-                    givenQuestions = 20;
-                    Timer.globalTimer = 40.0f;
+                    Timer.globalTimer *= 2;
                 }
             }
             else
             {
+                givenQuestions = 30;
+                Timer.globalTimer = 60.0f;
                 if (stateManager.Instance.stopwatch > 0)
                 {
-                    givenQuestions = 30;
-                    Timer.globalTimer = 120.0f;
-                }
-                else
-                {
-                    givenQuestions = 30;
-                    Timer.globalTimer = 60.0f;
+                    Timer.globalTimer *= 2;
                 }
             }
             timeTrial = true;
@@ -195,6 +190,8 @@ public class GameManager : MonoBehaviour
                 multiplier = 1.5f;
             }
         }
+
+        // Set up time multiplier, bomb timer, and number allowed wrong for endless mode
         else if (endlessMode == true)
         {
             multiplier = 2.5f;
@@ -268,12 +265,14 @@ public class GameManager : MonoBehaviour
     // Update timer every frame that a question is active; if over time, trigger 'none' selection
     private void Update()
     {
+        // Update timers
         currentTimer = Timer.getTimer();
         if (currentTimer >= maxTime)
         {
             userSelectNone();
         }
 
+        // Update timer on Time Trial bomb
         if (timeTrial == true)
         {
             updateTimebomb();
@@ -300,24 +299,29 @@ public class GameManager : MonoBehaviour
     // Start a trial
     public void startTrial()
     {
-        if (endlessMode == true)
+        // Enable bomb timer
+        if (endlessMode == true && bombSprite.GetComponent<SpriteRenderer>().enabled == false)
         {
             bombSprite.GetComponent<SpriteRenderer>().enabled = true;
             bombText.GetComponent<Text>().enabled = true;
         }
-        else if (timeTrial == true)
+        else if (timeTrial == true && ttBombSprite.GetComponent<SpriteRenderer>().enabled == false)
         {
             plusBox.SetActive(false);
             ttBombSprite.GetComponent<SpriteRenderer>().enabled = true;
             ttBombText.GetComponent<Text>().enabled = true;
         }
 
+        // Set plus symbol
         arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
+
         // Turn the arrows on
         arrows.SetActive(true);
 
         // Set current trial
         Question trial = allTrialQuestions[globalIndex];
+        
+        // Display trial after given amount of time
         StartCoroutine(displayTrial(trial.flankerArrows));
     }
 
@@ -327,20 +331,23 @@ public class GameManager : MonoBehaviour
         // Wait for given time between questions
         yield return new WaitForSeconds(questionTransitionTime);
 
-        // Start timer and display trial
+        // Enable hands
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(true);
         }
 
+        // Enable timer
         Timer.timerStart = true;
+
+        // Display trial
         arrows.GetComponent<TextMeshProUGUI>().text = trial;
     }
 
     // Right button logic
     public void userSelectRight()
     {
-        // disable timer
+        // Disable timer
         Timer.timerStart = false;
 
         // If right is correct, trigger correct answer logic, else trigger incorrect question logic
@@ -357,7 +364,7 @@ public class GameManager : MonoBehaviour
     // Left button logic
     public void userSelectLeft()
     {
-        // disable timer
+        // Disable timer
         Timer.timerStart = false;
 
         // If left is correct, trigger correct answer logic, else trigger incorrect question logic
@@ -472,10 +479,14 @@ public class GameManager : MonoBehaviour
                 }
             }
             
+            // If in Endless Mode, apply specific logic (see following comments)
             if (endlessMode == true)
             {
+                // Update endless scoreboard
                 scoreboard.GetComponent<Text>().text = "Score: " + score;
-                if(stateManager.Instance.goodGloves > 0)
+
+                // Update combo (+1 if normal, +2 for Helping Hand)
+                if(stateManager.Instance.difficulty == 0 && stateManager.Instance.goodGloves > 0)
                 {
                     comboCounter += 2;
                 }
@@ -484,6 +495,7 @@ public class GameManager : MonoBehaviour
                     comboCounter++;
                 }
 
+                // Display combo counter if there is an active combo
                 if(comboCounter >= 2)
                 {
                     comboBox.GetComponent<Image>().sprite = blankPlus;
@@ -491,6 +503,7 @@ public class GameManager : MonoBehaviour
                     comboLabel.SetActive(true);
                 }
 
+                // Remove a wrong answer in regenerative mode if user reaches a 10 combo
                 if(stateManager.Instance.difficulty == 0 && comboCounter % 10 == 0 && comboCounter != 0 && wrongSentinel > 0)
                 {
                     wrongSentinel--;
@@ -511,32 +524,36 @@ public class GameManager : MonoBehaviour
             }
 
             // Set best congruent time
-            if ((float.IsNaN(bestCongTime) || Timer.getTimer() < bestCongTime) && allTrialQuestions[globalIndex].isCongruent == true)
+            if (allTrialQuestions[globalIndex].isCongruent == true && (float.IsNaN(bestCongTime) || Timer.getTimer() < bestCongTime))
             {
                 bestCongTime = Timer.getTimer();
             }
 
             // Set worst congruent time
-            if ((float.IsNaN(worstCongTime) || Timer.getTimer() > worstCongTime) && allTrialQuestions[globalIndex].isCongruent == true)
+            if (allTrialQuestions[globalIndex].isCongruent == true && (float.IsNaN(worstCongTime) || Timer.getTimer() > worstCongTime))
             {
                 worstCongTime = Timer.getTimer();
             }
 
             // Set best incongruent time
-            if ((float.IsNaN(bestIncongTime) || Timer.getTimer() < bestIncongTime) && allTrialQuestions[globalIndex].isCongruent == false)
+            if (allTrialQuestions[globalIndex].isCongruent == false && (float.IsNaN(bestIncongTime) || Timer.getTimer() < bestIncongTime))
             {
                 bestIncongTime = Timer.getTimer();
             }
 
             // Set worst incongruent time
-            if ((float.IsNaN(worstIncongTime) || Timer.getTimer() > worstIncongTime) && allTrialQuestions[globalIndex].isCongruent == false)
+            if (allTrialQuestions[globalIndex].isCongruent == false && (float.IsNaN(worstIncongTime) || Timer.getTimer() > worstIncongTime))
             {
                 worstIncongTime = Timer.getTimer();
             }
 
+            // Reset timer
             Timer.resetTimer(true);
+
+            // Debug output
             Debug.Log("Correct, Score: " + stateManager.Instance.score + ", Time: " + Timer.getTimer());
         }
+        // Else if incorrect
         else
         {
             // Decreasing the timer in Time Trial mode
@@ -545,19 +562,25 @@ public class GameManager : MonoBehaviour
                 Timer.globalTimer--;
             }
 
+            // If endless mode
             if (endlessMode == true)
             {
+                // If no long fuses, add wrong answer
                 if (stateManager.Instance.longFuse == 0)
                 {
                     wrongSentinel++;
                 }
+                // Else, use a long fuse
                 else
                 {
                     stateManager.Instance.longFuse--;
                 }
+
+                // Update bomb and reset combo to zero
                 updateBomb();
                 comboCounter = 0;
 
+                // Reset combo UI
                 comboBox.GetComponent<Image>().sprite = plusButton;
                 comboText.GetComponent<Text>().text = "";
                 comboLabel.SetActive(false);
@@ -607,7 +630,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(winOver());
         }
         // Else, proceed with game
-        // Else, proceed with game
         else
         {
             // If in Endless Mode, roll next trial
@@ -621,15 +643,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Update time trial bomb counter
     public void updateTimebomb()
     {
+        // Update timer on bomb
         ttBombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.globalTimer * 1000) / 1000);
 
+        // If out of time/questions, return
         if (Timer.globalTimer <= 0.0f || globalIndex >= givenQuestions)
         {
             return;
         }
 
+        // Update fuse on bomb
         if (Timer.globalTimer < givenQuestions * 2 / 3)
         {
             ttBombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
@@ -642,9 +668,11 @@ public class GameManager : MonoBehaviour
 
     public void updateBomb()
     {
+        // Update number on bomb
         int numLeft = maxWrong - wrongSentinel + stateManager.Instance.longFuse;
         bombText.GetComponent<Text>().text = numLeft.ToString();
 
+        // Update fuse on bomb
         if (numLeft >= 3)
         {
             bombSprite.GetComponent<SpriteRenderer>().sprite = bomb3;
@@ -662,11 +690,14 @@ public class GameManager : MonoBehaviour
     // Game fail state
     IEnumerator bombOver()
     {
+        // GameObjects for bomb explosion effect
         GameObject bombRender;
         GameObject explodeRender;
 
+        // Pause music
         musicSource.Pause();
 
+        // Determine which bomb to use
         if (timeTrial == true)
         {
             bombRender = ttBombSprite;
@@ -678,24 +709,31 @@ public class GameManager : MonoBehaviour
             explodeRender = explosion;
         }
 
+        // Set bomb explosion and play explosion sound
         bombRender.GetComponent<SpriteRenderer>().sprite = bomb0;
         explodeRender.GetComponent<SpriteRenderer>().enabled = true;
         sfxSource.PlayOneShot(bombsound, stateManager.Instance.volume);
 
+        // Pause for length of explosion sound
         yield return new WaitForSeconds(2.65f);
 
+        // End game
         moveToResults();
     }
 
     // Game win state
     IEnumerator winOver()
     {
+        // Pause music
         musicSource.Pause();
 
+        // Play drumroll sound
         sfxSource.PlayOneShot(drumroll, stateManager.Instance.volume);
 
+        // Pause for length of drumroll sound
         yield return new WaitForSeconds(2.00f);
 
+        // End game
         moveToResults();
     }
 
@@ -707,26 +745,26 @@ public class GameManager : MonoBehaviour
         {
             if (stateManager.Instance.stopwatch > 0)
             {
-                stateManager.Instance.stopwatch--;
+                stateManager.Instance.stopwatch--; // Only one stopwatch is used at a time
                 PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, stateManager.Instance.stopwatch);
             }
         }
-        else if(endlessMode == true && stateManager.Instance.difficulty == 0)
+        else if(endlessMode == true)
         {
-            if (stateManager.Instance.goodGloves > 0)
+            if (stateManager.Instance.difficulty == 0 && stateManager.Instance.goodGloves > 0) // Helping hands only apply in regenerative mode
             {
-                stateManager.Instance.goodGloves--;
+                stateManager.Instance.goodGloves--; // Only one helping hand is used at a time
                 PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, stateManager.Instance.goodGloves);
             }
             if (stateManager.Instance.longFuse > 0)
             {
-                stateManager.Instance.longFuse = 0;
+                stateManager.Instance.longFuse = 0; // All long fuses are used at once
             }
             PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, stateManager.Instance.longFuse);
         }
         if(stateManager.Instance.goodLuckKiss > 0)
         {
-            stateManager.Instance.goodLuckKiss--;
+            stateManager.Instance.goodLuckKiss--; // Only one good luck kiss is used at a time
             PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, stateManager.Instance.goodLuckKiss);
         }
 
@@ -1012,9 +1050,13 @@ public class GameManager : MonoBehaviour
         stateManager.Instance.congTimeAvg = finalCongTime;
         stateManager.Instance.incongTimeAvg = finalIncongTime;
 
+        // Save star count to disk
         stateManager.Instance.saveStars();
 
+        // Reset GameManager instance
         Instance = null;
+
+        // Pause music and move to results screen
         Music.Instance.musicSource.Pause();
         SceneManager.LoadScene("Flanker Result");
     }
