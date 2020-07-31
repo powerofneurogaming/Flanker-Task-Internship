@@ -233,17 +233,14 @@ public class GameManager : MonoBehaviour
         // Initialize max time to initial values
         if(timeTrial == false) // If not time trial mode, give a large block of time to establish an average
         {
-            maxTime = 10f;
+            maxTime = 25f;
         }
         else // if time trial mode, all questions are given two seconds
         {
-            if(stateManager.Instance.stopwatch > 0)
+            maxTime = 2f;
+            if (stateManager.Instance.stopwatch > 0)
             {
-                maxTime = 4f;
-            }
-            else
-            {
-                maxTime = 2f;
+                maxTime *= 2;
             }
         }
 
