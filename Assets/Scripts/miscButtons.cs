@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿// Unity libraries
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // UI button interactions
@@ -109,21 +109,26 @@ public class miscButtons : MonoBehaviour
         SceneManager.LoadScene("Title");
     }
 
+    // Quit button
     public void quitGame()
     {
         sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
         Application.Quit();
     }
 
+    // Reset user profile from settings screen
     public void resetUser()
     {
         sfxSource.PlayOneShot(typekey, stateManager.Instance.volume);
 
+        // Reset achievements
         AchievementManager.Instance.resetAchievements();
 
+        // Reset stars
         PlayerPrefs.SetInt("starScore_" + stateManager.Instance.playerName, 0);
         stateManager.Instance.resetStars();
 
+        // Reset data points
         PlayerPrefs.SetFloat("allBestTime_" + stateManager.Instance.playerName, float.NaN);
         PlayerPrefs.SetFloat("allWorstTime_" + stateManager.Instance.playerName, float.NaN);
         PlayerPrefs.SetFloat("allBestAvg_" + stateManager.Instance.playerName, float.NaN);
@@ -139,31 +144,33 @@ public class miscButtons : MonoBehaviour
         PlayerPrefs.SetFloat("allBestFlanker_" + stateManager.Instance.playerName, float.NaN);
         PlayerPrefs.SetFloat("allWorstFlanker_" + stateManager.Instance.playerName, float.NaN);
 
+        // Reset shop unlockables
         PlayerPrefs.SetInt("timeTrial_" + stateManager.Instance.playerName, false ? 1 : 0);
         stateManager.Instance.timeTrial = false;
-
         PlayerPrefs.SetInt("endlessMode_" + stateManager.Instance.playerName, false ? 1 : 0);
         stateManager.Instance.endlessMode = false;
-
         PlayerPrefs.SetInt("nightPurchased_" + stateManager.Instance.playerName, false ? 1 : 0);
         stateManager.Instance.nightPurchased = false;
         PlayerPrefs.SetInt("nightMode_" + stateManager.Instance.playerName, false ? 1 : 0);
         stateManager.Instance.nightMode = false;
 
+        // Reset shop consumables
         stateManager.Instance.longFuse = 0;
         stateManager.Instance.stopwatch = 0;
         stateManager.Instance.goodGloves = 0;
         stateManager.Instance.goodLuckKiss = 0;
-
         PlayerPrefs.SetInt("longFuse_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("stopwatch_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("goodGloves_" + stateManager.Instance.playerName, 0);
         PlayerPrefs.SetInt("goodLuckKiss_" + stateManager.Instance.playerName, 0);
         
+        // Reload achievements
         AchievementManager.Instance.loadAchievements();
 
+        // Reset tutorial flag
         tutorialGate.Instance.setFalse();
 
-        SceneManager.LoadScene("Title");
+        // Go back to title screen
+        SceneManager.LoadScene("Tutorial");
     }
 }
