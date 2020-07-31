@@ -18,25 +18,26 @@ public class SetPrefabs : MonoBehaviour
     // Set fresh game state 
     public void setupPrefabs()
     {
-        // Play carriage return sound
-        if (!SoundManager.Instance.audioSource.isPlaying)
-        {
-            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
-        }
-
-        // Get name from text box
+        // Get player name from text box
         pName = playerName.text;
 
-        // If name is blank, use default
+        // If player name is blank, use default
         if (pName.Length <= 0)
         {
-            stateManager.Instance.playerName = "NoName";
+            return;
         }
         else
         {
             stateManager.Instance.playerName = pName;
         }
 
+        // Play carriage return sound
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
+        }
+
+        // Load achievements, stars, and items for user
         AchievementManager.Instance.loadAchievements();
         stateManager.Instance.loadStars();
         stateManager.Instance.loadItems();
@@ -57,7 +58,6 @@ public class SetPrefabs : MonoBehaviour
     }
 
     // On trial select screen, get number of trials
-    // If non-number, set to zero (endless mode)
     public void setLevel()
     {
         // Get number of levels from user text input
@@ -66,7 +66,7 @@ public class SetPrefabs : MonoBehaviour
         // parse user input
         int.TryParse(level, out int level_int);
 
-        // If valid user input and not endless mode, process input
+        // If valid user input, process input and start game
         if (level_int != 0)
         {
             if (level_int > 50)
@@ -105,7 +105,7 @@ public class SetPrefabs : MonoBehaviour
         SceneManager.LoadScene("Flanker Main");
     }
 
-    // 
+    // Enter key catching on scenes with text boxes
     public void Update()
     {
         if(Input.GetKey(KeyCode.Return))
