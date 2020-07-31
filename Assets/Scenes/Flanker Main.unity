@@ -761,7 +761,7 @@ MonoBehaviour:
   incongruentQuestions: 0
   endlessMode: 0
   timeTrial: 0
-  questionTransitionTime: 1
+  questionTransitionTime: 2
   arrows: {fileID: 715181074}
   intro: {fileID: 1019382609}
   scoreboard: {fileID: 1574444363}
