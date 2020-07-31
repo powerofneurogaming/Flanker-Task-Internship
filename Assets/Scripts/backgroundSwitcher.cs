@@ -1,16 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 
+// Single-fire script for activating nighttime background
 public class backgroundSwitcher : MonoBehaviour
 {
+    // In-game background
     [SerializeField]
     GameObject background;
 
+    // Nighttime backgrund sprite
     [SerializeField]
     Sprite nightBG;
 
-    // Start is called before the first frame update
+    // If night mode is enabled, set nighttime background
     void Start()
     {
         if(stateManager.Instance.nightMode == true)

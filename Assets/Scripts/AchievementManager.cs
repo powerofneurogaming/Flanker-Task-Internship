@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿// System libraries
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+
+// Unity libraries
 using UnityEngine;
 
 public class AchievementManager : MonoBehaviour

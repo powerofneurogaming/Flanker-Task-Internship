@@ -1,4 +1,4 @@
-﻿// Allows Question objects to be serialized in GameManager
+﻿// Allows Question objects to be serialized
 [System.Serializable]
 
 // Class for storing Flanker Task trials ('Questions')

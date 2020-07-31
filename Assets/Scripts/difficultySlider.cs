@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
