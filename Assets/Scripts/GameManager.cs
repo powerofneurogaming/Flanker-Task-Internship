@@ -87,7 +87,6 @@ public class GameManager : MonoBehaviour
     public GameObject arrows;
     public GameObject intro;
     public GameObject scoreboard;
-    public GameObject starboard;
     public GameObject bombSprite;
     public GameObject bombText;
     public GameObject explosion;
@@ -472,8 +471,6 @@ public class GameManager : MonoBehaviour
                     stateManager.Instance.addStars(4);
                 }
             }
-
-            starboard.GetComponent<Text>().text = stateManager.Instance.getStars().ToString();
             
             if (endlessMode == true)
             {

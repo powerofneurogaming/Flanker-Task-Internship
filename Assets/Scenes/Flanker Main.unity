@@ -765,7 +765,6 @@ MonoBehaviour:
   arrows: {fileID: 715181074}
   intro: {fileID: 1019382609}
   scoreboard: {fileID: 1574444363}
-  starboard: {fileID: 0}
   bombSprite: {fileID: 1656036103}
   bombText: {fileID: 1192953111}
   explosion: {fileID: 1798849510}
@@ -2103,7 +2102,7 @@ Transform:
   - {fileID: 1798849511}
   - {fileID: 1192953112}
   m_Father: {fileID: 2109692614}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1798849510
 GameObject:
@@ -2715,8 +2714,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 773082913}
   - {fileID: 1656036105}
+  - {fileID: 773082913}
   - {fileID: 531769375}
   m_Father: {fileID: 0}
   m_RootOrder: 7
