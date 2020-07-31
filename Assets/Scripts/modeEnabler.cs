@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Unity libraries
 using UnityEngine;
 using UnityEngine.UI;
 
+// Handles locking of gamemodes if not yet purchased
 public class modeEnabler : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +11,7 @@ public class modeEnabler : MonoBehaviour
     [SerializeField]
     GameObject endlessMode;
 
-    // Start is called before the first frame update
+    // Lock modes if not purchased
     void Start()
     {
         if (stateManager.Instance.timeTrial == false)
