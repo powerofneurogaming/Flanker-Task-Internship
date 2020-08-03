@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     // Gamemode flags (if neither is set, game is in 'Classic' mode
     public bool endlessMode;
     public bool timeTrial;
+    bool endGuard;
 
     // transition time between questions
     [SerializeField]
@@ -276,6 +277,11 @@ public class GameManager : MonoBehaviour
         if (timeTrial == true)
         {
             updateTimebomb();
+            if(Timer.Instance.globalTimer <= 0.0f && endGuard == false)
+            {
+                userSelectNone();
+                endGuard = true;
+            }
         }
     }
 
