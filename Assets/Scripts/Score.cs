@@ -61,7 +61,7 @@ public class Score : MonoBehaviour
     // Set up results readout, write to CSV file
     void Start()
     {
-        Timer.timerStart = true;
+        Timer.Instance.timerStart = true;
 
         allTimeBest = float.NaN;
         allTimeBestAvg = float.NaN;
@@ -307,7 +307,7 @@ public class Score : MonoBehaviour
     {
         // Achievement: Stand Idle at the results screen
         // Gold: 3 minutes
-        if (Timer.getTimer() >= 180 && AchievementManager.Instance.achievementList[10].state < 3)
+        if (Timer.Instance.getTimer() >= 180 && AchievementManager.Instance.achievementList[10].state < 3)
         {
             AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[10], 3);
 

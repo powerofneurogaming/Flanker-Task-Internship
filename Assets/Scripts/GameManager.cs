@@ -141,28 +141,28 @@ public class GameManager : MonoBehaviour
             if (stateManager.Instance.difficulty == 0)
             {
                 givenQuestions = 10;
-                Timer.globalTimer = 20.0f;
+                Timer.Instance.globalTimer = 20.0f;
                 if (stateManager.Instance.stopwatch > 0)
                 {
-                    Timer.globalTimer *= 2;
+                    Timer.Instance.globalTimer *= 2;
                 }
             }
             else if (stateManager.Instance.difficulty == 1)
             {
                 givenQuestions = 20;
-                Timer.globalTimer = 40.0f;
+                Timer.Instance.globalTimer = 40.0f;
                 if (stateManager.Instance.stopwatch > 0)
                 {
-                    Timer.globalTimer *= 2;
+                    Timer.Instance.globalTimer *= 2;
                 }
             }
             else
             {
                 givenQuestions = 30;
-                Timer.globalTimer = 60.0f;
+                Timer.Instance.globalTimer = 60.0f;
                 if (stateManager.Instance.stopwatch > 0)
                 {
-                    Timer.globalTimer *= 2;
+                    Timer.Instance.globalTimer *= 2;
                 }
             }
             timeTrial = true;
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         worstIncongTime = float.NaN;
         score = 0;
         wrongSentinel = 0;
-        Timer.timerStart = false;
+        Timer.Instance.timerStart = false;
         congruentQuestions = 0;
         incongruentQuestions = 0;
 
@@ -266,7 +266,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Update timers
-        currentTimer = Timer.getTimer();
+        currentTimer = Timer.Instance.getTimer();
         if (currentTimer >= maxTime)
         {
             userSelectNone();
@@ -338,7 +338,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Enable timer
-        Timer.timerStart = true;
+        Timer.Instance.timerStart = true;
 
         // Display trial
         arrows.GetComponent<TextMeshProUGUI>().text = trial;
@@ -348,7 +348,7 @@ public class GameManager : MonoBehaviour
     public void userSelectRight()
     {
         // Disable timer
-        Timer.timerStart = false;
+        Timer.Instance.timerStart = false;
 
         // If right is correct, trigger correct answer logic, else trigger incorrect question logic
         if (!allTrialQuestions[globalIndex].isLeft)
@@ -365,7 +365,7 @@ public class GameManager : MonoBehaviour
     public void userSelectLeft()
     {
         // Disable timer
-        Timer.timerStart = false;
+        Timer.Instance.timerStart = false;
 
         // If left is correct, trigger correct answer logic, else trigger incorrect question logic
         if (allTrialQuestions[globalIndex].isLeft)
@@ -382,7 +382,7 @@ public class GameManager : MonoBehaviour
     public void userSelectNone()
     {
         // disable per-question timer
-        Timer.timerStart = false;
+        Timer.Instance.timerStart = false;
 
         // Start general end-state logic
         userSelectEnd(false, false);
@@ -402,7 +402,7 @@ public class GameManager : MonoBehaviour
         {
             if (score != 0) // Only set a maxTime if there are correct answers to use to establish an average
             {
-                float avg = Timer.getTime() / score; // Get average correct time
+                float avg = Timer.Instance.getTime() / score; // Get average correct time
 
                 // currMultiplier is the multiplier amount over 1.25x; this is needed to calculate steps from
                 // (difficulty)x to 1x (versus steps from (difficulty)x to 0x)  
@@ -512,46 +512,46 @@ public class GameManager : MonoBehaviour
             }
 
             // Set best time
-            if (float.IsNaN(bestTime) || Timer.getTimer() < bestTime)
+            if (float.IsNaN(bestTime) || Timer.Instance.getTimer() < bestTime)
             {
-                bestTime = Timer.getTimer();
+                bestTime = Timer.Instance.getTimer();
             }
 
             // Set worst time
-            if (float.IsNaN(worstTime) || Timer.getTimer() > worstTime)
+            if (float.IsNaN(worstTime) || Timer.Instance.getTimer() > worstTime)
             {
-                worstTime = Timer.getTimer();
+                worstTime = Timer.Instance.getTimer();
             }
 
             // Set best congruent time
-            if (allTrialQuestions[globalIndex].isCongruent == true && (float.IsNaN(bestCongTime) || Timer.getTimer() < bestCongTime))
+            if (allTrialQuestions[globalIndex].isCongruent == true && (float.IsNaN(bestCongTime) || Timer.Instance.getTimer() < bestCongTime))
             {
-                bestCongTime = Timer.getTimer();
+                bestCongTime = Timer.Instance.getTimer();
             }
 
             // Set worst congruent time
-            if (allTrialQuestions[globalIndex].isCongruent == true && (float.IsNaN(worstCongTime) || Timer.getTimer() > worstCongTime))
+            if (allTrialQuestions[globalIndex].isCongruent == true && (float.IsNaN(worstCongTime) || Timer.Instance.getTimer() > worstCongTime))
             {
-                worstCongTime = Timer.getTimer();
+                worstCongTime = Timer.Instance.getTimer();
             }
 
             // Set best incongruent time
-            if (allTrialQuestions[globalIndex].isCongruent == false && (float.IsNaN(bestIncongTime) || Timer.getTimer() < bestIncongTime))
+            if (allTrialQuestions[globalIndex].isCongruent == false && (float.IsNaN(bestIncongTime) || Timer.Instance.getTimer() < bestIncongTime))
             {
-                bestIncongTime = Timer.getTimer();
+                bestIncongTime = Timer.Instance.getTimer();
             }
 
             // Set worst incongruent time
-            if (allTrialQuestions[globalIndex].isCongruent == false && (float.IsNaN(worstIncongTime) || Timer.getTimer() > worstIncongTime))
+            if (allTrialQuestions[globalIndex].isCongruent == false && (float.IsNaN(worstIncongTime) || Timer.Instance.getTimer() > worstIncongTime))
             {
-                worstIncongTime = Timer.getTimer();
+                worstIncongTime = Timer.Instance.getTimer();
             }
 
             // Reset timer
-            Timer.resetTimer(true);
+            Timer.Instance.resetTimer(true);
 
             // Debug output
-            Debug.Log("Correct, Score: " + stateManager.Instance.score + ", Time: " + Timer.getTimer());
+            Debug.Log("Correct, Score: " + stateManager.Instance.score + ", Time: " + Timer.Instance.getTimer());
         }
         // Else if incorrect
         else
@@ -559,7 +559,7 @@ public class GameManager : MonoBehaviour
             // Decreasing the timer in Time Trial mode
             if (timeTrial == true)
             {
-                Timer.globalTimer--;
+                Timer.Instance.globalTimer--;
             }
 
             // If endless mode
@@ -587,7 +587,7 @@ public class GameManager : MonoBehaviour
             }
 
             // Reset per question timer in any game mode
-            Timer.resetTimer(false);
+            Timer.Instance.resetTimer(false);
         }
 
         // Increment values for incorrect/missed question
@@ -597,7 +597,7 @@ public class GameManager : MonoBehaviour
             if(correct == false) // DO NOT put this in the above 'else' block or it will trigger when not answering at all
             {
                 numWrong++;
-                Debug.Log("Incorrect, Score: " + stateManager.Instance.score + ", Time: " + Timer.getTimer());
+                Debug.Log("Incorrect, Score: " + stateManager.Instance.score + ", Time: " + Timer.Instance.getTimer());
             }
         }
         else
@@ -613,7 +613,7 @@ public class GameManager : MonoBehaviour
         //      Exhausted number of questions in Classic or Time Trial mode
         //      Exhausted number of wrong answers in Endless mode
         //      Ran out of time in Time Trial mode
-        if ((endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.globalTimer <= 0.0f))
+        if ((endlessMode == true && wrongSentinel >= maxWrong) || (timeTrial == true && Timer.Instance.globalTimer <= 0.0f))
         {
             // Set Arrows textbox to the plus symbol sprite
             arrows.GetComponent<TextMeshProUGUI>().text = "";
@@ -647,20 +647,20 @@ public class GameManager : MonoBehaviour
     public void updateTimebomb()
     {
         // Update timer on bomb
-        ttBombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.globalTimer * 1000) / 1000);
+        ttBombText.GetComponent<Text>().text = string.Format("{0:0.000}", Mathf.Round(Timer.Instance.globalTimer * 1000) / 1000);
 
         // If out of time/questions, return
-        if (Timer.globalTimer <= 0.0f || globalIndex >= givenQuestions)
+        if (Timer.Instance.globalTimer <= 0.0f || globalIndex >= givenQuestions)
         {
             return;
         }
 
         // Update fuse on bomb
-        if (Timer.globalTimer < givenQuestions * 2 / 3)
+        if (Timer.Instance.globalTimer < givenQuestions * 2 / 3)
         {
             ttBombSprite.GetComponent<SpriteRenderer>().sprite = bomb1;
         }
-        else if (Timer.globalTimer < givenQuestions * 2 / 3 * 2)
+        else if (Timer.Instance.globalTimer < givenQuestions * 2 / 3 * 2)
         {
             ttBombSprite.GetComponent<SpriteRenderer>().sprite = bomb2;
         }
@@ -769,9 +769,9 @@ public class GameManager : MonoBehaviour
         }
 
         // calculate average times
-        finalTime = Timer.getTime() / score;
-        finalCongTime = Timer.getCongTime() / congruentQuestions;
-        finalIncongTime = Timer.getIncongTime() / incongruentQuestions;
+        finalTime = Timer.Instance.getTime() / score;
+        finalCongTime = Timer.Instance.getCongTime() / congruentQuestions;
+        finalIncongTime = Timer.Instance.getIncongTime() / incongruentQuestions;
 
         // Achievement: Complete each game mode at least once
         // Bronze: 1 mode
@@ -801,7 +801,7 @@ public class GameManager : MonoBehaviour
             // Bronze: 10 seconds per question
             // Silver: 5 seconds per question
             // Gold: 2 seconds per question
-            if (Timer.getTotalTime() / givenQuestions <= 2)
+            if (Timer.Instance.getTotalTime() / givenQuestions <= 2)
             {
                 if (AchievementManager.Instance.achievementList[5].state == 2)
                 {
@@ -816,7 +816,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 3);
                 }
             }
-            else if (Timer.getTotalTime() / givenQuestions <= 5)
+            else if (Timer.Instance.getTotalTime() / givenQuestions <= 5)
             {
                 if (AchievementManager.Instance.achievementList[5].state == 1)
                 {
@@ -827,7 +827,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[5], 2);
                 }
             }
-            else if (Timer.getTotalTime() / givenQuestions <= 10)
+            else if (Timer.Instance.getTotalTime() / givenQuestions <= 10)
             {
                 if (AchievementManager.Instance.achievementList[5].state == 0)
                 {
