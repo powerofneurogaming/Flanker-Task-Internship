@@ -47,7 +47,7 @@ public class AchievementManager : MonoBehaviour
         // Silver: 
         // Gold: 
 
-        // Achievement: Beat a Classic Mode game with no questions wrong
+        // Achievement: Beat a game with no questions wrong
         // Bronze: 1 game
         // Silver: 2 games
         // Gold: 3 games

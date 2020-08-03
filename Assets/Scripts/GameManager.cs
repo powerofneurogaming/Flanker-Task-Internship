@@ -786,17 +786,17 @@ public class GameManager : MonoBehaviour
             AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[9], 3);
         }
 
+        // Achievement: Beat a game with no questions wrong
+        // Bronze: 1 game
+        // Silver: 2 games
+        // Gold: 3 games
+        if (numWrong + numUnanswered == 0)
+        {
+            AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[0], 1);
+        }
+
         if (stateManager.Instance.gameMode == 0)
         {
-            // Achievement: Beat a Classic Mode game with no questions wrong
-            // Bronze: 1 game
-            // Silver: 2 games
-            // Gold: 3 games
-            if (numWrong + numUnanswered == 0)
-            {
-                AchievementManager.Instance.getAchievement(AchievementManager.Instance.achievementList[0], 1);
-            }
-
             // Achievement: Clear a Classic Mode game in a certain amount of time
             // Bronze: 10 seconds per question
             // Silver: 5 seconds per question
