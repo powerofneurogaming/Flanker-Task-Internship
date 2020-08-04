@@ -923,7 +923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite="handsprites" name="plus_symbol">
+  m_text: <sprite="handsprites2" name="plus_symbol">
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fbddc3ca7ecee14eba44b54668349e6, type: 2}
   m_sharedMaterial: {fileID: -6752801881257197919, guid: 8fbddc3ca7ecee14eba44b54668349e6,
@@ -1597,7 +1597,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_spriteAsset: {fileID: 11400000, guid: b28b0413f7f71d540bf5239d3d2ced68, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 2460418396702053001, guid: b28b0413f7f71d540bf5239d3d2ced68,
     type: 2}
@@ -2233,7 +2233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2460418396702053001, guid: b28b0413f7f71d540bf5239d3d2ced68,
+  m_Material: {fileID: 2391543187203846927, guid: bbdb95444145817458de903a3f290e45,
     type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -2241,10 +2241,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_spriteAsset: {fileID: 11400000, guid: b28b0413f7f71d540bf5239d3d2ced68, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8fbddc3ca7ecee14eba44b54668349e6, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: bbdb95444145817458de903a3f290e45, type: 2}
   m_material: {fileID: 0}
-  m_sharedMaterial: {fileID: 2460418396702053001, guid: b28b0413f7f71d540bf5239d3d2ced68,
+  m_sharedMaterial: {fileID: 2391543187203846927, guid: bbdb95444145817458de903a3f290e45,
     type: 2}
   m_isDefaultMaterial: 1
   m_padding: 0

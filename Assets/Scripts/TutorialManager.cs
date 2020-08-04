@@ -172,7 +172,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         // Show plus symbol to recenter player's gaze
-        arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites\" name=\"plus_symbol\">";
+        arrows.GetComponent<TextMeshProUGUI>().text = "\n\n\n<sprite=\"handsprites2\" name=\"plus_symbol\">";
 
         // Set current trial
         Question trial = allTrialQuestions[globalIndex];
