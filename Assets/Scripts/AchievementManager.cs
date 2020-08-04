@@ -33,6 +33,8 @@ public class AchievementManager : MonoBehaviour
     // List of all achievements
     public List<Achievement> achievementList;
 
+    public List<Achievement> achTrigger;
+
     // State sentinels for which modes have been played
     bool classic;
     bool timeTrial;
@@ -51,63 +53,63 @@ public class AchievementManager : MonoBehaviour
         // Bronze: 1 game
         // Silver: 2 games
         // Gold: 3 games
-        achievementList.Add(new Achievement("noneWrong_", "None Wrong (Classic Mode)"));
+        achievementList.Add(new Achievement("noneWrong_", "NO WRONG ANSWERS"));
 
         // Achievement: Get a certain amount of stars
         // Bronze: 50 stars
         // Silver: 100 stars
         // Gold: 200 stars
-        achievementList.Add(new Achievement("getStars_", "Get Stars"));
+        achievementList.Add(new Achievement("getStars_", "STARS GATHERED"));
 
         // Achievement: Complete each difficulty on classic mode
         // Bronze: Complete easy
         // Silver: Complete medium
         // Gold: Complete hard
-        achievementList.Add(new Achievement("classicDifficulty_", "Cleared Mode (Classic Mode)"));
+        achievementList.Add(new Achievement("classicDifficulty_", "CLASSIC COMPLETED"));
 
         // Achievement: Complete each difficulty on time trial mode
         // Bronze: Complete 10q20s
         // Silver: Complete 20q40s
         // Gold: Complete 30q60s
-        achievementList.Add(new Achievement("timeDifficulty_", "Cleared Mode (Time Trial Mode)"));
+        achievementList.Add(new Achievement("timeDifficulty_", "TIME TRIAL COMPLETED"));
 
         // Achievement: Complete each difficulty on endless mode
         // Bronze: Complete regenerative
         // Silver: Complete 3 wrong
         // Gold: Complete 1 wrong
-        achievementList.Add(new Achievement("endlessDifficulty_", "Cleared Mode (Endless Mode)"));
+        achievementList.Add(new Achievement("endlessDifficulty_", "ENDLESS COMPLETED"));
 
         // Achievement: Clear a Classic Mode game in a certain amount of time
         // Bronze: 10 seconds per question
         // Silver: 5 seconds per question
         // Gold: 2 seconds per question
-        achievementList.Add(new Achievement("classicTimed_", "Timed Clear (Classic Mode)"));
+        achievementList.Add(new Achievement("classicTimed_", "CLASSIC SPEED RUN"));
 
         // Achievement: Last for a given number of questions in Endless Mode
         // Bronze: 10 questions
         // Silver: 20 questions
         // Gold: 50 questions
-        achievementList.Add(new Achievement("endlessStreak_", "Streak (Endless Mode)"));
+        achievementList.Add(new Achievement("endlessStreak_", "ENDLESS STREAK"));
 
         // Achievement: Complete each game mode at least once
         // Bronze: 1 mode
         // Silver: 2 modes
         // Gold: 3 modes
-        achievementList.Add(new Achievement("modesComplete_", "Modes Completed"));
+        achievementList.Add(new Achievement("modesComplete_", "MODES COMPLETED"));
 
         // Achievement: Click the wrong hand in the tutorial a given number of times
         // Bronze: 1 time
         // Silver: 2 times
         // Gold: 3 times
-        achievementList.Add(new Achievement("dontFollowDirections_", "Wrong Hand (Tutorial)"));
+        achievementList.Add(new Achievement("dontFollowDirections_", "CLICK WRONG HANDS"));
 
         // Achievement: Finish a game with no questions right
         // Gold: 1 game
-        achievementList.Add(new Achievement("youreBadAtThis_", "No Questions Right"));
+        achievementList.Add(new Achievement("youreBadAtThis_", "NO RIGHT ANSWERS"));
 
         // Achievement: Stand Idle at the results screen
         // Gold: 3 minutes
-        achievementList.Add(new Achievement("nothingBetterToDo_", "Stay at Results Screen"));
+        achievementList.Add(new Achievement("nothingBetterToDo_", "GET ALL ACHIEVEMENTS"));
 
         // Achievement: Get all achievements
         // Bronze: All bronze or better
@@ -161,6 +163,7 @@ public class AchievementManager : MonoBehaviour
 
         // Debug output
         Debug.Log("You got: " + achievement.friendlyName + " - " + type);
+        achTrigger.Add(achievement);
     }
 
     // getAchievement wrapper for 'Complete each game mode at least once'

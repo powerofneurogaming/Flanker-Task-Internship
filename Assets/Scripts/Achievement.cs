@@ -18,8 +18,7 @@ public class Achievement
         // internal achievement name in code, used for PlayerPrefs
         privateName = pName;
 
-        // Currently unused outside of debug output; can be used for achievement
-        // pop-ups in future iterations of game
+        // used for achievement pop-ups in future iterations of game
         friendlyName = fName;
 
         // Dynamically assign achievement state based on private name
