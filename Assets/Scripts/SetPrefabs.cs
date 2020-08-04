@@ -28,7 +28,7 @@ public class SetPrefabs : MonoBehaviour
         }
         else
         {
-            stateManager.Instance.playerName = pName;
+            stateManager.Instance.playerName = pName.ToLower();
         }
 
         // Play carriage return sound
