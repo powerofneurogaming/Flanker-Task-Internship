@@ -319,7 +319,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Set plus symbol
-        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites2\" name=\"plus_symbol\">";
+        arrows.GetComponent<TextMeshProUGUI>().text = "<sprite=\"handsprites\" name=\"plus_symbol\">";
 
         // Turn the arrows on
         arrows.SetActive(true);
