@@ -2932,7 +2932,7 @@ MonoBehaviour:
   - 6.25
   - 2.5
   - 3
-  - 5
+  - 5.5
   - 1.25
   - 1.25
   itemNames:
@@ -4308,7 +4308,7 @@ Transform:
   m_GameObject: {fileID: 1007461943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2.9, z: 0}
-  m_LocalScale: {x: 3.25, y: 3.25, z: 0}
+  m_LocalScale: {x: 3.8, y: 3.8, z: 0}
   m_Children: []
   m_Father: {fileID: 1366369948}
   m_RootOrder: 1
