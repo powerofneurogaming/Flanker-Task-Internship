@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 9002481317444222322}
   - component: {fileID: 9002481317444222333}
   - component: {fileID: 930385562259316897}
+  - component: {fileID: 703236753073747211}
   m_Layer: 0
   m_Name: achievePanel
   m_TagString: Untagged
@@ -182,6 +183,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &703236753073747211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9002481317444222323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205ffc67bba37794ca0f9be0a1dffdf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  medal: {fileID: 9002481318465949113}
+  achText: {fileID: 9002481318945441685}
+  achTier: {fileID: 3725466273254956187}
+  medals:
+  - {fileID: -1772001183391854334, guid: 6dab3602bd08d5b46a28383fb115010d, type: 3}
+  - {fileID: -8481618476450572432, guid: 6dab3602bd08d5b46a28383fb115010d, type: 3}
+  - {fileID: -4296969237699094177, guid: 6dab3602bd08d5b46a28383fb115010d, type: 3}
+  - {fileID: -3141853523703230512, guid: 6dab3602bd08d5b46a28383fb115010d, type: 3}
+  levels:
+  - NONE
+  - BRONZE
+  - SILVER
+  - GOLD
+  achievePanel: {fileID: 9002481317444222323}
 --- !u!1 &9002481318211251542
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +334,7 @@ Transform:
   m_GameObject: {fileID: 9002481318465949119}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -50.3, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 9002481317444222322}
   m_RootOrder: 2
@@ -351,7 +378,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -1772001183391854334, guid: 6dab3602bd08d5b46a28383fb115010d,
+  m_Sprite: {fileID: -3141853523703230512, guid: 6dab3602bd08d5b46a28383fb115010d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

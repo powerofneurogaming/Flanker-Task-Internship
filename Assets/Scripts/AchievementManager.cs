@@ -109,13 +109,13 @@ public class AchievementManager : MonoBehaviour
 
         // Achievement: Stand Idle at the results screen
         // Gold: 3 minutes
-        achievementList.Add(new Achievement("nothingBetterToDo_", "GET ALL ACHIEVEMENTS"));
+        achievementList.Add(new Achievement("nothingBetterToDo_", "STAY AT RESULTS"));
 
         // Achievement: Get all achievements
         // Bronze: All bronze or better
         // Silver: All silver or better
         // Gold: All gold or better
-        achievementList.Add(new Achievement("youreGoodAtThis_", "Get Achievements"));
+        achievementList.Add(new Achievement("youreGoodAtThis_", "GET ALL ACHIEVEMENTS"));
 
         // Get states for whether gamemodes have been played (for 'Complete each game mode at least once')
         classic = PlayerPrefs.GetInt("classicAchieve_" + stateManager.Instance.playerName, 0) == 1 ? true : false;
