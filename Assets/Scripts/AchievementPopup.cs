@@ -5,6 +5,22 @@ using UnityEngine.UI;
 
 public class AchievementPopup : MonoBehaviour
 {
+    // 'Pseudo-singleton' - uses static instance of GameManager to allow for access to GameManager object
+    // !! IS NOT PERSISTENT ACROSS MULTIPLE SCENES !!
+    public static AchievementPopup Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     [SerializeField]
     SpriteRenderer medal;
 
@@ -28,10 +44,14 @@ public class AchievementPopup : MonoBehaviour
     private void Start()
     {
         achAnim = achievePanel.GetComponent<Animator>();
-        StartCoroutine(achPop());
+        achAnim.StopPlayback();
+        if (AchievementManager.Instance.achTrigger.Count != 0)
+        {
+            StartCoroutine(achPop());
+        }
     }
 
-    IEnumerator achPop()
+    public IEnumerator achPop()
     {       
         while(AchievementManager.Instance.achTrigger.Count > 0)
         {

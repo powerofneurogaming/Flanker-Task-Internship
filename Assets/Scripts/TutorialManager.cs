@@ -225,6 +225,7 @@ public class TutorialManager : MonoBehaviour
                 // Silver: All silver or better
                 // Gold: All gold or better
                 AchievementManager.Instance.achievementsAchievement();
+                StartCoroutine(AchievementPopup.Instance.achPop());
             }
             handClicked = true;
         }
