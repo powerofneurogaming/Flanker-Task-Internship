@@ -653,6 +653,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -666,10 +667,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: ccbf3c97-3d7f-4f1f-ac67-2db14df8c126
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Flanker Task Internship
+  organizationId: radlab
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
