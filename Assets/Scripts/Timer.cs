@@ -6,16 +6,36 @@ using UnityEngine.UI;
 // I am not proud of that. It means I've written a lot of really questionable code in other places.
 public class Timer : MonoBehaviour
 {
+    // 'Pseudo-singleton' - uses static instance of GameManager to allow for access to GameManager object
+    // !! IS NOT PERSISTENT ACROSS MULTIPLE SCENES !!
+    public static Timer Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // timer and absolute time of correct answers
-    static float timer;
-    static float time;
+    float timer;
+    float time;
+    float totalTime;
+
+    // Timer for Time Trial
+    public float globalTimer;
 
     // Absolute time of correct congruent and incongruent answers
-    static float congruentTime;
-    static float incongruentTime;
+    float congruentTime;
+    float incongruentTime;
 
     // Sentinel for whether timer should be updated
-    public static bool timerStart;
+    public bool timerStart;
 
     // Debug timer output
     public Text debugTimer;
@@ -36,14 +56,30 @@ public class Timer : MonoBehaviour
         if (timerStart == true)
         {
             timer += Time.deltaTime;
-            debugTimer.text = "Debug Timer: " + (Mathf.Round(timer * 1000) / 1000).ToString();
             Debug.Log("Time: " + timer);
+
+            // If there is time remaining, decrements timer
+            if (globalTimer >= 0.0f)
+            {
+                globalTimer -= Time.deltaTime;
+                if (globalTimer >= 0.0f)
+                {
+                    Debug.Log("Global time: " + globalTimer);
+                }
+            }
+        }
+        // Else if timer is negative, sets to 0
+        if (globalTimer < 0.0f)
+        {
+            globalTimer = 0.0f;
+            Debug.Log("Global time: " + globalTimer);
         }
     }
 
     // Reset timer; record time given correct answer
-    public static void resetTimer(bool record)
+    public void resetTimer(bool record)
     {
+        totalTime += timer;
         if (record == true)
         {
             time += timer;
@@ -62,25 +98,31 @@ public class Timer : MonoBehaviour
     }
 
     // Getter for timer
-    public static float getTimer()
+    public float getTimer()
     {
         return timer;
     }
 
     // Getter for absolute time
-    public static float getTime()
+    public float getTime()
     {
         return time;
     }
 
+    // Getter for absolute time
+    public float getTotalTime()
+    {
+        return totalTime;
+    }
+
     // Getter for absolute congruent time
-    public static float getCongTime()
+    public float getCongTime()
     {
         return congruentTime;
     }
 
     // Getter for absolute incongruent time
-    public static float getIncongTime()
+    public  float getIncongTime()
     {
         return incongruentTime;
     }

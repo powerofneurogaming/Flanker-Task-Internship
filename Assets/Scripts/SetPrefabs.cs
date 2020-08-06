@@ -6,74 +6,118 @@ using UnityEngine.UI;
 // Handles initializin game state, as well as setting player name and number of trials
 public class SetPrefabs : MonoBehaviour
 {
-    // Can't figure out where this is hooked up... I try to rename it to 'PlayerInput' and everything breaks.
-    // When I need to start adding more complex user menus I need to ask Khalil for help.
-    public GameObject playerName;
+    // AudioClip for carriage return sound efect
+    public AudioClip carriage_return;
+
+    // Text field for Player Name in Intro and number of levels in Classic Select
+    public Text playerName;
+
+    // Player name temp holder
+    public string pName;
 
     // Set fresh game state 
     public void setupPrefabs()
     {
-        // Initialize player data to default
-        PlayerPrefs.SetInt("PlayerLevel", 0);
-        PlayerPrefs.SetInt("PlayerScore", 0);
-        PlayerPrefs.SetInt("Wrong Answers", 0);
-        PlayerPrefs.SetInt("Unanswered Trials", 0);
-        PlayerPrefs.SetFloat("avgTime", 0.0f);
-        PlayerPrefs.SetFloat("avgCongTime", 0.0f);
-        PlayerPrefs.SetFloat("avgIncongTime", 0.0f);
+        // Get player name from text box
+        pName = playerName.text;
 
-        // Get name from text box
-        string name = playerName.GetComponent<Text>().text;
-
-        // If name is blank, use default
-        if (name.Length <= 0)
+        // If player name is blank, use default
+        if (pName.Length <= 0)
         {
-            PlayerPrefs.SetString("PlayerName", "NoName");
+            return;
         }
         else
         {
-            PlayerPrefs.SetString("PlayerName", name);
+            stateManager.Instance.playerName = pName.ToLower();
         }
 
-        // Transition to trial select screen
-        SceneManager.LoadScene("Select Screen");
+        // Play carriage return sound
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
+        }
+
+        // Load achievements, stars, and items for user
+        AchievementManager.Instance.loadAchievements();
+        stateManager.Instance.loadStars();
+        stateManager.Instance.loadItems();
+
+        // Check if tutorial has been played before by the given user
+        tutorialGate.Instance.getPlayed();
+
+        // Transition to either title screen or tutorial depending on if the tutorial has been played before
+        if(tutorialGate.Instance.hasPlayedTutorial == true)
+        {
+            Debug.Log("Name: " + stateManager.Instance.playerName);
+            SceneManager.LoadScene("Title");
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
     }
 
     // On trial select screen, get number of trials
-    // If non-number, set to zero (endless mode)
     public void setLevel()
     {
-        if (endlessModeToggle.endlessMode == true)
-        {
-            PlayerPrefs.SetInt("PlayerLevel", 0);
-            SceneManager.LoadScene("Flanker Main");
-        }
-        string level = playerName.GetComponent<Text>().text;
+        // Get number of levels from user text input
+        string level = playerName.text;
+
+        // parse user input
         int.TryParse(level, out int level_int);
-        if (level_int != 0 && endlessModeToggle.endlessMode == false)
+
+        // If valid user input, process input and start game
+        if (level_int != 0)
         {
-            if (level_int > 100)
+            if (level_int > 50)
             {
-                level_int = 100;
+                level_int = 50;
             }
-            PlayerPrefs.SetInt("PlayerLevel", level_int);
+            stateManager.Instance.levels = level_int;
+            if (!SoundManager.Instance.audioSource.isPlaying)
+            {
+                SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
+            }
+            stateManager.Instance.gameMode = 0;
             SceneManager.LoadScene("Flanker Main");
         }
     }
 
+    // Code for starting Time Trial mode
+    public void setTimed()
+    {
+        stateManager.Instance.gameMode = 1;
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
+        }
+        SceneManager.LoadScene("Flanker Main");
+    }
+
+    // Code for starting Endless mode
+    public void setEndless()
+    {
+        stateManager.Instance.gameMode = 2;
+        if (!SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.PlayOneShot(carriage_return, stateManager.Instance.volume);
+        }
+        SceneManager.LoadScene("Flanker Main");
+    }
+
+    // Enter key catching on scenes with text boxes
     public void Update()
     {
         if(Input.GetKey(KeyCode.Return))
         {
-            if(SceneManager.GetActiveScene().name == "Intro")
+            if (SceneManager.GetActiveScene().name == "intro")
             {
                 setupPrefabs();
             }
-            else if(SceneManager.GetActiveScene().name == "Select Screen")
+            else if(SceneManager.GetActiveScene().name == "Classic Select")
             {
                 setLevel();
             }
         }
     }
 }
-   

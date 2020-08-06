@@ -6,23 +6,41 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/title.unity
-    guid: 541eb9b9ae6a5d1458552d404c6626d7
-  - enabled: 1
     path: Assets/Scenes/intro.unity
     guid: 9fdefcea4c65325429c7d54dbbf5d2b4
   - enabled: 1
-    path: Assets/Scenes/Settings.unity
-    guid: a8635b126a0517141adeb4d138f8e471
+    path: Assets/Scenes/Title.unity
+    guid: 541eb9b9ae6a5d1458552d404c6626d7
   - enabled: 1
-    path: Assets/Scenes/How to Play.unity
+    path: Assets/Scenes/Classic Select.unity
+    guid: a8e3aee1b81f93d46b9e1ffd702bdae6
+  - enabled: 1
+    path: Assets/Scenes/Time Select.unity
+    guid: b563052be6f1cd7469950a2ea5967785
+  - enabled: 1
+    path: Assets/Scenes/Endless Select.unity
+    guid: 718d22c3ed466e64684b6f53c583de49
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 9e0eee3a04729604496f269184d2797c
+  - enabled: 1
+    path: Assets/Scenes/Achievements.unity
+    guid: 3664818428e3b6c46b1eaf8af2cbe8de
+  - enabled: 1
+    path: Assets/Scenes/Achieve P2.unity
+    guid: 3a5d2d81af1557c4f8c3144d2b051901
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: c9fee714843c3e54594a1cd174b9b756
+  - enabled: 1
+    path: Assets/Scenes/About.unity
     guid: 1aa674bd7c9609549a52c413ee0c5022
   - enabled: 1
-    path: Assets/Scenes/Select Screen.unity
-    guid: 7bc104d13e471ab4993d38a201fa5770
-  - enabled: 1
     path: Assets/Scenes/Flanker Main.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    guid: 9c0eca3c4b02fae4ab61e9000d1d8c66
   - enabled: 1
     path: Assets/Scenes/Flanker Result.unity
     guid: 7008dccf36400894e946bce077bb535f
