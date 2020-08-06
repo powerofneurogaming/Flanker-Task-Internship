@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour
     public GameObject plusBox;
     public Sprite plusButton;
     public Sprite blankPlus;
+    
+    public string[] vertFlankers;
 
     // Set up starting game state
     private void Start()
@@ -328,12 +330,40 @@ public class GameManager : MonoBehaviour
         Question trial = allTrialQuestions[globalIndex];
         
         // Display trial after given amount of time
-        StartCoroutine(displayTrial(trial.flankerArrows));
+        StartCoroutine(displayTrial(trial));
     }
 
     // Display newly set current trial
-    IEnumerator displayTrial(string trial)
+    IEnumerator displayTrial(Question trial)
     {
+        string flankers = trial.flankerArrows;
+
+        if(stateManager.Instance.difficulty == 2)
+        {
+            if (trial.isLeft == true)
+            {
+                if (trial.isCongruent == true)
+                {
+                    flankers = vertFlankers[0] + "\n" + flankers + "\n" + vertFlankers[0];
+                }
+                else
+                {
+                    flankers = vertFlankers[1] + "\n" + flankers + "\n" + vertFlankers[1];
+                }
+            }
+            else
+            {
+                if (trial.isCongruent == true)
+                {
+                    flankers = vertFlankers[1] + "\n" + flankers + "\n" + vertFlankers[1];
+                }
+                else
+                {
+                    flankers = vertFlankers[0] + "\n" + flankers + "\n" + vertFlankers[0];
+                }
+            }
+        }
+
         // Wait for given time between questions
         yield return new WaitForSeconds(questionTransitionTime);
 
@@ -347,7 +377,7 @@ public class GameManager : MonoBehaviour
         Timer.Instance.timerStart = true;
 
         // Display trial
-        arrows.GetComponent<TextMeshProUGUI>().text = trial;
+        arrows.GetComponent<TextMeshProUGUI>().text = flankers;
     }
 
     // Right button logic

@@ -781,6 +781,17 @@ MonoBehaviour:
   plusBox: {fileID: 1959723874}
   plusButton: {fileID: 21300000, guid: a1dfd2ba8bd0d63419abb762257062da, type: 3}
   blankPlus: {fileID: 21300000, guid: b96cdae59fca08940ad69f2d6c2fbddc, type: 3}
+  vertFlankers:
+  - <sprite="handsprites2" name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+    name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+    name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+    name="left_hand"><sprite="handsprites2" name="left_hand"><sprite="handsprites2"
+    name="left_hand">
+  - <sprite="handsprites2" name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+    name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+    name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+    name="right_hand"><sprite="handsprites2" name="right_hand"><sprite="handsprites2"
+    name="right_hand">
 --- !u!4 &483397938
 Transform:
   m_ObjectHideFlags: 0
@@ -1133,7 +1144,7 @@ MonoBehaviour:
   m_textAlignment: 544
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 75
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1750,6 +1761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e4fc0607a54ba4998e76ec0bef870a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalTimer: 0
+  timerStart: 0
   debugTimer: {fileID: 0}
 --- !u!114 &1201044271
 MonoBehaviour:
