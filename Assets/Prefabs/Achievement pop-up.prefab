@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205ffc67bba37794ca0f9be0a1dffdf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ding: {fileID: 8300000, guid: 30a490ea88b37814784bb43b5d1147e1, type: 3}
   medal: {fileID: 9002481318465949113}
   achText: {fileID: 9002481318945441685}
   achTier: {fileID: 3725466273254956187}
