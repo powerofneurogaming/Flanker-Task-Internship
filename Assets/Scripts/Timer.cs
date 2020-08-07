@@ -47,7 +47,6 @@ public class Timer : MonoBehaviour
         time = 0.0f;
         congruentTime = 0.0f;
         incongruentTime = 0.0f;
-        timerStart = false;
     }
 
     // Update timer every frame unless timer is disabled
@@ -74,6 +73,8 @@ public class Timer : MonoBehaviour
             globalTimer = 0.0f;
             Debug.Log("Global time: " + globalTimer);
         }
+
+        debugTimer.text = "Debug Timer: " + Mathf.Round(timer * 1000) / 1000 + "\nTotal: " + Mathf.Round(totalTime * 1000) / 1000;
     }
 
     // Reset timer; record time given correct answer

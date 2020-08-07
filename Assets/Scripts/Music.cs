@@ -22,6 +22,18 @@ public class Music : MonoBehaviour
 
     public AudioSource musicSource;
 
+    [SerializeField]
+    public AudioClip twelveSt;
+
+    [SerializeField]
+    public AudioClip mapleLeaf;
+
+    [SerializeField]
+    public AudioClip stormyWeather;
+
+    [SerializeField]
+    public AudioClip entertainer;
+
     // Volume setter
     public void setVolume(float volume)
     {

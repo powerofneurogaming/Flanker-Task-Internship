@@ -64,6 +64,10 @@ public class stateManager : MonoBehaviour
     // Hardcoded base volume
     public float volume;
 
+    // If set to true, enable debug elements
+    [SerializeField]
+    public bool debug;
+
     // Initialize game volume
     public void Start()
     {

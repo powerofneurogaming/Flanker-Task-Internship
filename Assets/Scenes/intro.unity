@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typekey: {fileID: 8300000, guid: e03e555956d3c7d4c8be48c0cd4cfd9e, type: 3}
-  volume: 0.5
 --- !u!114 &128636085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 288157319}
+  twelveSt: {fileID: 8300000, guid: 90d7490c2ef1f204b84aa65ce617b6fe, type: 3}
+  mapleLeaf: {fileID: 8300000, guid: aaf99039f770c2742821018dcbeda628, type: 3}
+  stormyWeather: {fileID: 8300000, guid: 516801eba03863b47896b89fa709d538, type: 3}
+  entertainer: {fileID: 8300000, guid: 0d87a9fab10085c438db6ce4c25193d5, type: 3}
 --- !u!82 &288157319
 AudioSource:
   m_ObjectHideFlags: 0
@@ -613,7 +616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ebbee33e5ef8140b3d14349f0badce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainBGM: {fileID: 8300000, guid: 90d7490c2ef1f204b84aa65ce617b6fe, type: 3}
 --- !u!4 &378879351
 Transform:
   m_ObjectHideFlags: 0
@@ -1636,7 +1638,6 @@ GameObject:
   - component: {fileID: 1449424867}
   - component: {fileID: 1449424870}
   - component: {fileID: 1449424871}
-  - component: {fileID: 1449424872}
   - component: {fileID: 1449424873}
   m_Layer: 0
   m_Name: EventSystem
@@ -1706,7 +1707,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carriage_return: {fileID: 8300000, guid: 9c52507d64a2b44409a2fb5809f96bb0, type: 3}
-  volume: 0.5
   playerName: {fileID: 1192818316}
   pName: 
 --- !u!114 &1449424871
@@ -1722,18 +1722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   achievementList: []
---- !u!114 &1449424872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449424866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f6b9e1a6c0d1641aab2fe399fcee7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  achTrigger: []
 --- !u!114 &1449424873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1773,7 +1762,8 @@ MonoBehaviour:
   music_volume: 0
   sfx_volume: 0
   nightMode: 0
-  oldHand: 0
+  volume: 0
+  debug: 1
 --- !u!1 &1521741746
 GameObject:
   m_ObjectHideFlags: 0

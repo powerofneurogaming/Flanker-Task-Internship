@@ -114,10 +114,6 @@ public class SetPrefabs : MonoBehaviour
             {
                 setupPrefabs();
             }
-            else if(SceneManager.GetActiveScene().name == "Classic Select")
-            {
-                setLevel();
-            }
         }
     }
 }
